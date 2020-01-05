@@ -1,17 +1,19 @@
 import React from "react";
-import { Modal, Text, View, Image, StyleSheet, ScrollView } from "react-native";
+import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faHome,
   faMapMarkerAlt,
   faBriefcase,
-  faGraduationCap
+  faGraduationCap,
+  faEllipsisH
 } from "@fortawesome/free-solid-svg-icons";
 import { Chip } from "./UI-Kit";
 
 const CandidateProfile = props => {
-  const { toggleCandidateModal, showCandidateModal, data } = props;
-  const renderCandeidateData = () => {
+  const { toggleCandidateModal, data, isModal } = props;
+  const [mainImage] = data.pictures;
+  const renderCandidateData = () => {
     return (
       <View style={styles.candidateInfoContainer}>
         <Text>
@@ -47,31 +49,24 @@ const CandidateProfile = props => {
   };
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={false}
-      visible={showCandidateModal}
-    >
-      <ScrollView style={styles.container}>
-        <Image
-          style={styles.mainImage}
-          source={require("../assets/images/sample-girl-1.jpeg")}
-        />
-        <View style={styles.topActionsContainer}>
-          <View style={styles.topActionsSubcontainer}>
-            <View style={{ flexDirection: "row" }}>
-              <Chip onPress={toggleCandidateModal}>Close</Chip>
-              <Chip>{data.name}</Chip>
-            </View>
-            <View style={styles.moreOptions}>
-              <Chip> More Options</Chip>
-            </View>
+    <ScrollView style={styles.container}>
+      <Image style={styles.mainImage} source={mainImage} />
+      <View style={styles.topActionsContainer}>
+        <View style={styles.topActionsSubcontainer}>
+          <View style={{ flexDirection: "row" }}>
+            {isModal && <Chip onPress={toggleCandidateModal}>Close</Chip>}
+            <Chip>{data.name}</Chip>
+          </View>
+          <View style={styles.moreOptions}>
+            <Chip isCricle>
+              <FontAwesomeIcon icon={faEllipsisH} color="white" />
+            </Chip>
           </View>
         </View>
-        <View style={{ marginTop: 15 }}>{renderCandeidateData()}</View>
-        {renderCandidatePictures()}
-      </ScrollView>
-    </Modal>
+      </View>
+      <View style={{ marginTop: 15 }}>{renderCandidateData()}</View>
+      {renderCandidatePictures()}
+    </ScrollView>
   );
 };
 

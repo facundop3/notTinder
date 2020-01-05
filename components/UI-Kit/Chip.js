@@ -4,7 +4,8 @@ const Chip = ({
   onPress,
   children,
   bg = "rgba(0,0,0, .5)",
-  color = "white"
+  color = "white",
+  isCricle
 }) => {
   const styles = StyleSheet.create({
     chipContainer: {
@@ -13,7 +14,10 @@ const Chip = ({
       borderRadius: 50,
       alignItems: "center",
       margin: 5,
-      height: 30
+      height: 30,
+      alignItems: "center",
+      justifyContent: "center",
+      ...(isCricle ? { width: 30 } : {})
     },
     chip: {
       color

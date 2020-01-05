@@ -11,7 +11,7 @@ import {
 
 import { MonoText } from "../components/StyledText";
 import CandidateCard from "../components/CandidateCard";
-import CandidateProfile from "../components/CandidateProfile";
+import CandidateModal from "../components/CandidateModal";
 
 import { Avatar, Chip } from "../components/UI-Kit";
 
@@ -57,7 +57,7 @@ export default function HomeScreen(props) {
             toggleCandidateModal={toggleCandidateModal}
             data={sampleCandidateData}
           />
-          <CandidateProfile
+          <CandidateModal
             showCandidateModal={showCandidateModal}
             toggleCandidateModal={toggleCandidateModal}
             data={sampleCandidateData}
