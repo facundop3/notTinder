@@ -47,5 +47,5 @@ export default function LinksScreen() {
 }
 
 LinksScreen.navigationOptions = {
-  title: "Links"
+  title: "Conversations"
 };

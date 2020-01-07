@@ -8,11 +8,10 @@ import {
 } from "react-native";
 
 const SingnInForm = props => {
-  const [value, setValue] = useState("");
-  const sendMessage = ev => {
-    console.log(value);
-    setValue("");
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { handleLogin, errorMessage, handleGmail } = props;
+
   return (
     <View style={styles.container}>
       <View style={styles.welcomeContainer}>
@@ -22,12 +21,13 @@ const SingnInForm = props => {
           You can use your Gmail or Facebook account to skip this step.
         </Text>
       </View>
+
       <Text>Your email:</Text>
       <TextInput
         style={styles.input}
         autoFocus
-        onChangeText={text => setValue(text)}
-        value={value}
+        onChangeText={text => setEmail(text)}
+        value={email}
         autoCompleteType="email"
         placeholder="youremail@sample.com"
       />
@@ -35,12 +35,15 @@ const SingnInForm = props => {
       <TextInput
         style={styles.input}
         autoFocus
-        onChangeText={text => setValue(text)}
-        value={value}
+        onChangeText={text => setPassword(text)}
+        value={password}
         secureTextEntry={true}
         placeholder="* * * *"
       />
-      <TouchableHighlight style={styles.join}>
+      <TouchableHighlight
+        style={styles.join}
+        onPress={() => handleLogin({ email, password })}
+      >
         <Text style={{ color: "white" }}>Join Now</Text>
       </TouchableHighlight>
     </View>

@@ -14,6 +14,7 @@ import CandidateCard from "../components/CandidateCard";
 import CandidateModal from "../components/CandidateModal";
 
 import { Avatar, Chip } from "../components/UI-Kit";
+import * as firebase from "firebase";
 
 const sampleCandidateData = {
   name: "Karen",
@@ -73,10 +74,11 @@ export default function HomeScreen(props) {
         </View>
 
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
+          <TouchableOpacity
+            onPress={() => firebase.auth().signOut()}
+            style={styles.helpLink}
+          >
+            <Text style={styles.helpLinkText}>Sign out</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -101,12 +103,6 @@ export default function HomeScreen(props) {
 HomeScreen.navigationOptions = {
   header: null
 };
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
