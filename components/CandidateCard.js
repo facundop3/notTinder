@@ -4,12 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   TouchableWithoutFeedback
 } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const CandidateCard = props => {
   const { toggleCandidateModal, data } = props;
   return (
@@ -20,20 +19,17 @@ const CandidateCard = props => {
             style={styles.image}
             source={require("../assets/images/sample-girl-1.jpeg")}
           />
-          <View style={styles.actionsContainer}>
-            <TouchableOpacity style={styles.button}>
-              <FontAwesomeIcon icon={faThumbsUp} color="green" size={40} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <FontAwesomeIcon icon={faThumbsDown} color="red" size={40} />
-            </TouchableOpacity>
+          <View style={styles.candidateDataContainer}>
+            <Text style={styles.nameAndAge}>
+              <Text style={styles.candidateName}>{data.name}</Text> {data.age}
+            </Text>
+            <Text style={styles.smallWhiteText}>
+              <Ionicons name="md-school" size={20} /> {data.school}
+            </Text>
+            <Text style={styles.smallWhiteText}>
+              <MaterialIcons name="location-on" size={20} /> {data.datingCity}
+            </Text>
           </View>
-        </View>
-        <View style={{ padding: 15 }}>
-          <Text>
-            {data.name}, {data.age}
-          </Text>
-          <Text>{data.datingCity}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -42,7 +38,8 @@ const CandidateCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "95%",
+    height: "100%",
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
     borderRadius: 10,
@@ -53,25 +50,26 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 300
+    height: "100%",
+    resizeMode: "cover"
   },
-  actionsContainer: {
-    display: "flex",
-    flexDirection: "row",
+  candidateDataContainer: {
     position: "absolute",
-    right: 0,
-    bottom: -25
+    bottom: 20,
+    left: 10,
+    display: "flex",
+    color: "red"
   },
-  button: {
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 60,
-    height: 60,
-    backgroundColor: "#fff",
-    borderRadius: 50
+  nameAndAge: {
+    color: "white",
+    fontSize: 25
+  },
+  smallWhiteText: {
+    color: "white",
+    fontSize: 15
+  },
+  candidateName: {
+    fontWeight: "bold"
   }
 });
 

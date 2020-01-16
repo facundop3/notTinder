@@ -1,0 +1,38 @@
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { RoundButton } from "./UI-Kit";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Foundation from "@expo/vector-icons/Foundation";
+const ActionButtons = props => {
+  return (
+    <View style={styles.container}>
+      <RoundButton onPress={() => ""} size={40}>
+        <Foundation name="refresh" color="#fecd65" size={25} />
+      </RoundButton>
+      <RoundButton onPress={() => ""}>
+        <FontAwesome name="close" color="#fe526a" size={30} />
+      </RoundButton>
+      <RoundButton onPress={() => ""} size={40}>
+        <AntDesign name="star" size={25} color="#29bcff" />
+      </RoundButton>
+      <RoundButton onPress={() => ""}>
+        <AntDesign name="heart" size={30} color="#49e7b6" />
+      </RoundButton>
+      <RoundButton onPress={() => ""} size={40}>
+        <Ionicons name="ios-flash" size={30} color="#a550e1" />
+      </RoundButton>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    padding: 15
+  }
+});
+export default ActionButtons;

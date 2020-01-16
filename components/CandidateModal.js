@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "react-native";
+import { Modal, SafeAreaView } from "react-native";
 import CandidateProfile from "./CandidateProfile";
 
 const CandidateModal = props => {
@@ -9,8 +9,11 @@ const CandidateModal = props => {
       animationType="slide"
       transparent={false}
       visible={showCandidateModal}
+      {...props}
     >
-      <CandidateProfile {...props} isModal />
+      <SafeAreaView>
+        <CandidateProfile {...props} isModal />
+      </SafeAreaView>
     </Modal>
   );
 };

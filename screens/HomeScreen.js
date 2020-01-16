@@ -1,20 +1,21 @@
 import * as WebBrowser from "expo-web-browser";
 import React, { useState } from "react";
 import {
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  SafeAreaView
 } from "react-native";
 
-import { MonoText } from "../components/StyledText";
 import CandidateCard from "../components/CandidateCard";
 import CandidateModal from "../components/CandidateModal";
+import TopNavigation from "../components/TopNavigator";
 
 import { Avatar, Chip } from "../components/UI-Kit";
 import * as firebase from "firebase";
+import ActionButtons from "../components/ActionButtons";
 
 const sampleCandidateData = {
   name: "Karen",
@@ -37,12 +38,9 @@ export default function HomeScreen(props) {
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <View style={styles.topNavigationContainer}>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        {/* <View style={styles.topNavigationContainer}>
           <Avatar
             img={require("../assets/images/sample-boy-1.jpg")}
             size={30}
@@ -51,9 +49,9 @@ export default function HomeScreen(props) {
           <Chip onPress={() => props.navigation.navigate("Links")}>
             Conversations
           </Chip>
-        </View>
-
-        <View style={styles.getStartedContainer}>
+        </View> */}
+        <TopNavigation />
+        <View style={styles.cardContainer}>
           <CandidateCard
             toggleCandidateModal={toggleCandidateModal}
             data={sampleCandidateData}
@@ -63,17 +61,9 @@ export default function HomeScreen(props) {
             toggleCandidateModal={toggleCandidateModal}
             data={sampleCandidateData}
           />
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          >
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>Hello and wellcome to app</Text>
         </View>
-
-        <View style={styles.helpContainer}>
+        <ActionButtons />
+        <View>
           <TouchableOpacity
             onPress={() => firebase.auth().signOut()}
             style={styles.helpLink}
@@ -82,21 +72,7 @@ export default function HomeScreen(props) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}
-        >
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -105,92 +81,22 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center"
-  },
-  contentContainer: {
-    paddingTop: 30
+  cardContainer: {
+    height: 650,
+    alignItems: "center"
   },
   topNavigationContainer: {
     marginTop: 10,
     marginBottom: 20,
     paddingHorizontal: 20,
     flexDirection: "row",
-    alignItems: "center"
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
-  },
-  getStartedContainer: {
     alignItems: "center",
-    marginHorizontal: 50
-  },
-  homeScreenFilename: {
-    marginVertical: 7
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4
+    backgroundColor: "red"
   },
   getStartedText: {
     fontSize: 17,
     color: "rgba(96,100,109, 1)",
     lineHeight: 24,
     textAlign: "center"
-  },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
   }
 });
