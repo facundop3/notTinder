@@ -5,14 +5,14 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 import { CustomSwitch } from "../components/UI-Kit/";
 
-const TopNavigator = props => {
+const TopNavigator = ({ navToChat }) => {
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => ""}>
         <FontAwesome name="user-circle" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
       <CustomSwitch />
-      <TouchableWithoutFeedback onPress={() => ""}>
+      <TouchableWithoutFeedback onPress={navToChat}>
         <AntDesign name="message1" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
     </View>

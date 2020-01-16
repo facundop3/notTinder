@@ -40,17 +40,7 @@ export default function HomeScreen(props) {
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        {/* <View style={styles.topNavigationContainer}>
-          <Avatar
-            img={require("../assets/images/sample-boy-1.jpg")}
-            size={30}
-          />
-          <Chip>Liked You</Chip>
-          <Chip onPress={() => props.navigation.navigate("Links")}>
-            Conversations
-          </Chip>
-        </View> */}
-        <TopNavigation />
+        <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
           <CandidateCard
             toggleCandidateModal={toggleCandidateModal}
@@ -84,14 +74,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 650,
     alignItems: "center"
-  },
-  topNavigationContainer: {
-    marginTop: 10,
-    marginBottom: 20,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "red"
   },
   getStartedText: {
     fontSize: 17,

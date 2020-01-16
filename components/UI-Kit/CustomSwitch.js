@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   TouchableWithoutFeedback,
   StyleSheet,
   View,
-  Animated,
-  Text
+  Animated
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -32,39 +31,6 @@ const CustomSwitch = props => {
     }
   };
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: "row",
-      alignItems: "center",
-      height: 40,
-      width: 100,
-      backgroundColor: "#edba59",
-      padding: 5,
-      borderRadius: 30,
-      position: "relative"
-    },
-    toggleBall: {
-      borderWidth: 0.5,
-      borderColor: "rgba(0,0,0,0.2)",
-      width: 60,
-      height: 50,
-      borderRadius: 30,
-      overflow: "hidden",
-      backgroundColor: "white",
-      position: "absolute"
-    },
-    fireIcon: {
-      zIndex: 2,
-      position: "absolute",
-      left: 10
-    },
-    fourPointStar: {
-      zIndex: 2,
-      position: "absolute",
-      right: 10
-    }
-  });
-
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={styles.container}>
@@ -74,9 +40,9 @@ const CustomSwitch = props => {
           color={isGoldActive ? "#cecece" : "#fe526a"}
           style={styles.fireIcon}
         />
-        <Animated.View style={{ ...styles.toggleBall, left: toggleToleft }}>
-          {/* <Animated.View style={[styles.toggleBall, styles.animatedStyle]}> */}
-        </Animated.View>
+        <Animated.View
+          style={{ ...styles.toggleBall, left: toggleToleft }}
+        ></Animated.View>
         <MaterialCommunityIcons
           name="star-four-points"
           size={20}
@@ -88,41 +54,37 @@ const CustomSwitch = props => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flexDirection: "row",
-//     alignItems: "center",
-//     height: 40,
-//     width: 100,
-//     backgroundColor: "#edba59",
-//     padding: 5,
-//     borderRadius: 30,
-//     position: "relative"
-//   },
-//   toggleBall: {
-//     borderWidth: 0.5,
-//     borderColor: "rgba(0,0,0,0.2)",
-//     width: 60,
-//     height: 50,
-//     borderRadius: 30,
-//     overflow: "hidden",
-//     backgroundColor: "white",
-//     position: "absolute",
-//     left: 0
-//   },
-//   fireIcon: {
-//     zIndex: 2,
-//     position: "absolute",
-//     left: 10
-//   },
-//   fourPointStar: {
-//     zIndex: 2,
-//     position: "absolute",
-//     right: 10
-//   },
-//   animating: {
-//     left: toggleToleft
-//   }
-// });
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 40,
+    width: 100,
+    backgroundColor: "#edba59",
+    padding: 5,
+    borderRadius: 30,
+    position: "relative"
+  },
+  toggleBall: {
+    borderWidth: 0.5,
+    borderColor: "rgba(0,0,0,0.2)",
+    width: 60,
+    height: 50,
+    borderRadius: 30,
+    overflow: "hidden",
+    backgroundColor: "white",
+    position: "absolute"
+  },
+  fireIcon: {
+    zIndex: 2,
+    position: "absolute",
+    left: 10
+  },
+  fourPointStar: {
+    zIndex: 2,
+    position: "absolute",
+    right: 10
+  }
+});
 
 export default CustomSwitch;
