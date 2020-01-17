@@ -6,7 +6,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from "react-native";
 
 import CandidateCard from "../components/CandidateCard";
@@ -38,7 +39,7 @@ export default function HomeScreen(props) {
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
@@ -71,6 +72,9 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  safeView: {
+    paddingTop: Platform.OS === "android" ? 25 : 0
+  },
   cardContainer: {
     height: 650,
     alignItems: "center"

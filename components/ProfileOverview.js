@@ -24,9 +24,20 @@ const ProfileOverview = ({ data }) => {
             <Text style={styles.buttonSubtitle}>Settings</Text>
           </View>
           <View style={{ paddingTop: 15 }}>
-            <RoundButton color={colors.red}>
-              <FontAwesome name="camera" size={30} color="white" />
-            </RoundButton>
+            <View style={{ position: "relative" }}>
+              <RoundButton color={colors.red}>
+                <FontAwesome name="camera" size={30} color="white" />
+              </RoundButton>
+              <View style={{ position: "absolute", right: 0, bottom: 0 }}>
+                <RoundButton size={20} border>
+                  <MaterialCommunityIcons
+                    name="plus"
+                    size={15}
+                    color={colors.red}
+                  />
+                </RoundButton>
+              </View>
+            </View>
             <Text style={styles.buttonSubtitle}>Add Media</Text>
           </View>
           <View>
@@ -42,6 +53,11 @@ const ProfileOverview = ({ data }) => {
         </View>
       </View>
       <View style={styles.curve}></View>
+      <View style={styles.myPlusButton}>
+        <RoundButton shadow height={40} width={120}>
+          <Text style={{ color: colors.red }}>My Plus</Text>
+        </RoundButton>
+      </View>
     </View>
   );
 };
@@ -82,6 +98,11 @@ const styles = StyleSheet.create({
     bottom: 150,
     borderWidth: 0.5,
     borderColor: "rgba(0,0,0,0.2)"
+  },
+  myPlusButton: {
+    padding: 10,
+    position: "absolute",
+    bottom: 10
   }
 });
 

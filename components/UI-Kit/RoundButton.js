@@ -15,7 +15,9 @@ const RoundButton = props => {
     size = 60,
     color = "white",
     shadow,
-    border
+    border,
+    height,
+    width
   } = props;
   const [beingPress, setBeingPress] = useState(false);
   const [scale] = useState(new Animated.Value(1));
@@ -35,8 +37,8 @@ const RoundButton = props => {
   };
   const styles = StyleSheet.create({
     button: {
-      height: size,
-      width: size,
+      height: height ? height : size,
+      width: width ? width : size,
       borderRadius: size / 2,
       overflow: "hidden",
       // check this shit
@@ -57,8 +59,8 @@ const RoundButton = props => {
         shadowRadius: 3.84,
         elevation: 4,
         borderRadius: size / 2,
-        height: size,
-        width: size
+        height: height ? height : size,
+        width: width ? width : size
       })
     },
     animatedStyle: {
