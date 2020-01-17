@@ -9,7 +9,7 @@ const Avatar = ({ img, size = 60 }) => {
       borderColor: "rgba(0,0,0,0.2)",
       width: size,
       height: size,
-      borderRadius: 50,
+      borderRadius: size / 2,
       marginRight: 10
     }
   });

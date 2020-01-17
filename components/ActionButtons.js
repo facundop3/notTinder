@@ -8,19 +8,19 @@ import Foundation from "@expo/vector-icons/Foundation";
 const ActionButtons = props => {
   return (
     <View style={styles.container}>
-      <RoundButton onPress={() => ""} size={40}>
+      <RoundButton onPress={() => ""} size={40} shadow border>
         <Foundation name="refresh" color="#fecd65" size={25} />
       </RoundButton>
-      <RoundButton onPress={() => ""}>
+      <RoundButton onPress={() => ""} shadow border>
         <FontAwesome name="close" color="#fe526a" size={30} />
       </RoundButton>
-      <RoundButton onPress={() => ""} size={40}>
+      <RoundButton onPress={() => ""} size={40} shadow border>
         <AntDesign name="star" size={25} color="#29bcff" />
       </RoundButton>
-      <RoundButton onPress={() => ""}>
+      <RoundButton onPress={() => ""} shadow border>
         <AntDesign name="heart" size={30} color="#49e7b6" />
       </RoundButton>
-      <RoundButton onPress={() => ""} size={40}>
+      <RoundButton onPress={() => ""} size={40} shadow border>
         <Ionicons name="ios-flash" size={30} color="#a550e1" />
       </RoundButton>
     </View>

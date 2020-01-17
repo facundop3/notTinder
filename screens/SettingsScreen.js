@@ -1,5 +1,6 @@
 import React from "react";
-import MyProfile from "../components/MyProfile";
+// import MyProfile from "../components/MyProfile";
+import ProfileOverview from "../components/ProfileOverview";
 
 const sampleCandidateData = {
   name: "Facundo",
@@ -18,7 +19,7 @@ const sampleCandidateData = {
   ]
 };
 export default function SettingsScreen() {
-  return <MyProfile data={sampleCandidateData} />;
+  return <ProfileOverview data={sampleCandidateData} />;
 }
 
 SettingsScreen.navigationOptions = {
