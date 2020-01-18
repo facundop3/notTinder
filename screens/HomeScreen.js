@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
-  Platform
+  Platform,
+  Dimensions
 } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
@@ -35,20 +36,34 @@ const sampleCandidateData = {
 };
 
 export default function HomeScreen(props) {
+  const { width } = Dimensions.get("screen");
   const [translationX] = useState(new Animated.Value(0));
   const [translationY] = useState(new Animated.Value(0));
+  const rotateZ = Animated.concat(
+    Animated.interpolate(translationX, {
+      inputRange: [-width / 2, width / 2],
+      outputRange: [15, -15],
+      extrapolate: Animated.Extrapolate.CLAMP
+    }),
+    "deg"
+  );
   const onGestureEvent = Animated.event(
     [{ nativeEvent: { translationX, translationY } }],
     {
       useNativeDriver: true
     }
   );
+
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
   const style = {
     ...StyleSheet.absoluteFillObject,
     zIndex: 900,
-    transform: [{ translateX: translationX }, { translateY: translationY }]
+    transform: [
+      { translateX: translationX },
+      { translateY: translationY },
+      { rotateZ }
+    ]
   };
 
   return (
