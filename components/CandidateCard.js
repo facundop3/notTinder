@@ -9,6 +9,7 @@ import {
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { colors } from "./UI-Kit";
 const CandidateCard = props => {
   const { toggleCandidateModal, data } = props;
   const { pictures } = data;
@@ -23,6 +24,16 @@ const CandidateCard = props => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={pictures[currentPic]} />
+        <View style={styles.likeContainer}>
+          <Text style={styles.likeText}>LIKE</Text>
+        </View>
+        <View style={styles.nopeContainer}>
+          <Text style={styles.nopeText}>Nope</Text>
+        </View>
+        <View style={styles.superLikeContainer}>
+          <Text style={styles.superLikeText}>SUPER</Text>
+          <Text style={styles.superLikeText}>LIKE</Text>
+        </View>
         <View style={styles.candidateDataContainer}>
           <Text style={styles.nameAndAge}>
             <Text style={styles.candidateName}>{data.name}</Text> {data.age}
@@ -105,6 +116,57 @@ const styles = StyleSheet.create({
     width: "100%",
     bottom: 0,
     position: "absolute"
+  },
+  likeContainer: {
+    position: "absolute",
+    borderWidth: 4,
+    borderColor: colors.green,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 10,
+    top: 40,
+    left: 30,
+    transform: [{ rotate: "-25deg" }]
+  },
+  nopeContainer: {
+    position: "absolute",
+    borderWidth: 4,
+    borderColor: colors.red,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 10,
+    top: 40,
+    right: 30,
+    transform: [{ rotate: "25deg" }]
+  },
+  superLikeContainer: {
+    position: "absolute",
+    borderWidth: 4,
+    borderColor: colors.blue,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 10,
+    bottom: 100,
+    left: 100,
+    transform: [{ rotate: "-25deg" }]
+  },
+  likeText: {
+    color: colors.green,
+    fontSize: 55,
+    fontWeight: "bold"
+  },
+  nopeText: {
+    color: colors.red,
+    fontSize: 55,
+    fontWeight: "bold"
+  },
+  superLikeText: {
+    color: colors.blue,
+    fontSize: 45,
+    fontWeight: "bold"
   }
 });
 
