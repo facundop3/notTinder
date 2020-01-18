@@ -6,8 +6,10 @@ import {
   StyleSheet,
   FlatList,
   TouchableHighlight,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TextInput
 } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
 import { Avatar, colors } from "./UI-Kit";
 
 function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
@@ -17,7 +19,7 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
       underlayColor="grey"
     >
       <View style={styles.conversationContainer}>
-        <Avatar img={avatar} />
+        <Avatar img={avatar} size={90} />
         <View>
           <Text>{name}</Text>
           <Text>{lastMessage}</Text>
@@ -27,9 +29,19 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
   );
 }
 
+const NewMatchItem = props => {
+  return (
+    <View style={{ alignItems: "center", justifyContent: "center" }}>
+      <Avatar size={70} img={props.img} />
+      <Text>Name</Text>
+    </View>
+  );
+};
+
 const Conversations = props => {
-  const { conversationsList, toggleChatModal } = props;
+  const { conversationsList, toggleChatModal, newMatches } = props;
   const [isFeedActive, setIsFeedActive] = useState(false);
+  const [messagesFilter, setMessagesFilter] = useState("");
   const textStyle = StyleSheet.create({
     message: {
       fontSize: 20,
@@ -51,13 +63,35 @@ const Conversations = props => {
           <Text style={textStyle.feed}>Feed</Text>
         </TouchableWithoutFeedback>
       </View>
-      <FlatList
-        data={conversationsList}
-        renderItem={({ item }) => (
-          <ConversationItem {...item} toggleChatModal={toggleChatModal} />
-        )}
-        keyExtractor={item => item.id}
-      />
+      <View style={styles.searchContainer}>
+        <EvilIcons name="search" color={colors.red} size={30} />
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setMessagesFilter(text)}
+          value={messagesFilter}
+          placeholder="Search n Matches"
+        />
+      </View>
+      <View style={styles.newMatchesContainer}>
+        <Text style={styles.headerText}>New Matches:</Text>
+        <FlatList
+          style={{ paddingVertical: 16 }}
+          data={newMatches}
+          horizontal
+          renderItem={({ item }, i) => <NewMatchItem img={item} />}
+        />
+      </View>
+      <View style={styles.newMatchesContainer}>
+        <Text style={styles.headerText}>Messages:</Text>
+        <FlatList
+          style={{ paddingVertical: 16 }}
+          data={conversationsList}
+          renderItem={({ item }) => (
+            <ConversationItem {...item} toggleChatModal={toggleChatModal} />
+          )}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -67,15 +101,34 @@ const styles = StyleSheet.create({
   conversationContainer: {
     alignItems: "center",
     flexDirection: "row",
-    height: 80,
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)"
+    height: 100
   },
   messagesFeedContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     height: 50,
     alignItems: "center"
+  },
+  searchContainer: {
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly"
+  },
+  input: {
+    borderBottomColor: colors.red,
+    borderBottomWidth: 1,
+    height: 40,
+    paddingHorizontal: 10,
+    width: "90%",
+    marginRight: 10
+  },
+  newMatchesContainer: {
+    padding: 15
+  },
+  headerText: {
+    color: colors.red,
+    fontSize: 20
   }
 });
 

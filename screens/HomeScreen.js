@@ -9,13 +9,13 @@ import {
   SafeAreaView,
   Platform
 } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 
+import * as firebase from "firebase";
 import CandidateCard from "../components/CandidateCard";
 import CandidateModal from "../components/CandidateModal";
 import TopNavigation from "../components/TopNavigator";
-
-import { Avatar, Chip } from "../components/UI-Kit";
-import * as firebase from "firebase";
 import ActionButtons from "../components/ActionButtons";
 
 const sampleCandidateData = {
@@ -35,18 +35,38 @@ const sampleCandidateData = {
 };
 
 export default function HomeScreen(props) {
+  const [translationX] = useState(new Animated.Value(0));
+  const [translationY] = useState(new Animated.Value(0));
+  const onGestureEvent = Animated.event(
+    [{ nativeEvent: { translationX, translationY } }],
+    {
+      useNativeDriver: true
+    }
+  );
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
+  const style = {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 900,
+    transform: [{ translateX: translationX }, { translateY: translationY }]
+  };
 
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          <CandidateCard
-            toggleCandidateModal={toggleCandidateModal}
-            data={sampleCandidateData}
-          />
+          <PanGestureHandler
+            onHandlerStateChange={onGestureEvent}
+            {...{ onGestureEvent }}
+          >
+            <Animated.View {...{ style }}>
+              <CandidateCard
+                toggleCandidateModal={toggleCandidateModal}
+                data={sampleCandidateData}
+              />
+            </Animated.View>
+          </PanGestureHandler>
           <CandidateModal
             showCandidateModal={showCandidateModal}
             toggleCandidateModal={toggleCandidateModal}

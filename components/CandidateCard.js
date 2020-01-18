@@ -35,6 +35,7 @@ const CandidateCard = props => {
           </Text>
         </View>
       </View>
+
       <TouchableWithoutFeedback onPress={() => changePic(1)}>
         <View style={styles.nextPic}></View>
       </TouchableWithoutFeedback>

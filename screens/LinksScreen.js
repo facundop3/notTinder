@@ -23,6 +23,12 @@ const sampleData = [
     avatar: require("../assets/images/sample-girl-3.jpg")
   }
 ];
+
+const newMatches = [
+  require("../assets/images/dog-1.jpeg"),
+  require("../assets/images/beer.jpeg"),
+  require("../assets/images/dog-2.jpeg")
+];
 export default function LinksScreen() {
   const [showChatModal, setShowChatModal] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
@@ -36,6 +42,7 @@ export default function LinksScreen() {
       <Conversations
         conversationsList={sampleData}
         toggleChatModal={toggleChatModal}
+        newMatches={newMatches}
       />
       <ChatModal
         showChatModal={showChatModal}
