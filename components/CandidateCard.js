@@ -6,12 +6,18 @@ import {
   View,
   TouchableWithoutFeedback
 } from "react-native";
-
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Animated from "react-native-reanimated";
 import { colors } from "./UI-Kit";
 const CandidateCard = props => {
-  const { toggleCandidateModal, data } = props;
+  const {
+    toggleCandidateModal,
+    data,
+    likeOpacity = 0,
+    nopeOpacity = 0,
+    superLikeOpacity = 0
+  } = props;
   const { pictures } = data;
   const [currentPic, setCurrentPic] = useState(0);
   const changePic = n => {
@@ -24,16 +30,18 @@ const CandidateCard = props => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={pictures[currentPic]} />
-        <View style={styles.likeContainer}>
+        <Animated.View style={[styles.likeContainer, { opacity: likeOpacity }]}>
           <Text style={styles.likeText}>LIKE</Text>
-        </View>
-        <View style={styles.nopeContainer}>
+        </Animated.View>
+        <Animated.View style={[styles.nopeContainer, { opacity: nopeOpacity }]}>
           <Text style={styles.nopeText}>Nope</Text>
-        </View>
-        <View style={styles.superLikeContainer}>
+        </Animated.View>
+        <Animated.View
+          style={[styles.superLikeContainer, { opacity: superLikeOpacity }]}
+        >
           <Text style={styles.superLikeText}>SUPER</Text>
           <Text style={styles.superLikeText}>LIKE</Text>
-        </View>
+        </Animated.View>
         <View style={styles.candidateDataContainer}>
           <Text style={styles.nameAndAge}>
             <Text style={styles.candidateName}>{data.name}</Text> {data.age}
