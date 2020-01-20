@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -150,12 +150,14 @@ function runSpring(clock, value, dest) {
 
 export default function HomeScreen(props) {
   const { width, height } = Dimensions.get("screen");
-  // const [candidates, setCandidates] = useState(candidatesList);
-  // let [currentCandidate] = candidates;
+  const [candidates, setCandidates] = useState(candidatesList);
   const [translationX] = useState(new Animated.Value(0));
   const [translationY] = useState(new Animated.Value(0));
   const [velocityX] = useState(new Animated.Value(0));
   const [gestureState] = useState(new Animated.Value(State.UNDETERMINED));
+  const [lastCandidate, setLastCandidate] = useState(candidates[0]);
+  const [offsetX] = useState(new Animated.Value(0));
+  const [offsetY] = useState(new Animated.Value(0));
 
   const init = () => {
     const {
@@ -168,15 +170,25 @@ export default function HomeScreen(props) {
       greaterThan,
       clockRunning,
       neq,
-      call
+      call,
+      multiply,
+      add,
+      stopClock
     } = Animated;
     const clockX = new Clock();
     const clockY = new Clock();
-
+    offsetY.setValue(0);
+    offsetX.setValue(0);
+    velocityX.setValue(0);
+    translationX.setValue(0);
+    translationY.setValue(0);
+    gestureState.setValue(Animated.UNDETERMINED);
+    const translationThreshold = width / 4;
+    const finalTranslateX = add(translationX, multiply(0.2, velocityX));
     const onSwiped = ([translateX]) => {
-      // setCandidates([
-      //   ...candidates.filter(({ id }) => id == !currentCandidate.id)
-      // ]);
+      //TODO onSwiped is being called twice every
+      const [removedCandidate, ...noLastCandidate] = candidates;
+      setCandidates(noLastCandidate);
       if (translateX > 0) {
         console.log("LIKE ");
       } else {
@@ -184,36 +196,49 @@ export default function HomeScreen(props) {
       }
     };
     const snapPoint = cond(
-      and(lessThan(translationX, 0), lessThan(velocityX, -10)),
+      lessThan(finalTranslateX, -translationThreshold),
       -width,
-      cond(
-        and(greaterThan(translationX, 0), greaterThan(velocityX, 10)),
-        width,
-        0
-      )
+      cond(greaterThan(finalTranslateX, translationThreshold), width, 0)
     );
+
     const tempTranslationX = cond(
       eq(gestureState, State.END),
       [
-        set(
-          translationX,
-          runSpring(clockX, translationX, velocityX, snapPoint)
-        ),
-        cond(
-          and(eq(clockRunning(clockX), 0), neq(translationX, 0)),
-          cond(call([translationX], onSwiped))
-        ),
+        set(translationX, runSpring(clockX, translationX, snapPoint)),
+        set(offsetX, translationX),
+        cond(and(eq(clockRunning(clockX), 0), neq(translationX, 0)), [
+          call([translationX], onSwiped)
+        ]),
         translationX
       ],
-      translationX
+      cond(
+        eq(gestureState, State.BEGAN),
+        [stopClock(clockX), translationX],
+        translationX
+      )
     );
+
     const tempTranslationY = cond(
       eq(gestureState, State.END),
-      [set(translationY, runSpring(clockY, translationX, 0, 0)), translationX],
-      translationY
+      [
+        set(translationY, runSpring(clockY, translationY, 0)),
+        set(offsetY, translationY),
+        translationY
+      ],
+      cond(
+        eq(gestureState, State.BEGAN),
+        [stopClock(clockY), translationY],
+        translationY
+      )
     );
     return { tempTranslationX, tempTranslationY };
   };
+  useEffect(() => {
+    const [last] = candidates;
+    setLastCandidate(last);
+    init();
+  }, [candidates]);
+
   const { tempTranslationX, tempTranslationY } = init();
   const rotateZ = Animated.concat(
     Animated.interpolate(translationX, {
@@ -271,6 +296,9 @@ export default function HomeScreen(props) {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
+          {candidates.reverse().map(candidate => (
+            <CandidateCard key={candidate.id} data={candidate} />
+          ))}
           <PanGestureHandler
             onHandlerStateChange={onGestureEvent}
             {...{ onGestureEvent }}
@@ -279,14 +307,14 @@ export default function HomeScreen(props) {
               <CandidateCard
                 {...{ likeOpacity, nopeOpacity, superLikeOpacity }}
                 toggleCandidateModal={toggleCandidateModal}
-                data={sampleCandidateData}
+                data={lastCandidate}
               />
             </Animated.View>
           </PanGestureHandler>
           <CandidateModal
             showCandidateModal={showCandidateModal}
             toggleCandidateModal={toggleCandidateModal}
-            data={sampleCandidateData}
+            data={lastCandidate}
           />
         </View>
         <ActionButtons />
