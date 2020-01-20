@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
   Platform,
   Dimensions
 } from "react-native";
-import { PanGestureHandler, State } from "react-native-gesture-handler";
+import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 
 import * as firebase from "firebase";
@@ -18,7 +18,7 @@ import CandidateCard from "../components/CandidateCard";
 import CandidateModal from "../components/CandidateModal";
 import TopNavigation from "../components/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
-
+import useSwipe from "../components/useSwipe";
 const sampleCandidateData = {
   name: "Beer ",
   age: 24,
@@ -106,140 +106,19 @@ const candidatesList = [
     ]
   }
 ];
-
-function runSpring(clock, value, dest) {
-  const {
-    cond,
-    spring,
-    set,
-    clockRunning,
-    startClock,
-    Value,
-    stopClock
-  } = Animated;
-  const state = {
-    finished: new Value(0),
-    velocity: new Value(0),
-    position: new Value(0),
-    time: new Value(0)
-  };
-
-  const config = {
-    damping: 20,
-    mass: 1,
-    stiffness: 100,
-    overshootClamping: false,
-    restSpeedThreshold: 1,
-    restDisplacementThreshold: 0.5,
-    toValue: new Value(0)
-  };
-
-  return [
-    cond(clockRunning(clock), 0, [
-      set(state.finished, 0),
-      set(state.velocity, 0),
-      set(state.position, value),
-      set(config.toValue, dest),
-      startClock(clock)
-    ]),
-    spring(clock, state, config),
-    cond(state.finished, stopClock(clock)),
-    state.position
-  ];
-}
-
 export default function HomeScreen(props) {
   const { width, height } = Dimensions.get("screen");
   const [candidates, setCandidates] = useState(candidatesList);
-  const [translationX] = useState(new Animated.Value(0));
-  const [translationY] = useState(new Animated.Value(0));
-  const [velocityX] = useState(new Animated.Value(0));
-  const [gestureState] = useState(new Animated.Value(State.UNDETERMINED));
   const [lastCandidate, setLastCandidate] = useState(candidates[0]);
-  const [offsetX] = useState(new Animated.Value(0));
-  const [offsetY] = useState(new Animated.Value(0));
+  const {
+    tempTranslationX,
+    tempTranslationY,
+    gestureState,
+    velocityX,
+    translationX,
+    translationY
+  } = useSwipe();
 
-  const init = () => {
-    const {
-      cond,
-      eq,
-      set,
-      Clock,
-      and,
-      lessThan,
-      greaterThan,
-      clockRunning,
-      neq,
-      call,
-      multiply,
-      add,
-      stopClock
-    } = Animated;
-    const clockX = new Clock();
-    const clockY = new Clock();
-    offsetY.setValue(0);
-    offsetX.setValue(0);
-    velocityX.setValue(0);
-    translationX.setValue(0);
-    translationY.setValue(0);
-    gestureState.setValue(Animated.UNDETERMINED);
-    const translationThreshold = width / 4;
-    const finalTranslateX = add(translationX, multiply(0.2, velocityX));
-    const onSwiped = ([translateX]) => {
-      //TODO onSwiped is being called twice every
-      const [removedCandidate, ...noLastCandidate] = candidates;
-      setCandidates(noLastCandidate);
-      if (translateX > 0) {
-        console.log("LIKE ");
-      } else {
-        console.log("NOPE");
-      }
-    };
-    const snapPoint = cond(
-      lessThan(finalTranslateX, -translationThreshold),
-      -width,
-      cond(greaterThan(finalTranslateX, translationThreshold), width, 0)
-    );
-
-    const tempTranslationX = cond(
-      eq(gestureState, State.END),
-      [
-        set(translationX, runSpring(clockX, translationX, snapPoint)),
-        set(offsetX, translationX),
-        cond(and(eq(clockRunning(clockX), 0), neq(translationX, 0)), [
-          call([translationX], onSwiped)
-        ]),
-        translationX
-      ],
-      cond(
-        eq(gestureState, State.BEGAN),
-        [stopClock(clockX), translationX],
-        translationX
-      )
-    );
-
-    const tempTranslationY = cond(
-      eq(gestureState, State.END),
-      [
-        set(translationY, runSpring(clockY, translationY, 0)),
-        set(offsetY, translationY),
-        translationY
-      ],
-      cond(
-        eq(gestureState, State.BEGAN),
-        [stopClock(clockY), translationY],
-        translationY
-      )
-    );
-    return { tempTranslationX, tempTranslationY };
-  };
-  useEffect(() => {
-    const [last] = candidates;
-    setLastCandidate(last);
-    init();
-  }, [candidates]);
-
-  const { tempTranslationX, tempTranslationY } = init();
   const rotateZ = Animated.concat(
     Animated.interpolate(translationX, {
       inputRange: [-width / 2, width / 2],
