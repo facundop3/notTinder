@@ -16,9 +16,9 @@ const CandidateCard = props => {
     data,
     likeOpacity = 0,
     nopeOpacity = 0,
-    superLikeOpacity = 0
+    superLikeOpacity = 0,
+    picture
   } = props;
-  const { pictures } = data;
   const [currentPic, setCurrentPic] = useState(0);
   const changePic = n => {
     const nextIndex = n + currentPic;
@@ -26,10 +26,11 @@ const CandidateCard = props => {
       setCurrentPic(nextIndex);
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={pictures[currentPic]} />
+        <Image style={styles.image} source={picture} key={data.id} />
         <Animated.View style={[styles.likeContainer, { opacity: likeOpacity }]}>
           <Text style={styles.likeText}>LIKE</Text>
         </Animated.View>

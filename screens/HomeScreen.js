@@ -200,7 +200,13 @@ export default function HomeScreen(props) {
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
           {/* {candidates.reverse().map(candidate => ( */}
-          <CandidateCard key={"test"} data={candidates[1]} />
+          <CandidateCard
+            key={"test"}
+            data={candidates[(currentIndex + 1) % candidates.length]}
+            picture={
+              candidates[(currentIndex + 1) % candidates.length].pictures[0]
+            }
+          />
           {/* // ))} */}
           <PanGestureHandler
             onHandlerStateChange={onGestureEvent}
@@ -211,6 +217,7 @@ export default function HomeScreen(props) {
                 {...{ likeOpacity, nopeOpacity, superLikeOpacity }}
                 toggleCandidateModal={toggleCandidateModal}
                 data={candidates[currentIndex]}
+                picture={candidates[currentIndex].pictures[0]}
               />
             </Animated.View>
           </PanGestureHandler>
