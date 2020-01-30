@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -104,12 +104,34 @@ const candidatesList = [
       require("../assets/images/sample-girl-1.jpeg"),
       require("../assets/images/sample-girl-2.jpg")
     ]
+  },
+  {
+    id: "candidate-5",
+    name: "Ema5",
+    age: 24,
+    datingCity: "Montevideo",
+    hometown: "Montevideo",
+    company: "Disco",
+    school: "Universidad de la Republica",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
+    pictures: [
+      require("../assets/images/sample-girl-3.jpg"),
+      require("../assets/images/beer.jpeg"),
+      require("../assets/images/sample-girl-1.jpeg"),
+      require("../assets/images/sample-girl-2.jpg")
+    ]
   }
 ];
 export default function HomeScreen(props) {
   const { width, height } = Dimensions.get("screen");
   const [candidates, setCandidates] = useState(candidatesList);
-  const [lastCandidate, setLastCandidate] = useState(candidates[0]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sampleCallback = isLike => {
+    console.log(isLike ? "LIKE" : "NOPE");
+    setCurrentIndex((currentIndex + 1) % candidates.length);
+  };
+
   const {
     tempTranslationX,
     tempTranslationY,
@@ -117,8 +139,10 @@ export default function HomeScreen(props) {
     velocityX,
     translationX,
     translationY
-  } = useSwipe();
-
+  } = useSwipe(sampleCallback);
+  useEffect(() => {
+    console.log(currentIndex);
+  }, [currentIndex]);
   const rotateZ = Animated.concat(
     Animated.interpolate(translationX, {
       inputRange: [-width / 2, width / 2],
@@ -175,9 +199,9 @@ export default function HomeScreen(props) {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          {candidates.reverse().map(candidate => (
-            <CandidateCard key={candidate.id} data={candidate} />
-          ))}
+          {/* {candidates.reverse().map(candidate => ( */}
+          <CandidateCard key={"test"} data={candidates[1]} />
+          {/* // ))} */}
           <PanGestureHandler
             onHandlerStateChange={onGestureEvent}
             {...{ onGestureEvent }}
@@ -186,14 +210,14 @@ export default function HomeScreen(props) {
               <CandidateCard
                 {...{ likeOpacity, nopeOpacity, superLikeOpacity }}
                 toggleCandidateModal={toggleCandidateModal}
-                data={lastCandidate}
+                data={candidates[currentIndex]}
               />
             </Animated.View>
           </PanGestureHandler>
           <CandidateModal
             showCandidateModal={showCandidateModal}
             toggleCandidateModal={toggleCandidateModal}
-            data={lastCandidate}
+            data={candidates[currentIndex]}
           />
         </View>
         <ActionButtons />

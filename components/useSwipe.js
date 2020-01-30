@@ -69,29 +69,27 @@ const useSwipe = callback => {
   } = Animated;
   const clockX = new Clock();
   const clockY = new Clock();
-  offsetY.setValue(0);
-  offsetX.setValue(0);
-  velocityX.setValue(0);
-  translationX.setValue(0);
-  translationY.setValue(0);
-  gestureState.setValue(Animated.UNDETERMINED);
+  const restoreDefault = () => {
+    offsetY.setValue(0);
+    offsetX.setValue(0);
+    velocityX.setValue(0);
+    translationX.setValue(0);
+    translationY.setValue(0);
+    gestureState.setValue(Animated.UNDETERMINED);
+  };
+  restoreDefault();
+
   const translationThreshold = width / 4;
   const finalTranslateX = add(translationX, multiply(0.2, velocityX));
   const onSwiped = ([translateX]) => {
-    // TODO Remove swiped cards
-    // const [removedCandidate, ...noLastCandidate] = candidates;
-    // setCandidates(noLastCandidate);
-    callback && callback();
-    if (translateX > 0) {
-      console.log("LIKE ");
-    } else {
-      console.log("NOPE");
-    }
+    const isRight = translateX > 0;
+    callback && callback(isRight);
+    restoreDefault();
   };
   const snapPoint = cond(
     lessThan(finalTranslateX, -translationThreshold),
-    -width,
-    cond(greaterThan(finalTranslateX, translationThreshold), width, 0)
+    -(width + 100),
+    cond(greaterThan(finalTranslateX, translationThreshold), width + 100, 0)
   );
 
   const tempTranslationX = cond(
