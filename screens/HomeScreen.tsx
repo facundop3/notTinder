@@ -19,7 +19,11 @@ import CandidateModal from "../components/CandidateModal";
 import TopNavigation from "../components/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import useSwipe from "../components/useSwipe";
-const sampleCandidateData = {
+import { CandidateData } from "../interfaces";
+import { Styles } from "react-native-svg";
+
+const sampleCandidateData: CandidateData = {
+  id: "random",
   name: "Beer ",
   age: 24,
   datingCity: "Montevideo",
@@ -36,7 +40,7 @@ const sampleCandidateData = {
   ]
 };
 
-const candidatesList = [
+const candidatesList: CandidateData[] = [
   {
     id: "candidate-1",
     name: "Beer ",
@@ -125,7 +129,7 @@ const candidatesList = [
 ];
 export default function HomeScreen(props) {
   const { width, height } = Dimensions.get("screen");
-  const [candidates, setCandidates] = useState(candidatesList);
+  const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
   const [currentIndex, setCurrentIndex] = useState(0);
   const sampleCallback = isLike => {
     console.log(isLike ? "LIKE" : "NOPE");
@@ -245,7 +249,7 @@ HomeScreen.navigationOptions = {
   header: null
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create<Styles>({
   safeView: {
     paddingTop: Platform.OS === "android" ? 25 : 0
   },

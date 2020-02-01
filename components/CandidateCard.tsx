@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import {
   Image,
   StyleSheet,
@@ -10,7 +10,18 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Animated from "react-native-reanimated";
 import { colors } from "./UI-Kit";
-const CandidateCard = props => {
+import { CandidateData } from "../interfaces";
+
+interface Props {
+  toggleCandidateModal?: () => void;
+  data: CandidateData;
+  likeOpacity?: any;
+  nopeOpacity?: any;
+  superLikeOpacity?: any;
+  picture: any;
+  key?: string;
+}
+const CandidateCard: FC<Props> = props => {
   const {
     toggleCandidateModal,
     data,
@@ -22,7 +33,7 @@ const CandidateCard = props => {
   const [currentPic, setCurrentPic] = useState(0);
   const changePic = n => {
     const nextIndex = n + currentPic;
-    if (nextIndex >= 0 && nextIndex < pictures.length) {
+    if (nextIndex >= 0 && nextIndex < data.pictures.length) {
       setCurrentPic(nextIndex);
     }
   };

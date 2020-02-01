@@ -4,11 +4,21 @@ import {
   TouchableWithoutFeedback,
   View,
   Text,
-  Animated,
-  Platform
+  Animated
 } from "react-native";
 
-const RoundButton = props => {
+interface Props {
+  onPress: () => {};
+  children?: string | React.ReactNode;
+  size?: number;
+  color?: string;
+  shadow?: boolean;
+  border?: boolean;
+  height?: number;
+  width?: number;
+}
+
+const RoundButton: React.FC<Props> = props => {
   const {
     onPress,
     children = "Like",
@@ -19,17 +29,14 @@ const RoundButton = props => {
     height,
     width
   } = props;
-  const [beingPress, setBeingPress] = useState(false);
-  const [scale] = useState(new Animated.Value(1));
+  const [scale] = useState<any>(new Animated.Value(1));
   const animateIn = () => {
-    setBeingPress(true);
     Animated.timing(scale, {
       toValue: 0.9,
       duration: 100
     }).start();
   };
   const animateOut = () => {
-    setBeingPress(false);
     Animated.timing(scale, {
       toValue: 1,
       duration: 80
@@ -41,7 +48,6 @@ const RoundButton = props => {
       width: width ? width : size,
       borderRadius: size / 2,
       overflow: "hidden",
-      // check this shit
       justifyContent: "center",
       alignItems: "center",
       borderWidth: border ? 0.5 : 0,

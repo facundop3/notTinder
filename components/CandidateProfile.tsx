@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Text, View, Image, StyleSheet, ScrollView } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -9,8 +9,14 @@ import {
   faEllipsisH
 } from "@fortawesome/free-solid-svg-icons";
 import { Chip } from "./UI-Kit";
+import { CandidateData } from "../interfaces";
 
-const CandidateProfile = props => {
+interface Props {
+  toggleCandidateModal: () => void;
+  data: CandidateData;
+  isModal?: boolean;
+}
+const CandidateProfile: FC<Props> = props => {
   const { toggleCandidateModal, data, isModal } = props;
   const [mainImage] = data.pictures;
   const renderCandidateData = () => {
@@ -58,7 +64,7 @@ const CandidateProfile = props => {
             <Chip>{data.name}</Chip>
           </View>
           <View style={styles.moreOptions}>
-            <Chip isCricle>
+            <Chip isCircle>
               <FontAwesomeIcon icon={faEllipsisH} color="white" />
             </Chip>
           </View>

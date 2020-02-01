@@ -1,7 +1,11 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-const Avatar = ({ img, size = 60 }) => {
+interface Props {
+  size?: number;
+  img: any;
+}
+const Avatar: React.FC<Props> = ({ img, size = 60 }) => {
   const styles = StyleSheet.create({
     avatar: {
       overflow: "hidden",

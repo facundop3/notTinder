@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import {
   TouchableWithoutFeedback,
   StyleSheet,
@@ -7,7 +7,11 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const CustomSwitch = props => {
+interface Props {
+  handleChange?: () => any;
+}
+
+const CustomSwitch: FC<Props> = props => {
   const [isGoldActive, setIsGoldActive] = useState(false);
   const [toggleToleft] = useState(new Animated.Value(0));
   const toggleRight = () => {

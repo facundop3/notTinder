@@ -1,11 +1,19 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import { TouchableHighlight, Text, StyleSheet } from "react-native";
-const Chip = ({
+
+interface Props {
+  onPress?: () => any;
+  children?: string | ReactNode;
+  bg?: string;
+  color?: string;
+  isCircle?: boolean;
+}
+const Chip: FC<Props> = ({
   onPress,
   children,
   bg = "rgba(0,0,0, .5)",
   color = "white",
-  isCricle
+  isCircle
 }) => {
   const styles = StyleSheet.create({
     chipContainer: {
@@ -15,9 +23,8 @@ const Chip = ({
       alignItems: "center",
       margin: 5,
       height: 30,
-      alignItems: "center",
       justifyContent: "center",
-      ...(isCricle ? { width: 30 } : {})
+      ...(isCircle ? { width: 30 } : {})
     },
     chip: {
       color

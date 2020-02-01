@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
 import { RoundButton } from "./UI-Kit";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Foundation from "@expo/vector-icons/Foundation";
-const ActionButtons = props => {
+const ActionButtons: FC = () => {
   return (
     <View style={styles.container}>
       <RoundButton onPress={() => ""} size={40} shadow border>

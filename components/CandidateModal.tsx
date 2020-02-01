@@ -1,8 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { Modal, SafeAreaView } from "react-native";
 import CandidateProfile from "./CandidateProfile";
+import { CandidateData } from "../interfaces";
 
-const CandidateModal = props => {
+interface Props {
+  showCandidateModal: boolean;
+  data: CandidateData;
+  toggleCandidateModal: () => void;
+}
+const CandidateModal: FC<Props> = props => {
   const { showCandidateModal } = props;
   return (
     <Modal
