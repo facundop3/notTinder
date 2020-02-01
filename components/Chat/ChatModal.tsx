@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,13 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "../UI-Kit";
 import ChatBody from "./ChatBody";
 import ChatInput from "./ChatInput";
-const ChatModal = props => {
+
+interface Props {
+  data: any;
+  showChatModal: boolean;
+  toggleChatModal: () => void;
+}
+const ChatModal: FC<Props> = props => {
   const { data, showChatModal, toggleChatModal } = props;
   return (
     <Modal animationType="slide" transparent={false} visible={showChatModal}>

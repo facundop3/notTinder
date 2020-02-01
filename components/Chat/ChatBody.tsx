@@ -1,7 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { ScrollView, Text, StyleSheet, View } from "react-native";
 
-const ChatBubble = ({ message, isInbound }) => {
+interface ChatBubbleProps {
+  message: string;
+  isInbound?: boolean;
+}
+const ChatBubble: FC<ChatBubbleProps> = ({ message, isInbound }) => {
   const styles = StyleSheet.create({
     container: {
       alignSelf: isInbound ? "flex-start" : "flex-end"
@@ -23,7 +27,7 @@ const ChatBubble = ({ message, isInbound }) => {
     </View>
   );
 };
-const ChatBody = props => {
+const ChatBody: FC = () => {
   return (
     <ScrollView style={styles.container}>
       <ChatBubble message="Hello, how you doing?" isInbound />

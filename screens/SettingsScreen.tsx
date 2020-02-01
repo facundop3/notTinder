@@ -1,5 +1,4 @@
 import React from "react";
-// import MyProfile from "../components/MyProfile";
 import ProfileOverview from "../components/ProfileOverview";
 
 const sampleCandidateData = {

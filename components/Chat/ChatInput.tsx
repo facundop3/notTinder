@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { View, StyleSheet, TextInput, TouchableHighlight } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-const ChatInput = props => {
+const ChatInput: FC = () => {
   const [value, setValue] = useState("");
-  const sendMessage = ev => {
+  const sendMessage = () => {
     console.log(value);
     setValue("");
   };
