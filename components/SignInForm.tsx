@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import {
   TextInput,
   View,
@@ -7,7 +7,12 @@ import {
   TouchableHighlight
 } from "react-native";
 
-const SingnInForm = props => {
+interface Props {
+  handleLogin: (any) => void;
+  errorMessage: (any) => void;
+  handleGmail: (any) => void;
+}
+const SingnInForm: FC<Props> = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { handleLogin, errorMessage, handleGmail } = props;
@@ -54,7 +59,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "100%",
     height: "100%",
-    bottom: 0,
     padding: 20,
     alignItems: "center",
     justifyContent: "center",

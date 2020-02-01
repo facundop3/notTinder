@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 interface Props {
-  onPress: () => {};
+  onPress: () => void;
   children?: string | React.ReactNode;
   size?: number;
   color?: string;

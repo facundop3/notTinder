@@ -3,8 +3,8 @@ import { View, StyleSheet, Text } from "react-native";
 import { Avatar } from "./UI-Kit";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RoundButton, colors } from "./UI-Kit";
-
-const ProfileOverview = ({ data }) => {
+import { CandidateData } from "../interfaces";
+const ProfileOverview = ({ data }: { data: CandidateData }) => {
   const { name, age, school, pictures = [] } = data;
   const [mainPicture] = pictures;
   return (
@@ -18,18 +18,18 @@ const ProfileOverview = ({ data }) => {
 
         <View style={styles.centralActionContainer}>
           <View>
-            <RoundButton color={colors.grey}>
+            <RoundButton color={colors.grey} onPress={() => {}}>
               <FontAwesome name="gear" size={30} color={colors.darkGrey} />
             </RoundButton>
             <Text style={styles.buttonSubtitle}>Settings</Text>
           </View>
           <View style={{ paddingTop: 15 }}>
             <View style={{ position: "relative" }}>
-              <RoundButton color={colors.red}>
+              <RoundButton color={colors.red} onPress={() => {}}>
                 <FontAwesome name="camera" size={30} color="white" />
               </RoundButton>
               <View style={{ position: "absolute", right: 0, bottom: 0 }}>
-                <RoundButton size={20} border>
+                <RoundButton size={20} border onPress={() => {}}>
                   <MaterialCommunityIcons
                     name="plus"
                     size={15}
@@ -54,7 +54,7 @@ const ProfileOverview = ({ data }) => {
       </View>
       <View style={styles.curve}></View>
       <View style={styles.myPlusButton}>
-        <RoundButton shadow height={40} width={120}>
+        <RoundButton shadow height={40} width={120} onPress={() => {}}>
           <Text style={{ color: colors.red }}>My Plus</Text>
         </RoundButton>
       </View>
