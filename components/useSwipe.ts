@@ -75,6 +75,7 @@ const useSwipe = callback => {
     velocityX.setValue(0);
     translationX.setValue(0);
     translationY.setValue(0);
+    // TODO: Check this type issue
     gestureState.setValue(Animated.UNDETERMINED);
   };
   restoreDefault();

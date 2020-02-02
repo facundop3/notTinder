@@ -1,11 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-import { CustomSwitch } from "../components/UI-Kit/";
+import { CustomSwitch } from "./UI-Kit";
 
-const TopNavigator = ({ navToChat }) => {
+interface Props {
+  navToChat?: () => void;
+}
+const TopNavigator: FC<Props> = ({ navToChat }) => {
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => ""}>

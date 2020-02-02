@@ -1,13 +1,16 @@
 import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppNavigator from "./navigation/AppNavigator";
 
-export default function App(props) {
+interface Props {
+  skipLoadingScreen: boolean;
+}
+const App: FC<Props> = props => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -26,7 +29,7 @@ export default function App(props) {
       </View>
     );
   }
-}
+};
 
 async function loadResourcesAsync() {
   await Promise.all([
@@ -60,3 +63,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   }
 });
+
+export default App;
