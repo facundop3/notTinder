@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -20,6 +20,7 @@ interface Props {
   superLikeOpacity?: any;
   picture: any;
   key?: string;
+  zIndex?: number;
 }
 const CandidateCard: FC<Props> = props => {
   const {

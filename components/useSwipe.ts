@@ -81,7 +81,7 @@ const useSwipe = callback => {
   restoreDefault();
 
   const translationThreshold = width / 4;
-  const finalTranslateX = add(translationX, multiply(0.2, velocityX));
+  const finalTranslateX = add(translationX, multiply(0.5, velocityX));
   const onSwiped = ([translateX]) => {
     const isRight = translateX > 0;
     callback && callback(isRight);

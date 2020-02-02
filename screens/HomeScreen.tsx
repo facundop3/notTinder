@@ -22,24 +22,6 @@ import useSwipe from "../components/useSwipe";
 import { CandidateData } from "../interfaces";
 import { Styles } from "react-native-svg";
 
-const sampleCandidateData: CandidateData = {
-  id: "random",
-  name: "Beer ",
-  age: 24,
-  datingCity: "Montevideo",
-  hometown: "Montevideo",
-  company: "Disco",
-  school: "Universidad de la Republica",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
-  pictures: [
-    require("../assets/images/beer.jpeg"),
-    require("../assets/images/sample-girl-1.jpeg"),
-    require("../assets/images/sample-girl-2.jpg"),
-    require("../assets/images/sample-girl-3.jpg")
-  ]
-};
-
 const candidatesList: CandidateData[] = [
   {
     id: "candidate-1",
@@ -52,10 +34,10 @@ const candidatesList: CandidateData[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
     pictures: [
-      require("../assets/images/beer.jpeg"),
-      require("../assets/images/sample-girl-1.jpeg"),
-      require("../assets/images/sample-girl-2.jpg"),
-      require("../assets/images/sample-girl-3.jpg")
+      require("../assets/images/beer-min.jpeg"),
+      require("../assets/images/sample-girl-1-min.jpeg"),
+      require("../assets/images/sample-girl-2-min.jpg"),
+      require("../assets/images/sample-girl-3-min.jpg")
     ]
   },
   {
@@ -69,10 +51,10 @@ const candidatesList: CandidateData[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
     pictures: [
-      require("../assets/images/sample-girl-1.jpeg"),
-      require("../assets/images/beer.jpeg"),
-      require("../assets/images/sample-girl-2.jpg"),
-      require("../assets/images/sample-girl-3.jpg")
+      require("../assets/images/sample-girl-1-min.jpeg"),
+      require("../assets/images/beer-min.jpeg"),
+      require("../assets/images/sample-girl-2-min.jpg"),
+      require("../assets/images/sample-girl-3-min.jpg")
     ]
   },
   {
@@ -86,10 +68,10 @@ const candidatesList: CandidateData[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
     pictures: [
-      require("../assets/images/sample-girl-2.jpg"),
-      require("../assets/images/beer.jpeg"),
-      require("../assets/images/sample-girl-1.jpeg"),
-      require("../assets/images/sample-girl-3.jpg")
+      require("../assets/images/sample-girl-2-min.jpg"),
+      require("../assets/images/beer-min.jpeg"),
+      require("../assets/images/sample-girl-1-min.jpeg"),
+      require("../assets/images/sample-girl-3-min.jpg")
     ]
   },
   {
@@ -103,10 +85,10 @@ const candidatesList: CandidateData[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
     pictures: [
-      require("../assets/images/sample-girl-3.jpg"),
-      require("../assets/images/beer.jpeg"),
-      require("../assets/images/sample-girl-1.jpeg"),
-      require("../assets/images/sample-girl-2.jpg")
+      require("../assets/images/sample-girl-3-min.jpg"),
+      require("../assets/images/beer-min.jpeg"),
+      require("../assets/images/sample-girl-1-min.jpeg"),
+      require("../assets/images/sample-girl-2-min.jpg")
     ]
   },
   {
@@ -120,14 +102,15 @@ const candidatesList: CandidateData[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ullamcorper nisl, ut pulvinar ex. Cras rutrum nec nulla maximus imperdiet. Praesent eu libero vel nisl lacinia commodo eget quis tellus. In quis nibh varius, volutpat sem ac, imperdiet ante. Curabitur commodo sed orci a rutrum. Integer neque lorem, maximus et purus a, venenatis mattis diam. Curabitur gravida molestie odio eget convallis.",
     pictures: [
-      require("../assets/images/sample-girl-3.jpg"),
-      require("../assets/images/beer.jpeg"),
-      require("../assets/images/sample-girl-1.jpeg"),
-      require("../assets/images/sample-girl-2.jpg")
+      require("../assets/images/sample-girl-3-min.jpg"),
+      require("../assets/images/beer-min.jpeg"),
+      require("../assets/images/sample-girl-1-min.jpeg"),
+      require("../assets/images/sample-girl-2-min.jpg")
     ]
   }
 ];
-export default function HomeScreen(props) {
+
+function HomeScreen(props) {
   const { width, height } = Dimensions.get("screen");
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -204,14 +187,15 @@ export default function HomeScreen(props) {
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
           {/* {candidates.reverse().map(candidate => ( */}
-          <CandidateCard
+          {/* <CandidateCard
             key={"test"}
             data={candidates[(currentIndex + 1) % candidates.length]}
             picture={
               candidates[(currentIndex + 1) % candidates.length].pictures[0]
             }
-          />
+          /> */}
           {/* // ))} */}
+
           <PanGestureHandler
             onHandlerStateChange={onGestureEvent}
             {...{ onGestureEvent }}
@@ -264,3 +248,5 @@ const styles = StyleSheet.create<Styles>({
     textAlign: "center"
   }
 });
+
+export default React.memo(HomeScreen);

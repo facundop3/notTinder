@@ -25,9 +25,9 @@ const sampleData = [
 ];
 
 const newMatches = [
-  require("../assets/images/dog-1.jpeg"),
-  require("../assets/images/beer.jpeg"),
-  require("../assets/images/dog-2.jpeg")
+  require("../assets/images/dog-1-min.jpeg"),
+  require("../assets/images/beer-min.jpeg"),
+  require("../assets/images/dog-2-min.jpeg")
 ];
 export default function LinksScreen() {
   const [showChatModal, setShowChatModal] = useState(false);
