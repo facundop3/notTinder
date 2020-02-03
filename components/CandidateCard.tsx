@@ -37,7 +37,6 @@ const CandidateCard: FC = () => {
   const [currentPic, setCurrentPic] = useState(0);
 
   const changePic = (n, length) => {
-    console.log("change pic " + currentPic);
     const nextIndex = n + currentPic;
     if (nextIndex >= 0 && nextIndex < length) {
       setCurrentPic(nextIndex);
@@ -55,7 +54,7 @@ const CandidateCard: FC = () => {
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
-                source={data.pictures[0]}
+                source={data.pictures[currentPic]}
                 key={data.id}
               />
               <Animated.View
