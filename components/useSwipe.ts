@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { State } from "react-native-gesture-handler";
 
@@ -45,7 +45,7 @@ function runSpring(clock, value, dest) {
 }
 
 const useSwipe = callback => {
-  const { width } = Dimensions.get("window");
+  const { width, height } = Dimensions.get("window");
   const [translationX] = useState(new Animated.Value(0));
   const [translationY] = useState(new Animated.Value(0));
   const [velocityX] = useState(new Animated.Value(0));
@@ -81,7 +81,7 @@ const useSwipe = callback => {
   restoreDefault();
 
   const translationThreshold = width / 4;
-  const finalTranslateX = add(translationX, multiply(0.2, velocityX));
+  const finalTranslateX = add(translationX, multiply(0.5, velocityX));
   const onSwiped = ([translateX]) => {
     const isRight = translateX > 0;
     callback && callback(isRight);
@@ -123,13 +123,61 @@ const useSwipe = callback => {
       translationY
     )
   );
+
+  const likeOpacity = Animated.interpolate(translationX, {
+    inputRange: [0, width / 4],
+    outputRange: [0, 1],
+    extrapolate: Animated.Extrapolate.CLAMP
+  });
+  const nopeOpacity = Animated.interpolate(translationX, {
+    inputRange: [-width / 4, 0],
+    outputRange: [1, 0],
+    extrapolate: Animated.Extrapolate.CLAMP
+  });
+  const superLikeOpacity = Animated.interpolate(translationY, {
+    inputRange: [-height / 4, 0],
+    outputRange: [1, 0],
+    extrapolate: Animated.Extrapolate.CLAMP
+  });
+  const rotateZ = Animated.concat(
+    Animated.interpolate(translationX, {
+      inputRange: [-width / 2, width / 2],
+      outputRange: [15, -15],
+      extrapolate: Animated.Extrapolate.CLAMP
+    }),
+    "deg"
+  );
+  const onGestureEvent = Animated.event(
+    [
+      {
+        nativeEvent: {
+          translationX,
+          translationY,
+          velocityX,
+          state: gestureState
+        }
+      }
+    ],
+    {
+      useNativeDriver: true
+    }
+  );
+  const style = {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 900,
+    transform: [
+      { translateX: tempTranslationX },
+      { translateY: tempTranslationY },
+      { rotateZ }
+    ]
+  };
+
   return {
-    tempTranslationX,
-    tempTranslationY,
-    gestureState,
-    velocityX,
-    translationX,
-    translationY
+    style,
+    onGestureEvent,
+    likeOpacity,
+    nopeOpacity,
+    superLikeOpacity
   };
 };
 

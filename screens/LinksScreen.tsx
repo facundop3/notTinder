@@ -8,26 +8,26 @@ const sampleData = [
     id: "bla-1",
     name: "Karen",
     lastMessage: "Ok, see you there !",
-    avatar: require("../assets/images/sample-girl-1.jpeg")
+    avatar: require("../assets/images/sample-girl-1-min.jpeg")
   },
   {
     id: "bla-2",
     name: "Nicol",
     lastMessage: "That's weird",
-    avatar: require("../assets/images/sample-girl-2.jpg")
+    avatar: require("../assets/images/sample-girl-2-min.jpg")
   },
   {
     id: "bla-3",
     name: "Ana",
     lastMessage: "Hi",
-    avatar: require("../assets/images/sample-girl-3.jpg")
+    avatar: require("../assets/images/sample-girl-3-min.jpg")
   }
 ];
 
 const newMatches = [
-  require("../assets/images/dog-1.jpeg"),
-  require("../assets/images/beer.jpeg"),
-  require("../assets/images/dog-2.jpeg")
+  require("../assets/images/dog-1-min.jpeg"),
+  require("../assets/images/beer-min.jpeg"),
+  require("../assets/images/dog-2-min.jpeg")
 ];
 export default function LinksScreen() {
   const [showChatModal, setShowChatModal] = useState(false);
