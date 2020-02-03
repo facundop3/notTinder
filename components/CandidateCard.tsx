@@ -4,8 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableWithoutFeedback,
-  Dimensions
+  TouchableWithoutFeedback
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -107,72 +106,25 @@ const candidatesList: CandidateData[] = [
 const CandidateCard: FC = () => {
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
-  const { width, height } = Dimensions.get("screen");
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
-  const [preRenderedList, setPreRenderedList] = useState<any>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [currentIndex, setCurrentIndex] = useState(0);
   const sampleCallback = isLike => {
     console.log(isLike ? "LIKE" : "NOPE");
-    setCurrentIndex((currentIndex + 1) % candidates.length);
+    // setCurrentIndex((currentIndex + 1) % candidates.length);
+    const [toRemove, ...newCandidates] = candidates;
+    setCandidates(newCandidates);
   };
+
   const {
-    tempTranslationX,
-    tempTranslationY,
-    gestureState,
-    velocityX,
-    translationX,
-    translationY
+    onGestureEvent,
+    likeOpacity,
+    nopeOpacity,
+    superLikeOpacity,
+    style
   } = useSwipe(sampleCallback);
-  const rotateZ = Animated.concat(
-    Animated.interpolate(translationX, {
-      inputRange: [-width / 2, width / 2],
-      outputRange: [15, -15],
-      extrapolate: Animated.Extrapolate.CLAMP
-    }),
-    "deg"
-  );
-  const onGestureEvent = Animated.event(
-    [
-      {
-        nativeEvent: {
-          translationX,
-          translationY,
-          velocityX,
-          state: gestureState
-        }
-      }
-    ],
-    {
-      useNativeDriver: true
-    }
-  );
 
   const [currentPic, setCurrentPic] = useState(0);
 
-  const style = {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 900,
-    transform: [
-      { translateX: tempTranslationX },
-      { translateY: tempTranslationY },
-      { rotateZ }
-    ]
-  };
-  const likeOpacity = Animated.interpolate(translationX, {
-    inputRange: [0, width / 4],
-    outputRange: [0, 1],
-    extrapolate: Animated.Extrapolate.CLAMP
-  });
-  const nopeOpacity = Animated.interpolate(translationX, {
-    inputRange: [-width / 4, 0],
-    outputRange: [1, 0],
-    extrapolate: Animated.Extrapolate.CLAMP
-  });
-  const superLikeOpacity = Animated.interpolate(translationY, {
-    inputRange: [-height / 4, 0],
-    outputRange: [1, 0],
-    extrapolate: Animated.Extrapolate.CLAMP
-  });
   const changePic = (n, length) => {
     console.log("change pic " + currentPic);
     const nextIndex = n + currentPic;
@@ -180,89 +132,82 @@ const CandidateCard: FC = () => {
       setCurrentPic(nextIndex);
     }
   };
-  useEffect(() => {
-    console.log(`Current pic: ${currentPic}`);
-  }, [currentPic]);
-  useEffect(() => {
-    console.log("Candidate card re-rendered");
-  });
-  useEffect(() => {
-    console.log("candidate card mounted");
-    setPreRenderedList(
-      candidates.map(data => (
-        <PanGestureHandler
-          onHandlerStateChange={onGestureEvent}
-          {...{ onGestureEvent }}
-        >
-          <Animated.View {...{ style }}>
-            <View style={styles.container}>
-              <View style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={data.pictures[0]}
-                  key={data.id}
-                />
-                <Animated.View
-                  style={[styles.likeContainer, { opacity: likeOpacity }]}
-                >
-                  <Text style={styles.likeText}>LIKE</Text>
-                </Animated.View>
-                <Animated.View
-                  style={[styles.nopeContainer, { opacity: nopeOpacity }]}
-                >
-                  <Text style={styles.nopeText}>Nope</Text>
-                </Animated.View>
-                <Animated.View
-                  style={[
-                    styles.superLikeContainer,
-                    { opacity: superLikeOpacity }
-                  ]}
-                >
-                  <Text style={styles.superLikeText}>SUPER</Text>
-                  <Text style={styles.superLikeText}>LIKE</Text>
-                </Animated.View>
-                <View style={styles.candidateDataContainer}>
-                  <Text style={styles.nameAndAge}>
-                    <Text style={styles.candidateName}>{data.name}</Text>{" "}
-                    {data.age}
-                  </Text>
-                  <Text style={styles.smallWhiteText}>
-                    <Ionicons name="md-school" size={20} /> {data.school}
-                  </Text>
-                  <Text style={styles.smallWhiteText}>
-                    <MaterialIcons name="location-on" size={20} />{" "}
-                    {data.datingCity}
-                  </Text>
-                </View>
-              </View>
 
-              <TouchableWithoutFeedback
-                onPress={() => changePic(1, data.pictures.length)}
+  const renderCards = data => {
+    return (
+      <PanGestureHandler
+        onHandlerStateChange={onGestureEvent}
+        {...{ onGestureEvent }}
+      >
+        <Animated.View {...{ style }}>
+          <View style={styles.container}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={data.pictures[0]}
+                key={data.id}
+              />
+              <Animated.View
+                style={[styles.likeContainer, { opacity: likeOpacity }]}
               >
-                <View style={styles.nextPic}></View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback
-                onPress={() => changePic(-1, data.pictures.length)}
+                <Text style={styles.likeText}>LIKE</Text>
+              </Animated.View>
+              <Animated.View
+                style={[styles.nopeContainer, { opacity: nopeOpacity }]}
               >
-                <View style={styles.previusPic}></View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={toggleCandidateModal}>
-                <View style={styles.openInfo}></View>
-              </TouchableWithoutFeedback>
+                <Text style={styles.nopeText}>Nope</Text>
+              </Animated.View>
+              <Animated.View
+                style={[
+                  styles.superLikeContainer,
+                  { opacity: superLikeOpacity }
+                ]}
+              >
+                <Text style={styles.superLikeText}>SUPER</Text>
+                <Text style={styles.superLikeText}>LIKE</Text>
+              </Animated.View>
+              <View style={styles.candidateDataContainer}>
+                <Text style={styles.nameAndAge}>
+                  <Text style={styles.candidateName}>{data.name}</Text>{" "}
+                  {data.age}
+                </Text>
+                <Text style={styles.smallWhiteText}>
+                  <Ionicons name="md-school" size={20} /> {data.school}
+                </Text>
+                <Text style={styles.smallWhiteText}>
+                  <MaterialIcons name="location-on" size={20} />{" "}
+                  {data.datingCity}
+                </Text>
+              </View>
             </View>
-          </Animated.View>
-        </PanGestureHandler>
-      ))
+
+            <TouchableWithoutFeedback
+              onPress={() => changePic(1, data.pictures.length)}
+            >
+              <View style={styles.nextPic}></View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => changePic(-1, data.pictures.length)}
+            >
+              <View style={styles.previusPic}></View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={toggleCandidateModal}>
+              <View style={styles.openInfo}></View>
+            </TouchableWithoutFeedback>
+          </View>
+        </Animated.View>
+      </PanGestureHandler>
     );
-  }, []);
+  };
+
   return (
     <>
-      {preRenderedList[currentIndex]}
+      {candidates.map(renderCards)}
       <CandidateModal
         showCandidateModal={showCandidateModal}
         toggleCandidateModal={toggleCandidateModal}
-        data={candidates[currentIndex]}
-        key={candidates[currentIndex].id + "-modal"}
+        data={candidates[0]}
+        key={candidates[0].id + "-modal"}
       />
     </>
   );
