@@ -130,3 +130,11 @@ export const sampleImages = [
   require("./assets/images/beer-min.jpeg"),
   require("./assets/images/dog-2-min.jpeg")
 ];
+
+export const conversation = [
+  { text: "Hello", isInbound: true, id: "msg-1" },
+  { text: "Hello", isInbound: false, id: "msg-2" },
+  { text: "How you doing?", isInbound: true, id: "msg-3" },
+  { text: "I'm good and you?", isInbound: false, id: "msg-4" },
+  { text: "Good good 😄", isInbound: true, id: "msg-5" }
+];

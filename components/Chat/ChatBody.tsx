@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import { ScrollView, Text, StyleSheet, View } from "react-native";
-
+import { Text, StyleSheet, View, FlatList } from "react-native";
+import { conversation } from "../../sampleData";
 interface ChatBubbleProps {
-  message: string;
+  text: string;
   isInbound?: boolean;
+  id: string;
 }
-const ChatBubble: FC<ChatBubbleProps> = ({ message, isInbound }) => {
+const ChatBubble: FC<ChatBubbleProps> = ({ text, isInbound }) => {
   const styles = StyleSheet.create({
     container: {
       alignSelf: isInbound ? "flex-start" : "flex-end"
@@ -22,36 +23,20 @@ const ChatBubble: FC<ChatBubbleProps> = ({ message, isInbound }) => {
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.message}>{message}</Text>
+        <Text style={styles.message}>{text}</Text>
       </View>
     </View>
   );
 };
 const ChatBody: FC = () => {
   return (
-    <ScrollView style={styles.container}>
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-      <ChatBubble message="Hello, how you doing?" isInbound />
-      <ChatBubble message="Fine and you?" />
-      <ChatBubble message="I'm good too" isInbound />
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        data={conversation}
+        renderItem={({ item }) => <ChatBubble {...item} />}
+        keyExtractor={({ id }) => id}
+      />
+    </View>
   );
 };
 
