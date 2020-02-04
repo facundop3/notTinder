@@ -10,10 +10,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Animated from "react-native-reanimated";
 import { colors } from "./UI-Kit";
-import { CandidateData } from "../interfaces";
+import { Candidate } from "../interfaces";
 import CandidateModal from "./CandidateModal";
-import makeSwipable from "./makeSwipable";
-const CandidateCard: FC<CandidateData> = props => {
+const CandidateCard: FC<Candidate> = props => {
   const {
     data,
     likeOpacity = 0,

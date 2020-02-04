@@ -7,7 +7,6 @@ import makeSwipable from "./makeSwipable";
 const CandidateCards = () => {
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(1);
   const sampleCallback = isLike => {
     console.log(isLike ? "LIKE" : "NOPE");
     setCurrentIndex((currentIndex + 1) % candidates.length);
@@ -15,11 +14,15 @@ const CandidateCards = () => {
 
   useEffect(() => {
     console.log(`current index: ${currentIndex}`);
-    setNextIndex((currentIndex + 1) % candidates.length);
   }, [currentIndex]);
   const SwipableCard = makeSwipable(CandidateCard, sampleCallback);
 
-  return candidates.map(data => <SwipableCard {...data} key={data.id} />);
+  return (
+    <SwipableCard
+      {...candidates[currentIndex]}
+      key={candidates[currentIndex].id}
+    />
+  );
 };
 
-export default React.memo(CandidateCards);
+export default CandidateCards;
