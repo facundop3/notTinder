@@ -2,8 +2,11 @@ import React from "react";
 import useSwipe from "./useSwipe";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
-const MakeSwipable = (WrappedComponent, props, callback) => {
-  return () => {
+const MakeSwipable = (
+  WrappedComponent,
+  callback = () => console.log("Swipe without callback")
+) => {
+  return data => {
     const {
       onGestureEvent,
       likeOpacity,
@@ -18,7 +21,7 @@ const MakeSwipable = (WrappedComponent, props, callback) => {
       >
         <Animated.View {...{ style }}>
           <WrappedComponent
-            {...props}
+            data={data}
             likeOpacity={likeOpacity}
             nopeOpacity={nopeOpacity}
             superLikeOpacity={superLikeOpacity}

@@ -12,14 +12,16 @@ import Animated from "react-native-reanimated";
 import { colors } from "./UI-Kit";
 import { CandidateData } from "../interfaces";
 import CandidateModal from "./CandidateModal";
-import { candidatesList } from "../sampleData";
-
+import makeSwipable from "./makeSwipable";
 const CandidateCard: FC<CandidateData> = props => {
-  const { likeOpacity = 0, nopeOpacity = 0, superLikeOpacity = 0 } = props;
+  const {
+    data,
+    likeOpacity = 0,
+    nopeOpacity = 0,
+    superLikeOpacity = 0
+  } = props;
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
-  const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPic, setCurrentPic] = useState(0);
 
   const changePic = (n, length) => {
@@ -86,12 +88,12 @@ const CandidateCard: FC<CandidateData> = props => {
 
   return (
     <>
-      {renderCards(candidates[currentIndex])}
+      {renderCards(data)}
       <CandidateModal
         showCandidateModal={showCandidateModal}
         toggleCandidateModal={toggleCandidateModal}
-        data={candidates[0]}
-        key={candidates[0].id + "-modal"}
+        data={data}
+        key={data.id + "-modal"}
       />
     </>
   );
