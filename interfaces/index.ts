@@ -8,4 +8,7 @@ export interface CandidateData {
   school: string;
   description: string;
   pictures: any[];
+  likeOpacity?: number;
+  nopeOpacity?: number;
+  superLikeOpacity?: number;
 }

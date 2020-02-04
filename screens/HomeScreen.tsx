@@ -11,7 +11,9 @@ import {
 } from "react-native";
 
 import * as firebase from "firebase";
-import CandidateCard from "../components/CandidateCard";
+// import CandidateCard from "../components/CandidateCard";
+import CandidateCards from "../components/CandidateCards";
+
 import TopNavigation from "../components/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { Styles } from "react-native-svg";
@@ -25,7 +27,7 @@ function HomeScreen(props) {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          <CandidateCard />
+          <CandidateCards />
         </View>
         <ActionButtons />
         <View>
