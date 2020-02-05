@@ -14,7 +14,7 @@ import * as firebase from "firebase";
 // import CandidateCard from "../components/CandidateCard";
 import CandidateCards from "../components/CandidateCards";
 
-import TopNavigation from "../components/TopNavigator";
+import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { Styles } from "react-native-svg";
 

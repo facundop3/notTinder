@@ -3,6 +3,7 @@ import { Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import TopNavigator from "./TopNavigator";
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
@@ -15,18 +16,16 @@ const HomeStack = createStackNavigator({
 
 // HomeStack.navigationOptions = {
 //   tabBarLabel: "",
-//   tabBarIcon: ({ focused }) => (
-//     <FontAwesome name="user-circle" size={30} color="#cecece" />
-//   )
+//   tabBarIcon: ({ focused }) => <TopNavigator />
 // };
 
 HomeStack.path = "";
 
-const LinksStack = createStackNavigator({
+const ChatsStack = createStackNavigator({
   Links: LinksScreen
 });
 
-// LinksStack.navigationOptions = {
+// ChatsStack.navigationOptions = {
 //   tabBarLabel: "Links",
 //   tabBarIcon: ({ focused }) => (
 //     <TabBarIcon
@@ -36,13 +35,13 @@ const LinksStack = createStackNavigator({
 //   )
 // };
 
-LinksStack.path = "";
+ChatsStack.path = "";
 
-const SettingsStack = createStackNavigator({
+const ProfileStack = createStackNavigator({
   Settings: SettingsScreen
 });
 
-// SettingsStack.navigationOptions = {
+// ProfileStack.navigationOptions = {
 //   tabBarLabel: "Settings",
 //   tabBarIcon: ({ focused }) => (
 //     <TabBarIcon
@@ -52,12 +51,12 @@ const SettingsStack = createStackNavigator({
 //   )
 // };
 
-SettingsStack.path = "";
+ProfileStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack
+  ChatsStack,
+  ProfileStack
 });
 
 tabNavigator.path = "";
