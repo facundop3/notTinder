@@ -12,7 +12,7 @@ import {
 
 import * as firebase from "firebase";
 // import CandidateCard from "../components/CandidateCard";
-import CandidateCards from "../components/CandidateCards";
+import CandidatesDeck from "../components/CandidatesDeck";
 
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
@@ -27,7 +27,7 @@ function HomeScreen(props) {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          <CandidateCards />
+          <CandidatesDeck />
         </View>
         <ActionButtons />
         <View>
