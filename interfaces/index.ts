@@ -11,7 +11,9 @@ export interface CandidateData {
 }
 export interface Candidate {
   data: CandidateData;
-  likeOpacity?: number;
-  nopeOpacity?: number;
-  superLikeOpacity?: number;
+  opacities: {
+    likeOpacity?: number;
+    nopeOpacity?: number;
+    superLikeOpacity?: number;
+  };
 }

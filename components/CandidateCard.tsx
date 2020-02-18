@@ -15,11 +15,8 @@ import CandidateModal from "./CandidateModal";
 const CandidateCard: FC<Candidate> = props => {
   const {
     data,
-    likeOpacity = 0,
-    nopeOpacity = 0,
-    superLikeOpacity = 0
+    opacities: { likeOpacity = 0, nopeOpacity = 0, superLikeOpacity = 0 }
   } = props;
-
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
   const [currentPic, setCurrentPic] = useState(0);

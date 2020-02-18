@@ -3,7 +3,6 @@ import CandidateCard from "./CandidateCard";
 import { CandidateData } from "../interfaces";
 import { candidatesList } from "../sampleData";
 import { Animated, PanResponder, Dimensions, View } from "react-native";
-// import makeSwipable from "./makeSwipable";
 
 const CandidatesDeck = () => {
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
@@ -72,17 +71,33 @@ const CandidatesDeck = () => {
     }
   });
 
+  const getOpacities = () => {
+    const likeOpacity = position.x.interpolate({
+      inputRange: [0, width / 4],
+      outputRange: [0, 1]
+    });
+
+    const nopeOpacity = position.x.interpolate({
+      inputRange: [-width / 4, 0],
+      outputRange: [1, 0]
+    });
+    const superLikeOpacity = position.y.interpolate({
+      inputRange: [-height / 4, 0],
+      outputRange: [1, 0]
+    });
+    return { likeOpacity, nopeOpacity, superLikeOpacity };
+  };
+
   const getCardStyle = () => {
     const rotate = position.x.interpolate({
       // We increase the range to make the rotation increase slowlier
       inputRange: [-width * 1.5, 0, width * 1.5],
       outputRange: ["120deg", "0deg", "-120deg"]
     });
+
     return {
       ...position.getLayout(),
-      transform: [{ rotate }],
-      backgroundColor: "red",
-      zIndex: 900
+      transform: [{ rotate }]
     };
   };
 
@@ -92,7 +107,10 @@ const CandidatesDeck = () => {
         style={{ ...getCardStyle() }}
         {...panResponder.panHandlers}
       >
-        <CandidateCard data={candidates[currentIndex]} />
+        <CandidateCard
+          data={candidates[currentIndex]}
+          opacities={getOpacities()}
+        />
       </Animated.View>
     </View>
   );
