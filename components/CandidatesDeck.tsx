@@ -8,42 +8,36 @@ const CandidatesDeck = () => {
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const sampleCallback = isLike => {
-    console.log(isLike ? "LIKE" : "NOPE");
-    setCurrentIndex((currentIndex + 1) % candidates.length);
-  };
-
   useEffect(() => {
     console.log(`current index: ${currentIndex}`);
+    resetPosition(false);
   }, [currentIndex]);
   // Wip
   const { width, height } = Dimensions.get("window");
   const horizontalSwipeBreakpoint = 0.25 * width;
   const verticalSwipeBreakPoint = 0.25 * height;
   const position = new Animated.ValueXY();
-  const resetPosition = () => {
+  const resetPosition = completed => {
+    if (completed) {
+      setCurrentIndex((currentIndex + 1) % candidates.length);
+    }
     Animated.spring(position, {
       toValue: { x: 0, y: 0 }
     }).start();
-  };
-  const onSwipeCompleted = () => {
-    console.log("Swipe completed");
   };
 
   const verticalSwipe = () => {
     Animated.timing(position, {
       toValue: { x: 0, y: -height },
       duration: 500
-    }).start();
+    }).start(() => resetPosition(true));
   };
   const horizontalSwipe = (isRight = false) => {
     const translateX = (isRight ? 1 : -1) * width * 1.5;
     Animated.timing(position, {
       toValue: { x: translateX, y: 0 },
       duration: 400
-    }).start(() => {
-      onSwipeCompleted();
-    });
+    }).start(() => resetPosition(true));
     console.log("Liked");
   };
 
@@ -68,7 +62,7 @@ const CandidatesDeck = () => {
         verticalSwipe();
         console.log("Super Like");
       } else {
-        resetPosition();
+        resetPosition(false);
         console.log("reset");
       }
     }
