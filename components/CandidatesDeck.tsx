@@ -49,7 +49,10 @@ const CandidatesDeck = () => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onStartShouldSetPanResponderCapture: () => true,
+    onMoveShouldSetPanResponder: (event, gesture) => {
+      const { dx, dy } = gesture;
+      return Boolean(dx && dy);
+    },
     onPanResponderMove: (event, gesture) => {
       const { dx, dy } = gesture;
       position.setValue({ x: dx, y: dy });
