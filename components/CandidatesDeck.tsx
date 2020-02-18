@@ -8,6 +8,7 @@ import { Animated, PanResponder, Dimensions, View } from "react-native";
 const CandidatesDeck = () => {
   const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const sampleCallback = isLike => {
     console.log(isLike ? "LIKE" : "NOPE");
     setCurrentIndex((currentIndex + 1) % candidates.length);
@@ -16,7 +17,7 @@ const CandidatesDeck = () => {
   useEffect(() => {
     console.log(`current index: ${currentIndex}`);
   }, [currentIndex]);
-
+  // Wip
   const { width, height } = Dimensions.get("window");
   const horizontalSwipeBreakpoint = 0.25 * width;
   const verticalSwipeBreakPoint = 0.25 * height;
@@ -26,7 +27,9 @@ const CandidatesDeck = () => {
       toValue: { x: 0, y: 0 }
     }).start();
   };
-  const onSwipeCompleted = () => {};
+  const onSwipeCompleted = () => {
+    console.log("Swipe completed");
+  };
 
   const verticalSwipe = () => {
     Animated.timing(position, {
@@ -47,11 +50,10 @@ const CandidatesDeck = () => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
+    onStartShouldSetPanResponderCapture: () => true,
     onPanResponderMove: (event, gesture) => {
       const { dx, dy } = gesture;
       position.setValue({ x: dx, y: dy });
-      console.log(dx);
-      console.log(dy);
     },
     onPanResponderRelease: (event, gesture) => {
       if (gesture.dx > horizontalSwipeBreakpoint) {
@@ -60,7 +62,7 @@ const CandidatesDeck = () => {
       } else if (gesture.dx < -horizontalSwipeBreakpoint) {
         horizontalSwipe();
         console.log("Nope");
-      } else if (gesture.dy < verticalSwipeBreakPoint) {
+      } else if (gesture.dy < -verticalSwipeBreakPoint) {
         verticalSwipe();
         console.log("Super Like");
       } else {
@@ -78,16 +80,13 @@ const CandidatesDeck = () => {
     });
     return {
       ...position.getLayout(),
-      transform: [{ rotate }]
+      transform: [{ rotate }],
+      backgroundColor: "red",
+      zIndex: 900
     };
   };
-  // const SwipableCard = makeSwipable(CandidateCard, sampleCallback);
 
   return (
-    // <SwipableCard
-    //   {...candidates[currentIndex]}
-    //   key={candidates[currentIndex].id}
-    // />
     <View style={{ width: "100%" }}>
       <Animated.View
         style={{ ...getCardStyle() }}

@@ -24,7 +24,7 @@ function HomeScreen(props) {
   });
   return (
     <SafeAreaView style={styles.safeView}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
           <CandidatesDeck />
@@ -38,7 +38,7 @@ function HomeScreen(props) {
             <Text style={styles.helpLinkText}>Sign out</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
