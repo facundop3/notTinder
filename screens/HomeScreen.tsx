@@ -12,7 +12,7 @@ import {
 
 import * as firebase from "firebase";
 // import CandidateCard from "../components/CandidateCard";
-import CandidateCards from "../components/CandidateCards";
+import CandidatesDeck from "../components/CandidatesDeck";
 
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
@@ -24,10 +24,10 @@ function HomeScreen(props) {
   });
   return (
     <SafeAreaView style={styles.safeView}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <View contentContainerStyle={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          <CandidateCards />
+          <CandidatesDeck />
         </View>
         <ActionButtons />
         <View>
@@ -38,7 +38,7 @@ function HomeScreen(props) {
             <Text style={styles.helpLinkText}>Sign out</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

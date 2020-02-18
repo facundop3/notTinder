@@ -1,3 +1,4 @@
+import { Animated } from "react-native";
 export interface CandidateData {
   id: string;
   name: string;
@@ -11,7 +12,9 @@ export interface CandidateData {
 }
 export interface Candidate {
   data: CandidateData;
-  likeOpacity?: number;
-  nopeOpacity?: number;
-  superLikeOpacity?: number;
+  opacities: {
+    likeOpacity?: Animated.AnimatedInterpolation;
+    nopeOpacity?: Animated.AnimatedInterpolation;
+    superLikeOpacity?: Animated.AnimatedInterpolation;
+  };
 }

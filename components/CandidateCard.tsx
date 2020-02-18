@@ -4,20 +4,18 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Animated
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Animated from "react-native-reanimated";
 import { colors } from "./UI-Kit";
 import { Candidate } from "../interfaces";
 import CandidateModal from "./CandidateModal";
 const CandidateCard: FC<Candidate> = props => {
   const {
     data,
-    likeOpacity = 0,
-    nopeOpacity = 0,
-    superLikeOpacity = 0
+    opacities: { likeOpacity = 0, nopeOpacity = 0, superLikeOpacity = 0 }
   } = props;
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
