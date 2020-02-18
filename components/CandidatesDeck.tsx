@@ -37,10 +37,10 @@ const CandidatesDeck = () => {
     }).start();
   };
   const horizontalSwipe = (isRight = false) => {
-    const translateX = (isRight ? 1 : -1) * width;
+    const translateX = (isRight ? 1 : -1) * width * 1.5;
     Animated.timing(position, {
       toValue: { x: translateX, y: 0 },
-      duration: 250
+      duration: 400
     }).start(() => {
       onSwipeCompleted();
     });
