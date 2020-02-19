@@ -3,4 +3,14 @@ import Chip from "./Chip";
 import RoundButton from "./RoundButton";
 import CustomSwitch from "./CustomSwitch";
 import colors from "./colors";
-export { Avatar, Chip, RoundButton, CustomSwitch, colors };
+import Modal from "./Modal";
+import AddRemovePhoto from "./AddRemovePhoto";
+export {
+  Avatar,
+  Chip,
+  RoundButton,
+  CustomSwitch,
+  colors,
+  Modal,
+  AddRemovePhoto
+};

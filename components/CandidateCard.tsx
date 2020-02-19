@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { colors } from "./UI-Kit";
+import { colors, Modal } from "./UI-Kit";
 import { Candidate } from "../interfaces";
-import CandidateModal from "./CandidateModal";
+import CandidateProfile from "./CandidateProfile";
 const CandidateCard: FC<Candidate> = props => {
   const {
     data,
@@ -86,12 +86,13 @@ const CandidateCard: FC<Candidate> = props => {
   return (
     <>
       {renderCards(data)}
-      <CandidateModal
-        showCandidateModal={showCandidateModal}
-        toggleCandidateModal={toggleCandidateModal}
-        data={data}
-        key={data.id + "-modal"}
-      />
+      <Modal visible={showCandidateModal}>
+        <CandidateProfile
+          data={data}
+          isModal
+          toggleCandidateModal={toggleCandidateModal}
+        />
+      </Modal>
     </>
   );
 };

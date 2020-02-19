@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Avatar } from "./UI-Kit";
+import { Avatar, Modal } from "./UI-Kit";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RoundButton, colors } from "./UI-Kit";
 import { CandidateData } from "../interfaces";
+import EditProfile from "./EditProfile";
 const ProfileOverview = ({ data }: { data: CandidateData }) => {
   const { name, age, school, pictures = [] } = data;
   const [mainPicture] = pictures;
+  const [showEditProfileModal, setShowEditProfileModal] = useState<boolean>(
+    false
+  );
+  const toggleEditProfile = () => {
+    setShowEditProfileModal(!showEditProfileModal);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.whiteContainer}>
@@ -41,7 +48,7 @@ const ProfileOverview = ({ data }: { data: CandidateData }) => {
             <Text style={styles.buttonSubtitle}>Add Media</Text>
           </View>
           <View>
-            <RoundButton color={colors.grey}>
+            <RoundButton color={colors.grey} onPress={toggleEditProfile}>
               <MaterialCommunityIcons
                 name="pencil"
                 size={30}
@@ -58,6 +65,10 @@ const ProfileOverview = ({ data }: { data: CandidateData }) => {
           <Text style={{ color: colors.red }}>My Plus</Text>
         </RoundButton>
       </View>
+
+      <Modal visible={showEditProfileModal}>
+        <EditProfile></EditProfile>
+      </Modal>
     </View>
   );
 };
