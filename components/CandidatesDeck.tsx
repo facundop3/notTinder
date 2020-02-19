@@ -94,16 +94,15 @@ const CandidatesDeck = () => {
 
     return {
       ...position.getLayout(),
-      transform: [{ rotate }]
+      transform: [{ rotate }],
+      justifyContent: "center",
+      alignItems: "center"
     };
   };
 
   return (
     <View style={{ width: "100%" }}>
-      <Animated.View
-        style={{ ...getCardStyle() }}
-        {...panResponder.panHandlers}
-      >
+      <Animated.View style={getCardStyle()} {...panResponder.panHandlers}>
         <CandidateCard
           data={candidates[currentIndex]}
           opacities={getOpacities()}

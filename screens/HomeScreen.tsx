@@ -24,7 +24,7 @@ function HomeScreen(props) {
   });
   return (
     <SafeAreaView style={styles.safeView}>
-      <View contentContainerStyle={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
           <CandidatesDeck />
@@ -52,8 +52,7 @@ const styles = StyleSheet.create<Styles>({
     paddingTop: Platform.OS === "android" ? 25 : 0
   },
   cardContainer: {
-    height: 650,
-    alignItems: "center"
+    height: 650
   },
   getStartedText: {
     fontSize: 17,
