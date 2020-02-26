@@ -5,6 +5,9 @@ import CustomSwitch from "./CustomSwitch";
 import colors from "./colors";
 import Modal from "./Modal";
 import AddRemovePhoto from "./AddRemovePhoto";
+import LabeledInput from "./LabeledInput";
+import RadioButton from "./RadioButton";
+import LabeledRadioButtons from "./LabeledRadioButtons";
 export {
   Avatar,
   Chip,
@@ -12,5 +15,8 @@ export {
   CustomSwitch,
   colors,
   Modal,
-  AddRemovePhoto
+  AddRemovePhoto,
+  LabeledInput,
+  RadioButton,
+  LabeledRadioButtons
 };

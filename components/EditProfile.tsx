@@ -1,31 +1,32 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { AddRemovePhoto } from "./UI-Kit";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import AddPhotoGrid from "./AddPhotoGrid";
+import ProfileForm from "./ProfileForm";
+import { colors, LabeledRadioButtons } from "./UI-Kit";
 
 const EditProfile = () => {
-  const photos = [...Array(3).keys()];
+  const [selected, setSelected] = useState<boolean>(false);
+  const handleChange = ev => {
+    setSelected(!selected);
+  };
   return (
-    <View style={styles.photosContainer}>
-      {photos.map(n => (
-        <View style={styles.photosRows}>
-          <AddRemovePhoto />
-          <AddRemovePhoto />
-          <AddRemovePhoto />
-        </View>
-      ))}
-    </View>
+    <ScrollView style={styles.container}>
+      <AddPhotoGrid />
+      <ProfileForm />
+      <LabeledRadioButtons
+        options={[
+          { label: "Man", value: "man" },
+          { label: "Woman", value: "woman" }
+        ]}
+        label="Gender"
+      />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  photosContainer: {
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  photosRows: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly"
+  container: {
+    backgroundColor: colors.grey
   }
 });
 
