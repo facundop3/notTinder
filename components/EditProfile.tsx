@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import AddPhotoGrid from "./AddPhotoGrid";
 import ProfileForm from "./ProfileForm";
 import { colors, LabeledRadioButtons } from "./UI-Kit";
 
 const EditProfile = () => {
-  const [selected, setSelected] = useState<boolean>(false);
-  const handleChange = ev => {
-    setSelected(!selected);
-  };
+  const genderOptions = [
+    { label: "Man", value: "man" },
+    { label: "Woman", value: "woman" }
+  ];
   return (
     <ScrollView style={styles.container}>
       <AddPhotoGrid />
       <ProfileForm />
-      <LabeledRadioButtons
-        options={[
-          { label: "Man", value: "man" },
-          { label: "Woman", value: "woman" }
-        ]}
-        label="Gender"
-      />
+      <LabeledRadioButtons options={genderOptions} label="Gender" />
     </ScrollView>
   );
 };

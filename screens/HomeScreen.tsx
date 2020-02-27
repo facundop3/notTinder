@@ -11,6 +11,8 @@ import {
 } from "react-native";
 
 import * as firebase from "firebase";
+
+import Radar from "../components/Radar";
 // import CandidateCard from "../components/CandidateCard";
 import CandidatesDeck from "../components/CandidatesDeck";
 
@@ -27,7 +29,8 @@ function HomeScreen(props) {
       <View style={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          <CandidatesDeck />
+          {/* <CandidatesDeck /> */}
+          <Radar />
         </View>
         <ActionButtons />
         <View>
