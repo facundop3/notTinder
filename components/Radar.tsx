@@ -57,7 +57,7 @@ const Radar = () => {
   return (
     <View style={styles.container}>
       <Avatar img={mainPicture} size={150} style={{ zIndex: 2 }} />
-      <Text>Looking for</Text>
+      {/* <Text>Looking for</Text> */}
       <Animated.View
         style={[styles.circle, styles.animatedCircle, { opacity }]}
       ></Animated.View>

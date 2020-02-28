@@ -1,7 +1,6 @@
 import * as WebBrowser from "expo-web-browser";
 import React, { useEffect } from "react";
 import {
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,10 +11,8 @@ import {
 
 import * as firebase from "firebase";
 
-import Radar from "../components/Radar";
-// import CandidateCard from "../components/CandidateCard";
+// import Radar from "../components/Radar";
 import CandidatesDeck from "../components/CandidatesDeck";
-
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { Styles } from "react-native-svg";
@@ -29,8 +26,8 @@ function HomeScreen(props) {
       <View style={styles.contentContainer}>
         <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
         <View style={styles.cardContainer}>
-          {/* <CandidatesDeck /> */}
-          <Radar />
+          <CandidatesDeck />
+          {/* <Radar /> */}
         </View>
         <ActionButtons />
         <View>
