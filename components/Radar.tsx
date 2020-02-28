@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
-import { colors } from "./UI-Kit";
+import { colors, Avatar } from "./UI-Kit";
+import { candidate } from "../sampleData";
 const Radar = () => {
+  const mainPicture = candidate.pictures[0];
   const [scale] = useState<any>(new Animated.Value(1));
   const [scale2] = useState<any>(new Animated.Value(1));
   const [opacity] = useState<any>(new Animated.Value(0.3));
@@ -54,6 +56,7 @@ const Radar = () => {
   }, []);
   return (
     <View style={styles.container}>
+      <Avatar img={mainPicture} size={150} style={{ zIndex: 2 }} />
       <Text>Looking for</Text>
       <Animated.View
         style={[styles.circle, styles.animatedCircle, { opacity }]}
