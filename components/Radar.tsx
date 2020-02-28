@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, Animated } from "react-native";
 import { colors } from "./UI-Kit";
 const Radar = () => {
   const [scale] = useState<any>(new Animated.Value(1));
+  const [scale2] = useState<any>(new Animated.Value(1));
   const [opacity] = useState<any>(new Animated.Value(0.3));
+  const [opacity2] = useState<any>(new Animated.Value(0.3));
   const styles = StyleSheet.create({
     container: {
       width: "100%",
@@ -16,32 +18,39 @@ const Radar = () => {
       width: 30,
       height: 30,
       borderRadius: 15,
-      zIndex: 0
+      zIndex: 0,
+      position: "absolute"
     },
     animatedCircle: {
       transform: [{ scale }]
+    },
+    animatedCircle2: {
+      transform: [{ scale: scale2 }]
     }
   });
-  const doAnimation = () => {
+  const doAnimation = (scale, opacity, delay = 0) => {
     Animated.sequence([
       Animated.parallel([
         Animated.timing(scale, {
           toValue: 20,
+          delay,
           duration: 4000
         }),
         Animated.timing(opacity, {
           toValue: 0,
+          delay,
           duration: 4000
         })
       ])
     ]).start(() => {
       scale.setValue(1);
       opacity.setValue(0.3);
-      doAnimation();
+      doAnimation(scale, opacity, delay);
     });
   };
   useEffect(() => {
-    doAnimation();
+    doAnimation(scale, opacity);
+    doAnimation(scale2, opacity2, 250);
   }, []);
   return (
     <View style={styles.container}>
@@ -50,7 +59,7 @@ const Radar = () => {
         style={[styles.circle, styles.animatedCircle, { opacity }]}
       ></Animated.View>
       <Animated.View
-        style={[styles.circle, styles.animatedCircle, { opacity }]}
+        style={[styles.circle, styles.animatedCircle2, { opacity }]}
       ></Animated.View>
     </View>
   );
