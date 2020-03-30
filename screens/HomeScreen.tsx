@@ -21,10 +21,14 @@ function HomeScreen(props) {
   useEffect(() => {
     console.log("HomeScreen re-rendered");
   });
+  const navTo = (page: string | object) => {
+    console.log(page);
+    props.navigation.navigate(page);
+  };
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.contentContainer}>
-        <TopNavigation navToChat={() => props.navigation.navigate("Links")} />
+        <TopNavigation navTo={navTo} />
         <View style={styles.cardContainer}>
           <CandidatesDeck />
           {/* <Radar /> */}

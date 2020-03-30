@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grey,
     height: "100%",
     alignItems: "center",
-    position: "relative"
+    position: "relative",
+    overflow: "hidden"
   },
   nameAge: {
     fontSize: 25,

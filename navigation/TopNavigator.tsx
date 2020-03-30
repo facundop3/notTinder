@@ -10,16 +10,16 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { CustomSwitch } from "../components/UI-Kit";
 
 interface Props {
-  navToChat?: () => void;
+  navTo?: (str: string | object) => any;
 }
-const TopNavigator: FC<Props> = ({ navToChat }) => {
+const TopNavigator: FC<Props> = ({ navTo }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => ""}>
+      <TouchableWithoutFeedback onPress={() => navTo("Profile")}>
         <FontAwesome name="user-circle" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
       <CustomSwitch />
-      <TouchableWithoutFeedback onPress={navToChat}>
+      <TouchableWithoutFeedback onPress={() => navTo("Chat")}>
         <AntDesign name="message1" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
     </SafeAreaView>
