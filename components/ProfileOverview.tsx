@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Avatar, Modal } from "./UI-Kit";
+import { Avatar } from "./UI-Kit";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RoundButton, colors } from "./UI-Kit";
 import { CandidateData } from "../interfaces";
-import EditProfile from "./EditProfile";
-const ProfileOverview = ({ data }: { data: CandidateData }) => {
+// import EditProfile from "./EditProfile";
+const ProfileOverview = ({
+  data,
+  navigation
+}: {
+  data: CandidateData;
+  navigation: any;
+}) => {
   const { name, age, school, pictures = [] } = data;
   const [mainPicture] = pictures;
-  const [showEditProfileModal, setShowEditProfileModal] = useState<boolean>(
-    false
-  );
-  const toggleEditProfile = () => {
-    setShowEditProfileModal(!showEditProfileModal);
+  const navToEditProfile = () => {
+    navigation.navigate("ProfileEditScreen");
+  };
+  const navToSettings = () => {
+    navigation.navigate("SettingsScreen");
   };
   return (
     <View style={styles.container}>
@@ -25,7 +31,7 @@ const ProfileOverview = ({ data }: { data: CandidateData }) => {
 
         <View style={styles.centralActionContainer}>
           <View>
-            <RoundButton color={colors.grey} onPress={() => {}}>
+            <RoundButton color={colors.grey} onPress={navToSettings}>
               <FontAwesome name="gear" size={30} color={colors.darkGrey} />
             </RoundButton>
             <Text style={styles.buttonSubtitle}>Settings</Text>
@@ -48,7 +54,7 @@ const ProfileOverview = ({ data }: { data: CandidateData }) => {
             <Text style={styles.buttonSubtitle}>Add Media</Text>
           </View>
           <View>
-            <RoundButton color={colors.grey} onPress={toggleEditProfile}>
+            <RoundButton color={colors.grey} onPress={navToEditProfile}>
               <MaterialCommunityIcons
                 name="pencil"
                 size={30}
@@ -65,10 +71,6 @@ const ProfileOverview = ({ data }: { data: CandidateData }) => {
           <Text style={{ color: colors.red }}>My Plus</Text>
         </RoundButton>
       </View>
-
-      <Modal visible={showEditProfileModal}>
-        <EditProfile></EditProfile>
-      </Modal>
     </View>
   );
 };

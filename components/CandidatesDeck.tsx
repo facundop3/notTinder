@@ -1,45 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import CandidateCard from "./CandidateCard";
 import { CandidateData } from "../interfaces";
-import { candidatesList } from "../sampleData";
+// import { candidatesList } from "../sampleData";
 import { Animated, PanResponder, Dimensions, View } from "react-native";
 
-const CandidatesDeck = () => {
-  const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
-  const [currentIndex, setCurrentIndex] = useState(0);
+interface Props {
+  candidateCardPosition: any;
+  candidates: CandidateData[];
+  verticalSwipe: () => void;
+  horizontalSwipe: (isLike: boolean) => void;
+  resetPosition: (isCompleted: boolean) => void;
+  currentCandidatendex: number;
+}
+const CandidatesDeck: FC<Props> = ({
+  candidateCardPosition,
+  candidates,
+  verticalSwipe,
+  horizontalSwipe,
+  resetPosition,
+  currentCandidatendex
+}) => {
+  // const [candidates, setCandidates] = useState<CandidateData[]>(candidatesList);
+  // const [currentCandidatendex, setcurrentCandidatendex] = useState(0);
 
   useEffect(() => {
-    console.log(`current index: ${currentIndex}`);
+    console.log(`current index: ${currentCandidatendex}`);
     resetPosition(false);
-  }, [currentIndex]);
+  }, [currentCandidatendex]);
   // Wip
   const { width, height } = Dimensions.get("window");
   const horizontalSwipeBreakpoint = 0.25 * width;
   const verticalSwipeBreakPoint = 0.25 * height;
-  const position = new Animated.ValueXY();
-  const resetPosition = completed => {
-    if (completed) {
-      setCurrentIndex((currentIndex + 1) % candidates.length);
-    }
-    Animated.spring(position, {
-      toValue: { x: 0, y: 0 }
-    }).start();
-  };
+  const position = candidateCardPosition;
+  // const resetPosition = completed => {
+  //   if (completed) {
+  //     setcurrentCandidatendex((currentCandidatendex + 1) % candidates.length);
+  //   }
+  //   Animated.spring(position, {
+  //     toValue: { x: 0, y: 0 }
+  //   }).start();
+  // };
 
-  const verticalSwipe = () => {
-    Animated.timing(position, {
-      toValue: { x: 0, y: -height },
-      duration: 500
-    }).start(() => resetPosition(true));
-  };
-  const horizontalSwipe = (isRight = false) => {
-    const translateX = (isRight ? 1 : -1) * width * 1.5;
-    Animated.timing(position, {
-      toValue: { x: translateX, y: 0 },
-      duration: 400
-    }).start(() => resetPosition(true));
-    console.log("Liked");
-  };
+  // const verticalSwipe = () => {
+  //   Animated.timing(position, {
+  //     toValue: { x: 0, y: -height },
+  //     duration: 500
+  //   }).start(() => resetPosition(true));
+  // };
+  // const horizontalSwipe = (isRight = false) => {
+  //   const translateX = (isRight ? 1 : -1) * width * 1.5;
+  //   Animated.timing(position, {
+  //     toValue: { x: translateX, y: 0 },
+  //     duration: 400
+  //   }).start(() => resetPosition(true));
+  //   console.log("Liked");
+  // };
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -56,7 +71,7 @@ const CandidatesDeck = () => {
         horizontalSwipe(true);
         console.log("Like");
       } else if (gesture.dx < -horizontalSwipeBreakpoint) {
-        horizontalSwipe();
+        horizontalSwipe(false);
         console.log("Nope");
       } else if (gesture.dy < -verticalSwipeBreakPoint) {
         verticalSwipe();
@@ -104,7 +119,7 @@ const CandidatesDeck = () => {
     <View style={{ width: "100%" }}>
       <Animated.View style={getCardStyle()} {...panResponder.panHandlers}>
         <CandidateCard
-          data={candidates[currentIndex]}
+          data={candidates[currentCandidatendex]}
           opacities={getOpacities()}
         />
       </Animated.View>

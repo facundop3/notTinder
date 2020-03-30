@@ -1,12 +1,14 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   SafeAreaView,
-  Platform
+  Platform,
+  Animated,
+  Dimensions
 } from "react-native";
 
 import * as firebase from "firebase";
@@ -15,12 +17,40 @@ import * as firebase from "firebase";
 import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
-import { Styles } from "react-native-svg";
+import { candidatesList as candidates } from "../sampleData";
 
 function HomeScreen(props) {
+  const { width, height } = Dimensions.get("window");
+  const candidateCardPosition = new Animated.ValueXY();
+  const [currentCandidatendex, setCurrentCardIndex] = useState(0);
   useEffect(() => {
     console.log("HomeScreen re-rendered");
   });
+  const verticalSwipe = () => {
+    Animated.timing(candidateCardPosition, {
+      toValue: { x: 0, y: -height },
+      duration: 500
+    }).start(() => resetPosition(true));
+  };
+
+  const horizontalSwipe = (isRight = false) => {
+    const translateX = (isRight ? 1 : -1) * width * 1.5;
+    Animated.timing(candidateCardPosition, {
+      toValue: { x: translateX, y: 0 },
+      duration: 400
+    }).start(() => resetPosition(true));
+    console.log("Liked");
+  };
+
+  const resetPosition = completed => {
+    if (completed) {
+      setCurrentCardIndex((currentCandidatendex + 1) % candidates.length);
+    }
+    Animated.spring(candidateCardPosition, {
+      toValue: { x: 0, y: 0 }
+    }).start();
+  };
+
   const navTo = (page: string | object) => {
     console.log(page);
     props.navigation.navigate(page);
@@ -30,10 +60,20 @@ function HomeScreen(props) {
       <View style={styles.contentContainer}>
         <TopNavigation navTo={navTo} />
         <View style={styles.cardContainer}>
-          <CandidatesDeck />
+          <CandidatesDeck
+            candidateCardPosition={candidateCardPosition}
+            candidates={candidates}
+            verticalSwipe={verticalSwipe}
+            horizontalSwipe={horizontalSwipe}
+            resetPosition={resetPosition}
+            currentCandidatendex={currentCandidatendex}
+          />
           {/* <Radar /> */}
         </View>
-        <ActionButtons />
+        <ActionButtons
+          horizontalSwipe={horizontalSwipe}
+          verticalSwipe={verticalSwipe}
+        />
         <View>
           <TouchableOpacity
             onPress={() => firebase.auth().signOut()}
@@ -51,7 +91,7 @@ HomeScreen.navigationOptions = {
   header: null
 };
 
-const styles = StyleSheet.create<Styles>({
+const styles = StyleSheet.create<any>({
   safeView: {
     paddingTop: Platform.OS === "android" ? 25 : 0
   },
@@ -66,4 +106,4 @@ const styles = StyleSheet.create<Styles>({
   }
 });
 
-export default React.memo(HomeScreen);
+export default HomeScreen;

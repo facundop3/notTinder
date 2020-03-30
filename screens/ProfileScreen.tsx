@@ -1,10 +1,10 @@
 import React from "react";
 import ProfileOverview from "../components/ProfileOverview";
 import { candidate } from "../sampleData";
-export default function SettingsScreen() {
-  return <ProfileOverview data={candidate} />;
+export default function ProfileScreen({ navigation }) {
+  return <ProfileOverview data={candidate} navigation={navigation} />;
 }
 
-SettingsScreen.navigationOptions = {
+ProfileScreen.navigationOptions = {
   title: "My Profile"
 };
