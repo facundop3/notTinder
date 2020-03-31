@@ -33,7 +33,7 @@ const NewMatchItem = props => {
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
       <Avatar size={70} img={props.img} />
-      <Text>Name</Text>
+      <Text>{props.name}</Text>
     </View>
   );
 };
@@ -78,7 +78,10 @@ const Conversations = props => {
           style={{ paddingVertical: 16 }}
           data={newMatches}
           horizontal
-          renderItem={({ item }, i) => <NewMatchItem img={item} />}
+          renderItem={({ item }) => (
+            <NewMatchItem img={item.avatar} name={item.name} />
+          )}
+          keyExtractor={item => item.id}
         />
       </View>
       <View style={styles.newMatchesContainer}>

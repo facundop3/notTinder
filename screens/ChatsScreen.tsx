@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import Conversations from "../components/Conversations";
 import ChatModal from "../components/Chat/ChatModal";
-import { sampleChatList, sampleImages } from "../sampleData";
+import { sampleChatList } from "../sampleData";
 export default function LinksScreen() {
   const [showChatModal, setShowChatModal] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
@@ -16,7 +16,7 @@ export default function LinksScreen() {
       <Conversations
         conversationsList={sampleChatList}
         toggleChatModal={toggleChatModal}
-        newMatches={sampleImages}
+        newMatches={sampleChatList}
       />
       <ChatModal
         showChatModal={showChatModal}

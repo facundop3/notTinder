@@ -5,7 +5,8 @@ import {
   TouchableWithoutFeedback,
   Image
 } from "react-native";
-import { RoundButton, colors } from "./";
+import colors from "./colors";
+import RoundButton from "./RoundButton";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";

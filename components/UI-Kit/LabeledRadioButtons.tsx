@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { RadioButton } from ".";
+import RadioButton from "./RadioButton";
 
 interface option {
   value: string;

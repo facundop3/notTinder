@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, TouchableWithoutFeedback } from "react-native";
-import { colors } from "./";
+import colors from "./colors";
 
 interface Props {
   selected?: boolean;
