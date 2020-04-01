@@ -25,7 +25,7 @@ const LabeledRadioButtons: FC<Props> = props => {
       <View style={styles.container}>
         {options.map(option => {
           return (
-            <View style={styles.radioContainer}>
+            <View style={styles.radioContainer} key={option.value}>
               <RadioButton
                 selected={selectedOption.value === option.value}
                 handlePress={() => handlePress(option)}

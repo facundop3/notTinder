@@ -8,6 +8,7 @@ import AddRemovePhoto from "./AddRemovePhoto";
 import LabeledInput from "./LabeledInput";
 import RadioButton from "./RadioButton";
 import LabeledRadioButtons from "./LabeledRadioButtons";
+import Slider from "./Slider";
 export {
   Avatar,
   Chip,
@@ -18,5 +19,6 @@ export {
   AddRemovePhoto,
   LabeledInput,
   RadioButton,
-  LabeledRadioButtons
+  LabeledRadioButtons,
+  Slider
 };

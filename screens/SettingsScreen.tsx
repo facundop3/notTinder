@@ -6,8 +6,6 @@ export default function SettingsScreen({ navigation }) {
   return (
     <View>
       <SettingsForm />
-      <Text>Show me:</Text>
-      <Text>Max distance</Text>
       <Text>Age range</Text>
       <Text>Log out</Text>
       <Text>Delete account</Text>

@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { LabeledRadioButtons } from "../components/UI-Kit";
+import React, { useState } from "react";
+import { View } from "react-native";
+import { LabeledRadioButtons, Slider } from "../components/UI-Kit";
 
 const SettingsForm = () => {
+  const [maxDistance, setMaxDistance] = useState<number>(10);
   const options = [
     { value: "Women", label: "Women" },
     { value: "Men", label: "Men" },
@@ -10,8 +11,8 @@ const SettingsForm = () => {
   ];
   return (
     <View>
-      <Text>Show me:</Text>
       <LabeledRadioButtons label="Show me:" options={options} />
+      <Slider value={maxDistance} onChange={setMaxDistance} />
     </View>
   );
 };
