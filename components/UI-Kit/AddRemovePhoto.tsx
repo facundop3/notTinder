@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import {
   View,
   StyleSheet,
@@ -11,7 +11,11 @@ import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-const AddRemovePhoto = () => {
+
+interface Props {
+  uploadImage: (uri: string) => any;
+}
+const AddRemovePhoto: FC<Props> = ({ uploadImage }) => {
   const [image, setImage] = useState<any>(false);
   const pickPic = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -20,7 +24,6 @@ const AddRemovePhoto = () => {
       aspect: [4, 3],
       quality: 1
     });
-    console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -35,8 +38,7 @@ const AddRemovePhoto = () => {
     }
   };
   const saveImageToFirestore = data => {
-    console.log("data:");
-    console.log(data);
+    uploadImage(data.uri);
   };
   const handlePress = () => {
     getPermissionAsync()

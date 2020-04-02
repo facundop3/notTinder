@@ -9,6 +9,7 @@ import LabeledInput from "./LabeledInput";
 import RadioButton from "./RadioButton";
 import LabeledRadioButtons from "./LabeledRadioButtons";
 import Slider from "./Slider";
+import RangeSlider from "./RangeSlider";
 export {
   Avatar,
   Chip,
@@ -20,5 +21,6 @@ export {
   LabeledInput,
   RadioButton,
   LabeledRadioButtons,
-  Slider
+  Slider,
+  RangeSlider
 };

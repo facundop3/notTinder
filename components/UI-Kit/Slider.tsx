@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, Text, StyleSheet, Slider } from "react-native";
-import { colors } from ".";
+import colors from "./colors";
 
 interface Props {
   value: number;
