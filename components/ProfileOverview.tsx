@@ -4,16 +4,17 @@ import { Avatar } from "./UI-Kit";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RoundButton, colors } from "./UI-Kit";
 import { CandidateData } from "../interfaces";
-// import EditProfile from "./EditProfile";
 const ProfileOverview = ({
   data,
-  navigation
+  navigation,
+  params
 }: {
   data: CandidateData;
   navigation: any;
+  params: any;
 }) => {
-  const { name, age, school, pictures = [] } = data;
-  const [mainPicture] = pictures;
+  const { name, age, school } = data;
+  const { profileImage } = params;
   const navToEditProfile = () => {
     navigation.navigate("ProfileEditScreen");
   };
@@ -23,7 +24,7 @@ const ProfileOverview = ({
   return (
     <View style={styles.container}>
       <View style={styles.whiteContainer}>
-        <Avatar img={mainPicture} size={150} />
+        <Avatar img={profileImage} size={150} />
         <Text style={styles.nameAge}>
           {name}, {age}
         </Text>

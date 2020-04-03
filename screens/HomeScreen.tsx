@@ -14,15 +14,17 @@ import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
+import { getImageUrl } from "../utils";
 
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<string>("");
   useEffect(() => {
-    console.log("HomeScreen re-rendered");
-  });
+    getImageUrl(0).then(setProfileImage);
+  }, []);
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },
@@ -48,9 +50,8 @@ function HomeScreen(props) {
     }).start();
   };
 
-  const navTo = (page: string | object) => {
-    console.log(page);
-    props.navigation.navigate(page);
+  const navTo = (page: string, params: object = {}) => {
+    props.navigation.navigate(page, params);
   };
   return (
     <SafeAreaView style={styles.safeView}>
@@ -59,6 +60,7 @@ function HomeScreen(props) {
           navTo={navTo}
           switchValue={isGlodPage}
           handleSwitchChange={setIsGoldPage}
+          profileImage={profileImage}
         />
         {!isGlodPage && (
           <>

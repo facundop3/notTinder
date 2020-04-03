@@ -10,18 +10,22 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { CustomSwitch } from "../components/UI-Kit";
 
 interface Props {
-  navTo?: (str: string | object) => any;
+  navTo?: (str: string | object, params?: object) => any;
   switchValue: boolean;
   handleSwitchChange: (value: boolean) => void;
+  profileImage: string;
 }
 const TopNavigator: FC<Props> = ({
   navTo,
   switchValue,
-  handleSwitchChange
+  handleSwitchChange,
+  profileImage
 }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => navTo("Profile")}>
+      <TouchableWithoutFeedback
+        onPress={() => navTo("Profile", { profileImage })}
+      >
         <FontAwesome name="user-circle" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
       <CustomSwitch

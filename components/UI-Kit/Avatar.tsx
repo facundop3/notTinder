@@ -20,7 +20,8 @@ const Avatar: React.FC<Props> = ({ img, size = 60, style = {} }) => {
       ...style
     }
   });
-  return <Image style={styles.avatar} source={img} />;
+  const source = typeof img === "string" ? { uri: img } : img;
+  return <Image style={styles.avatar} source={source} />;
 };
 
 export default Avatar;
