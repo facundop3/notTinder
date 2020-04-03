@@ -2,6 +2,7 @@ import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 import * as firebase from "firebase";
+import "firebase/firestore";
 
 export const getCameraRollPermissionAsync = async () => {
   if (Constants.platform.ios) {
@@ -64,4 +65,20 @@ export const deleteImage = async (id: number | string) => {
 
 export const signOut = () => {
   firebase.auth().signOut();
+};
+
+export const getMyProfileData = async () => {
+  const userId = firebase.auth().currentUser.uid;
+  const db = firebase.firestore();
+  const userDocumentRef = db.collection("users").doc(userId);
+  try {
+    const doc = await userDocumentRef.get();
+    if (doc.exists) {
+      return doc.data();
+    } else {
+      console.log("No profile data for this user");
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
