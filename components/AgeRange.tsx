@@ -15,7 +15,7 @@ const AgeRange: FC<Props> = ({
   maxAge
 }) => {
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.redLabel}>Age Range:</Text>
       <View style={styles.inputContainer}>
         <View style={styles.inputLabelContainer}>
@@ -44,9 +44,6 @@ const AgeRange: FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 15
-  },
   redLabel: {
     fontSize: 20,
     fontWeight: "bold",

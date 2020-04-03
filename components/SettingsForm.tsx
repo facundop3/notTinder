@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import { LabeledRadioButtons, Slider } from "../components/UI-Kit";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  LabeledRadioButtons,
+  Slider,
+  Card,
+  colors
+} from "../components/UI-Kit";
 import AgeRange from "./AgeRange";
+import { signOut } from "../utils";
 const SettingsForm = () => {
   const [maxDistance, setMaxDistance] = useState<number>(10);
   const [minAge, setMinAge] = useState<number>(18);
@@ -22,17 +28,40 @@ const SettingsForm = () => {
     { value: "Everyone", label: "Everyone" }
   ];
   return (
-    <View>
-      <LabeledRadioButtons label="Show me:" options={options} />
-      <Slider value={maxDistance} onChange={setMaxDistance} />
-      <AgeRange
-        minAge={minAge}
-        handleMinAgeChange={handleMinAgeChange}
-        handleMaxAgeChange={handleMaxAgeChange}
-        maxAge={maxAge}
-      />
+    <View style={styles.container}>
+      <Card>
+        <LabeledRadioButtons label="Show me:" options={options} />
+      </Card>
+      <Card>
+        <Slider value={maxDistance} onChange={setMaxDistance} />
+      </Card>
+      <Card>
+        <AgeRange
+          minAge={minAge}
+          handleMinAgeChange={handleMinAgeChange}
+          handleMaxAgeChange={handleMaxAgeChange}
+          maxAge={maxAge}
+        />
+      </Card>
+      <TouchableOpacity onPress={signOut}>
+        <Card>
+          <Text style={styles.logoutLabel}>logout</Text>
+        </Card>
+      </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.grey,
+    height: "100%"
+  },
+  logoutLabel: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});
 
 export default SettingsForm;

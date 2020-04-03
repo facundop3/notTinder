@@ -2,16 +2,12 @@ import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   SafeAreaView,
   Platform,
   Animated,
   Dimensions
 } from "react-native";
-
-import * as firebase from "firebase";
 
 // import Radar from "../components/Radar";
 import CandidatesDeck from "../components/CandidatesDeck";
@@ -74,14 +70,6 @@ function HomeScreen(props) {
           horizontalSwipe={horizontalSwipe}
           verticalSwipe={verticalSwipe}
         />
-        <View>
-          <TouchableOpacity
-            onPress={() => firebase.auth().signOut()}
-            style={styles.helpLink}
-          >
-            <Text style={styles.helpLinkText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );

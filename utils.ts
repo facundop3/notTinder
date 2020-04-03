@@ -49,3 +49,7 @@ export const deleteImage = async () => {
       // Uh-oh, an error occurred!
     });
 };
+
+export const signOut = () => {
+  firebase.auth().signOut();
+};
