@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import {
   View,
   StyleSheet,
@@ -8,52 +8,45 @@ import {
 import colors from "./colors";
 import RoundButton from "./RoundButton";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
-import * as Permissions from "expo-permissions";
+import {
+  getCameraRollPermissionAsync,
+  pickImage,
+  uploadImage,
+  deleteImage,
+  getImageUrl
+} from "../../utils";
 
 interface Props {
-  uploadImage: (uri: string) => any;
+  id: number;
 }
-const AddRemovePhoto: FC<Props> = ({ uploadImage }) => {
+
+const AddRemovePhoto: FC<Props> = ({ id }) => {
   const [image, setImage] = useState<any>(false);
-  const pickPic = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1
-    });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-    return result;
-  };
-  const getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
-      }
-    }
-  };
-  const saveImageToFirestore = data => {
-    uploadImage(data.uri);
-  };
-  const handlePress = () => {
-    getPermissionAsync()
-      .then(pickPic)
-      .then(saveImageToFirestore);
+
+  useEffect(() => {
+    getImageUrl(id)
+      .then(setImage)
+      .catch(() => {
+        setImage(false);
+      });
+  }, []);
+
+  const saveImage = async () => {
+    await getCameraRollPermissionAsync();
+    const image = await pickImage();
+    setImage(image.uri);
+    uploadImage(image.uri, id);
   };
   const handleButtonPressed = () => {
     if (image) {
+      deleteImage(id);
       setImage(false);
     } else {
-      handlePress();
+      saveImage();
     }
   };
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={saveImage}>
       <View style={styles.AddRemovePhoto}>
         {image ? (
           <Image source={{ uri: image }} style={styles.image} />

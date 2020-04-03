@@ -32,8 +32,7 @@ const CustomSlider: FC<Props> = ({ value, onChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
-    padding: 15
+    backgroundColor: "#FFF"
   },
   redLabel: {
     fontSize: 20,

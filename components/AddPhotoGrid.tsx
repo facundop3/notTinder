@@ -1,29 +1,25 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { AddRemovePhoto } from "./UI-Kit";
-import * as firebase from "firebase";
 
 const AddPhotoGrid = () => {
-  const photos = [...Array(3).keys()];
-  const uploadImage = async (uri: string) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const ref = firebase
-      .storage()
-      .ref()
-      .child("my-image");
-    const putResult = ref.put(blob);
-    return putResult;
-  };
   return (
     <View style={styles.photosContainer}>
-      {photos.map(n => (
-        <View style={styles.photosRows} key={n}>
-          <AddRemovePhoto uploadImage={uploadImage} />
-          <AddRemovePhoto uploadImage={uploadImage} />
-          <AddRemovePhoto uploadImage={uploadImage} />
-        </View>
-      ))}
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={0} />
+        <AddRemovePhoto id={1} />
+        <AddRemovePhoto id={2} />
+      </View>
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={3} />
+        <AddRemovePhoto id={4} />
+        <AddRemovePhoto id={5} />
+      </View>
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={6} />
+        <AddRemovePhoto id={7} />
+        <AddRemovePhoto id={8} />
+      </View>
     </View>
   );
 };

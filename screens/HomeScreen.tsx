@@ -2,8 +2,6 @@ import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   SafeAreaView,
   Platform,
@@ -11,21 +9,22 @@ import {
   Dimensions
 } from "react-native";
 
-import * as firebase from "firebase";
-
 // import Radar from "../components/Radar";
 import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
+import { getImageUrl } from "../utils";
 
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
+  const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<string>("");
   useEffect(() => {
-    console.log("HomeScreen re-rendered");
-  });
+    getImageUrl(0).then(setProfileImage);
+  }, []);
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },
@@ -51,37 +50,37 @@ function HomeScreen(props) {
     }).start();
   };
 
-  const navTo = (page: string | object) => {
-    console.log(page);
-    props.navigation.navigate(page);
+  const navTo = (page: string, params: object = {}) => {
+    props.navigation.navigate(page, params);
   };
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.contentContainer}>
-        <TopNavigation navTo={navTo} />
-        <View style={styles.cardContainer}>
-          <CandidatesDeck
-            candidateCardPosition={candidateCardPosition}
-            candidates={candidates}
-            verticalSwipe={verticalSwipe}
-            horizontalSwipe={horizontalSwipe}
-            resetPosition={resetPosition}
-            currentCandidatendex={currentCandidatendex}
-          />
-          {/* <Radar /> */}
-        </View>
-        <ActionButtons
-          horizontalSwipe={horizontalSwipe}
-          verticalSwipe={verticalSwipe}
+        <TopNavigation
+          navTo={navTo}
+          switchValue={isGlodPage}
+          handleSwitchChange={setIsGoldPage}
+          profileImage={profileImage}
         />
-        <View>
-          <TouchableOpacity
-            onPress={() => firebase.auth().signOut()}
-            style={styles.helpLink}
-          >
-            <Text style={styles.helpLinkText}>Sign out</Text>
-          </TouchableOpacity>
-        </View>
+        {!isGlodPage && (
+          <>
+            <View style={styles.cardContainer}>
+              <CandidatesDeck
+                candidateCardPosition={candidateCardPosition}
+                candidates={candidates}
+                verticalSwipe={verticalSwipe}
+                horizontalSwipe={horizontalSwipe}
+                resetPosition={resetPosition}
+                currentCandidatendex={currentCandidatendex}
+              />
+              {/* <Radar /> */}
+            </View>
+            <ActionButtons
+              horizontalSwipe={horizontalSwipe}
+              verticalSwipe={verticalSwipe}
+            />
+          </>
+        )}
       </View>
     </SafeAreaView>
   );
