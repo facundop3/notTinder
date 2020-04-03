@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, FC } from "react";
 import {
   View,
   StyleSheet,
@@ -12,20 +12,34 @@ import {
   getCameraRollPermissionAsync,
   pickImage,
   uploadImage,
-  deleteImage
+  deleteImage,
+  getImageUrl
 } from "../../utils";
 
-const AddRemovePhoto = () => {
+interface Props {
+  id: number;
+}
+
+const AddRemovePhoto: FC<Props> = ({ id }) => {
   const [image, setImage] = useState<any>(false);
+
+  useEffect(() => {
+    getImageUrl(id)
+      .then(setImage)
+      .catch(() => {
+        setImage(false);
+      });
+  }, []);
+
   const saveImage = async () => {
     await getCameraRollPermissionAsync();
     const image = await pickImage();
     setImage(image.uri);
-    uploadImage(image.uri);
+    uploadImage(image.uri, id);
   };
   const handleButtonPressed = () => {
     if (image) {
-      deleteImage();
+      deleteImage(id);
       setImage(false);
     } else {
       saveImage();

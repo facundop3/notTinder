@@ -19,6 +19,7 @@ function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
+  const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
   useEffect(() => {
     console.log("HomeScreen re-rendered");
   });
@@ -54,22 +55,30 @@ function HomeScreen(props) {
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.contentContainer}>
-        <TopNavigation navTo={navTo} />
-        <View style={styles.cardContainer}>
-          <CandidatesDeck
-            candidateCardPosition={candidateCardPosition}
-            candidates={candidates}
-            verticalSwipe={verticalSwipe}
-            horizontalSwipe={horizontalSwipe}
-            resetPosition={resetPosition}
-            currentCandidatendex={currentCandidatendex}
-          />
-          {/* <Radar /> */}
-        </View>
-        <ActionButtons
-          horizontalSwipe={horizontalSwipe}
-          verticalSwipe={verticalSwipe}
+        <TopNavigation
+          navTo={navTo}
+          switchValue={isGlodPage}
+          handleSwitchChange={setIsGoldPage}
         />
+        {!isGlodPage && (
+          <>
+            <View style={styles.cardContainer}>
+              <CandidatesDeck
+                candidateCardPosition={candidateCardPosition}
+                candidates={candidates}
+                verticalSwipe={verticalSwipe}
+                horizontalSwipe={horizontalSwipe}
+                resetPosition={resetPosition}
+                currentCandidatendex={currentCandidatendex}
+              />
+              {/* <Radar /> */}
+            </View>
+            <ActionButtons
+              horizontalSwipe={horizontalSwipe}
+              verticalSwipe={verticalSwipe}
+            />
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

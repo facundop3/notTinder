@@ -3,16 +3,23 @@ import { View, StyleSheet } from "react-native";
 import { AddRemovePhoto } from "./UI-Kit";
 
 const AddPhotoGrid = () => {
-  const photos = [...Array(3).keys()];
   return (
     <View style={styles.photosContainer}>
-      {photos.map(n => (
-        <View style={styles.photosRows} key={n}>
-          <AddRemovePhoto />
-          <AddRemovePhoto />
-          <AddRemovePhoto />
-        </View>
-      ))}
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={0} />
+        <AddRemovePhoto id={1} />
+        <AddRemovePhoto id={2} />
+      </View>
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={3} />
+        <AddRemovePhoto id={4} />
+        <AddRemovePhoto id={5} />
+      </View>
+      <View style={styles.photosRows}>
+        <AddRemovePhoto id={6} />
+        <AddRemovePhoto id={7} />
+        <AddRemovePhoto id={8} />
+      </View>
     </View>
   );
 };

@@ -24,22 +24,34 @@ export const pickImage = async () => {
   }
 };
 
-export const uploadImage = async (uri: string) => {
+export const uploadImage = async (uri: string, id: number | string) => {
   const response = await fetch(uri);
   const blob = await response.blob();
+  const currentUserUid = firebase.auth().currentUser.uid;
   const ref = firebase
     .storage()
     .ref()
-    .child("my-image");
+    .child(`${currentUserUid}/${id}`);
   const putResult = ref.put(blob);
   return putResult;
 };
 
-export const deleteImage = async () => {
+export const getImageUrl = async (id: number | string) => {
+  const currentUserUid = firebase.auth().currentUser.uid;
   const ref = firebase
     .storage()
     .ref()
-    .child("my-image");
+    .child(`${currentUserUid}/${id}`);
+  const url = ref.getDownloadURL();
+  return url;
+};
+
+export const deleteImage = async (id: number | string) => {
+  const currentUserUid = firebase.auth().currentUser.uid;
+  const ref = firebase
+    .storage()
+    .ref()
+    .child(`${currentUserUid}/${id}`);
   ref
     .delete()
     .then(function() {

@@ -8,11 +8,11 @@ import {
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 interface Props {
-  handleChange?: () => any;
+  handleChange: (isToggledRight: boolean) => any;
+  isToggledRight: boolean;
 }
 
-const CustomSwitch: FC<Props> = props => {
-  const [isGoldActive, setIsGoldActive] = useState(false);
+const CustomSwitch: FC<Props> = ({ handleChange, isToggledRight }) => {
   const [toggleToleft] = useState(new Animated.Value(0));
   const toggleRight = () => {
     Animated.timing(toggleToleft, {
@@ -27,8 +27,8 @@ const CustomSwitch: FC<Props> = props => {
     }).start();
   };
   const handlePress = () => {
-    setIsGoldActive(!isGoldActive);
-    if (isGoldActive) {
+    handleChange(!isToggledRight);
+    if (isToggledRight) {
       toggleLeft();
     } else {
       toggleRight();
@@ -41,7 +41,7 @@ const CustomSwitch: FC<Props> = props => {
         <MaterialCommunityIcons
           name="fire"
           size={40}
-          color={isGoldActive ? "#cecece" : "#fe526a"}
+          color={isToggledRight ? "#cecece" : "#fe526a"}
           style={styles.fireIcon}
         />
         <Animated.View
@@ -50,7 +50,7 @@ const CustomSwitch: FC<Props> = props => {
         <MaterialCommunityIcons
           name="star-four-points"
           size={20}
-          color={isGoldActive ? "#edba59" : "white"}
+          color={isToggledRight ? "#edba59" : "white"}
           style={styles.fourPointStar}
         />
       </View>

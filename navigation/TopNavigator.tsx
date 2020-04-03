@@ -11,14 +11,23 @@ import { CustomSwitch } from "../components/UI-Kit";
 
 interface Props {
   navTo?: (str: string | object) => any;
+  switchValue: boolean;
+  handleSwitchChange: (value: boolean) => void;
 }
-const TopNavigator: FC<Props> = ({ navTo }) => {
+const TopNavigator: FC<Props> = ({
+  navTo,
+  switchValue,
+  handleSwitchChange
+}) => {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={() => navTo("Profile")}>
         <FontAwesome name="user-circle" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
-      <CustomSwitch />
+      <CustomSwitch
+        handleChange={handleSwitchChange}
+        isToggledRight={switchValue}
+      />
       <TouchableWithoutFeedback onPress={() => navTo("Chat")}>
         <AntDesign name="message1" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
