@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet } from "react-native";
-import { Styles } from "@fortawesome/fontawesome-svg-core";
+import { getImageSourceFromCache } from "../../utils";
 
 interface Props {
   size?: number;
-  img: any;
+  uri: any;
   style?: any;
 }
-const Avatar: React.FC<Props> = ({ img, size = 60, style = {} }) => {
+const Avatar: React.FC<Props> = ({ uri, size = 60, style = {} }) => {
   const styles = StyleSheet.create({
     avatar: {
       overflow: "hidden",
@@ -20,8 +20,12 @@ const Avatar: React.FC<Props> = ({ img, size = 60, style = {} }) => {
       ...style
     }
   });
-  const source = typeof img === "string" ? { uri: img } : img;
-  return <Image style={styles.avatar} source={source} />;
+  const [imageSource, setImageSource] = useState<any>(null);
+
+  useEffect(() => {
+    getImageSourceFromCache(uri).then(setImageSource);
+  }, []);
+  return <Image style={styles.avatar} source={imageSource} />;
 };
 
 export default Avatar;

@@ -15,6 +15,7 @@ const ProfileOverview = ({
 }) => {
   const { name, age, school } = data;
   const { profileImage } = params;
+  // TODO: USE the remote image uri to cach the image or look for another solution
   const navToEditProfile = () => {
     navigation.navigate("ProfileEditScreen");
   };
@@ -24,7 +25,7 @@ const ProfileOverview = ({
   return (
     <View style={styles.container}>
       <View style={styles.whiteContainer}>
-        <Avatar img={profileImage} size={150} />
+        <Avatar uri={profileImage} size={150} />
         <Text style={styles.nameAge}>
           {name}, {age}
         </Text>

@@ -3,6 +3,8 @@ import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 import * as firebase from "firebase";
 import "firebase/firestore";
+import shorthash from "shorthash";
+import * as FileSystem from "expo-file-system";
 
 export const getCameraRollPermissionAsync = async () => {
   if (Constants.platform.ios) {
@@ -81,4 +83,26 @@ export const getMyProfileData = async () => {
   } catch (err) {
     console.error(err);
   }
+};
+
+const getCachePath = (uri: string) => {
+  const name = shorthash.unique(uri);
+  const path = FileSystem.cacheDirectory + name;
+  return path;
+};
+
+export const getImageSourceFromCache = async (uri: string) => {
+  const path = getCachePath(uri);
+  const image = await FileSystem.getInfoAsync(path);
+  if (image.exists) {
+    return { uri: image.uri };
+  } else {
+    const image = await FileSystem.downloadAsync(uri, path);
+    return { uri: image.uri };
+  }
+};
+
+export const deleteImageFromCache = async (uri: string) => {
+  const path = getCachePath(uri);
+  await FileSystem.deleteAsync(path);
 };
