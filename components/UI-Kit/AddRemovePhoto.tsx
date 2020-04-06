@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
-  Image
+  Image,
 } from "react-native";
 import colors from "./colors";
 import RoundButton from "./RoundButton";
@@ -13,29 +13,37 @@ import {
   pickImage,
   uploadImage,
   deleteImage,
-  getImageUrl
+  getImageUrl,
+  getImageSourceFromCache,
 } from "../../utils";
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 const AddRemovePhoto: FC<Props> = ({ id }) => {
   const [image, setImage] = useState<any>(false);
 
   useEffect(() => {
-    getImageUrl(id)
-      .then(setImage)
-      .catch(() => {
-        setImage(false);
-      });
+    getImageSourceFromCache("", id).then((img) => {
+      if (!img) {
+        getImageUrl(id)
+          .then((uri) => setImage({ uri }))
+          .catch(() => {
+            setImage(false);
+          });
+      } else {
+        setImage(img);
+      }
+    });
   }, []);
 
   const saveImage = async () => {
     await getCameraRollPermissionAsync();
     const image = await pickImage();
-    setImage(image.uri);
+    setImage(image);
     uploadImage(image.uri, id);
+    getImageSourceFromCache(image.uri, id);
   };
   const handleButtonPressed = () => {
     if (image) {
@@ -49,7 +57,7 @@ const AddRemovePhoto: FC<Props> = ({ id }) => {
     <TouchableWithoutFeedback onPress={saveImage}>
       <View style={styles.AddRemovePhoto}>
         {image ? (
-          <Image source={{ uri: image }} style={styles.image} />
+          <Image source={image} style={styles.image} />
         ) : (
           <View style={styles.dashedContainer} />
         )}
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
   AddRemovePhoto: {
     height: 150,
     width: "30%",
-    marginVertical: " 2%"
+    marginVertical: " 2%",
   },
   dashedContainer: {
     backgroundColor: colors.grey,
@@ -86,13 +94,13 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
     position: "absolute",
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
   image: {
     borderRadius: 10,
     width: "100%",
-    height: "100%"
-  }
+    height: "100%",
+  },
 });
 
 export default AddRemovePhoto;

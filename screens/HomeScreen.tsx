@@ -1,12 +1,12 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
   SafeAreaView,
   Platform,
   Animated,
-  Dimensions
+  Dimensions,
 } from "react-native";
 
 // import Radar from "../components/Radar";
@@ -14,21 +14,16 @@ import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
-import { getImageUrl } from "../utils";
 
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<string>("");
-  useEffect(() => {
-    getImageUrl(0).then(setProfileImage);
-  }, []);
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },
-      duration: 500
+      duration: 500,
     }).start(() => resetPosition(true));
   };
 
@@ -36,17 +31,17 @@ function HomeScreen(props) {
     const translateX = (isRight ? 1 : -1) * width * 1.5;
     Animated.timing(candidateCardPosition, {
       toValue: { x: translateX, y: 0 },
-      duration: 400
+      duration: 400,
     }).start(() => resetPosition(true));
     console.log("Liked");
   };
 
-  const resetPosition = completed => {
+  const resetPosition = (completed) => {
     if (completed) {
       setCurrentCardIndex((currentCandidatendex + 1) % candidates.length);
     }
     Animated.spring(candidateCardPosition, {
-      toValue: { x: 0, y: 0 }
+      toValue: { x: 0, y: 0 },
     }).start();
   };
 
@@ -60,7 +55,6 @@ function HomeScreen(props) {
           navTo={navTo}
           switchValue={isGlodPage}
           handleSwitchChange={setIsGoldPage}
-          profileImage={profileImage}
         />
         {!isGlodPage && (
           <>
@@ -87,22 +81,22 @@ function HomeScreen(props) {
 }
 
 HomeScreen.navigationOptions = {
-  header: null
+  header: null,
 };
 
 const styles = StyleSheet.create<any>({
   safeView: {
-    paddingTop: Platform.OS === "android" ? 25 : 0
+    paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   cardContainer: {
-    height: 650
+    height: 650,
   },
   getStartedText: {
     fontSize: 17,
     color: "rgba(96,100,109, 1)",
     lineHeight: 24,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 export default HomeScreen;

@@ -20,49 +20,42 @@ export const pickImage = async () => {
     mediaTypes: ImagePicker.MediaTypeOptions.All,
     allowsEditing: true,
     aspect: [4, 3],
-    quality: 1
+    quality: 1,
   });
   if (!result.cancelled) {
     return result;
   }
 };
 
-export const uploadImage = async (uri: string, id: number | string) => {
+export const uploadImage = async (uri: string, id: string) => {
   const response = await fetch(uri);
   const blob = await response.blob();
   const currentUserUid = firebase.auth().currentUser.uid;
-  const ref = firebase
-    .storage()
-    .ref()
-    .child(`${currentUserUid}/${id}`);
+  const ref = firebase.storage().ref().child(`${currentUserUid}/${id}`);
   const putResult = ref.put(blob);
   return putResult;
 };
 
 export const getImageUrl = async (id: number | string) => {
   const currentUserUid = firebase.auth().currentUser.uid;
-  const ref = firebase
-    .storage()
-    .ref()
-    .child(`${currentUserUid}/${id}`);
+  const ref = firebase.storage().ref().child(`${currentUserUid}/${id}`);
   const url = ref.getDownloadURL();
   return url;
 };
 
-export const deleteImage = async (id: number | string) => {
+export const deleteImage = async (id: string) => {
   const currentUserUid = firebase.auth().currentUser.uid;
-  const ref = firebase
-    .storage()
-    .ref()
-    .child(`${currentUserUid}/${id}`);
+  const ref = firebase.storage().ref().child(`${currentUserUid}/${id}`);
   ref
     .delete()
-    .then(function() {
+    .then(function () {
       // File deleted successfully
+      console.log(`Image: ${id} deleted`);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       // Uh-oh, an error occurred!
     });
+  deleteImageFromCache(id);
 };
 
 export const signOut = () => {
@@ -91,11 +84,15 @@ const getCachePath = (uri: string) => {
   return path;
 };
 
-export const getImageSourceFromCache = async (uri: string) => {
-  const path = getCachePath(uri);
+export const getImageSourceFromCache = async (uri: string, id: string) => {
+  const path = getCachePath(id);
   const image = await FileSystem.getInfoAsync(path);
   if (image.exists) {
     return { uri: image.uri };
+  } else if (!uri) {
+    // When no uri given will not try to download the image,
+    //just will check on cache
+    return null;
   } else {
     const image = await FileSystem.downloadAsync(uri, path);
     return { uri: image.uri };

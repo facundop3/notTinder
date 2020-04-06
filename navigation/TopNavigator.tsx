@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import {
   SafeAreaView,
   StyleSheet,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -13,19 +13,15 @@ interface Props {
   navTo?: (str: string | object, params?: object) => any;
   switchValue: boolean;
   handleSwitchChange: (value: boolean) => void;
-  profileImage: string;
 }
 const TopNavigator: FC<Props> = ({
   navTo,
   switchValue,
   handleSwitchChange,
-  profileImage
 }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableWithoutFeedback
-        onPress={() => navTo("Profile", { profileImage })}
-      >
+      <TouchableWithoutFeedback onPress={() => navTo("Profile")}>
         <FontAwesome name="user-circle" size={30} color="#cecece" />
       </TouchableWithoutFeedback>
       <CustomSwitch
@@ -44,8 +40,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    paddingVertical: 10
-  }
+    paddingVertical: 10,
+  },
 });
 
 export default TopNavigator;

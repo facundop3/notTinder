@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Avatar } from "./UI-Kit";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { RoundButton, colors } from "./UI-Kit";
+import { RoundButton, colors, Avatar } from "./UI-Kit";
 import { CandidateData } from "../interfaces";
+import { getImageSourceFromCache } from "../utils";
 const ProfileOverview = ({
   data,
   navigation,
-  params
 }: {
   data: CandidateData;
   navigation: any;
   params: any;
 }) => {
   const { name, age, school } = data;
-  const { profileImage } = params;
-  // TODO: USE the remote image uri to cach the image or look for another solution
+  const [profileImageSource, setProfileImageSource] = useState<any>(null);
+  useEffect(() => {
+    getImageSourceFromCache("", "profile-image-0").then(setProfileImageSource);
+  }, []);
   const navToEditProfile = () => {
     navigation.navigate("ProfileEditScreen");
   };
@@ -25,7 +26,7 @@ const ProfileOverview = ({
   return (
     <View style={styles.container}>
       <View style={styles.whiteContainer}>
-        <Avatar uri={profileImage} size={150} />
+        <Avatar source={profileImageSource} size={150} />
         <Text style={styles.nameAge}>
           {name}, {age}
         </Text>
@@ -82,27 +83,27 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     position: "relative",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   nameAge: {
     fontSize: 25,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   centralActionContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "100%",
-    paddingTop: 30
+    paddingTop: 30,
   },
   buttonSubtitle: {
-    color: colors.darkGrey
+    color: colors.darkGrey,
   },
   whiteContainer: {
     backgroundColor: "white",
     alignItems: "center",
     paddingTop: 30,
     height: "60%",
-    zIndex: 2
+    zIndex: 2,
   },
   curve: {
     backgroundColor: "white",
@@ -113,13 +114,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 150,
     borderWidth: 0.5,
-    borderColor: "rgba(0,0,0,0.2)"
+    borderColor: "rgba(0,0,0,0.2)",
   },
   myPlusButton: {
     padding: 10,
     position: "absolute",
-    bottom: 10
-  }
+    bottom: 10,
+  },
 });
 
 export default ProfileOverview;

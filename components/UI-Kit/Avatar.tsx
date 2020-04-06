@@ -4,10 +4,10 @@ import { getImageSourceFromCache } from "../../utils";
 
 interface Props {
   size?: number;
-  uri: any;
+  source: { uri: string };
   style?: any;
 }
-const Avatar: React.FC<Props> = ({ uri, size = 60, style = {} }) => {
+const Avatar: React.FC<Props> = ({ source, size = 60, style = {} }) => {
   const styles = StyleSheet.create({
     avatar: {
       overflow: "hidden",
@@ -17,15 +17,10 @@ const Avatar: React.FC<Props> = ({ uri, size = 60, style = {} }) => {
       height: size,
       borderRadius: size / 2,
       marginRight: 10,
-      ...style
-    }
+      ...style,
+    },
   });
-  const [imageSource, setImageSource] = useState<any>(null);
-
-  useEffect(() => {
-    getImageSourceFromCache(uri).then(setImageSource);
-  }, []);
-  return <Image style={styles.avatar} source={imageSource} />;
+  return <Image style={styles.avatar} source={source} />;
 };
 
 export default Avatar;
