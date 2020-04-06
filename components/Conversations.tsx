@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableHighlight,
   TouchableWithoutFeedback,
-  TextInput
+  TextInput,
 } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { Avatar, colors } from "./UI-Kit";
@@ -19,7 +19,7 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
       underlayColor="grey"
     >
       <View style={styles.conversationContainer}>
-        <Avatar img={avatar} size={90} />
+        <Avatar source={avatar} size={90} />
         <View>
           <Text>{name}</Text>
           <Text>{lastMessage}</Text>
@@ -29,28 +29,28 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
   );
 }
 
-const NewMatchItem = props => {
+const NewMatchItem = (props) => {
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <Avatar size={70} img={props.img} />
+      <Avatar size={70} source={props.img} />
       <Text>{props.name}</Text>
     </View>
   );
 };
 
-const Conversations = props => {
+const Conversations = (props) => {
   const { conversationsList, toggleChatModal, newMatches } = props;
   const [isFeedActive, setIsFeedActive] = useState(false);
   const [messagesFilter, setMessagesFilter] = useState("");
   const textStyle = StyleSheet.create({
     message: {
       fontSize: 20,
-      color: isFeedActive ? colors.darkGrey : colors.red
+      color: isFeedActive ? colors.darkGrey : colors.red,
     },
     feed: {
       fontSize: 20,
-      color: isFeedActive ? colors.red : colors.darkGrey
-    }
+      color: isFeedActive ? colors.red : colors.darkGrey,
+    },
   });
 
   return (
@@ -67,7 +67,7 @@ const Conversations = props => {
         <EvilIcons name="search" color={colors.red} size={30} />
         <TextInput
           style={styles.input}
-          onChangeText={text => setMessagesFilter(text)}
+          onChangeText={(text) => setMessagesFilter(text)}
           value={messagesFilter}
           placeholder="Search n Matches"
         />
@@ -81,7 +81,7 @@ const Conversations = props => {
           renderItem={({ item }) => (
             <NewMatchItem img={item.avatar} name={item.name} />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
       </View>
       <View style={styles.newMatchesContainer}>
@@ -92,7 +92,7 @@ const Conversations = props => {
           renderItem={({ item }) => (
             <ConversationItem {...item} toggleChatModal={toggleChatModal} />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
         />
       </View>
     </SafeAreaView>
@@ -104,19 +104,19 @@ const styles = StyleSheet.create({
   conversationContainer: {
     alignItems: "center",
     flexDirection: "row",
-    height: 100
+    height: 100,
   },
   messagesFeedContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     height: 50,
-    alignItems: "center"
+    alignItems: "center",
   },
   searchContainer: {
     height: 50,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   input: {
     borderBottomColor: colors.red,
@@ -124,15 +124,15 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     width: "90%",
-    marginRight: 10
+    marginRight: 10,
   },
   newMatchesContainer: {
-    padding: 15
+    padding: 15,
   },
   headerText: {
     color: colors.red,
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
 
 export default Conversations;
