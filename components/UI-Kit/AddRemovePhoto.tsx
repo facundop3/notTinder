@@ -22,18 +22,18 @@ interface Props {
 }
 
 const AddRemovePhoto: FC<Props> = ({ id }) => {
-  const [image, setImage] = useState<any>(false);
+  const [imageSource, setImageSource] = useState<any>(false);
 
   useEffect(() => {
     getImageSourceFromCache("", id).then((img) => {
       if (!img) {
         getImageUrl(id)
-          .then((uri) => setImage({ uri }))
+          .then((uri) => setImageSource({ uri }))
           .catch(() => {
-            setImage(false);
+            setImageSource(false);
           });
       } else {
-        setImage(img);
+        setImageSource(img);
       }
     });
   }, []);
@@ -41,14 +41,14 @@ const AddRemovePhoto: FC<Props> = ({ id }) => {
   const saveImage = async () => {
     await getCameraRollPermissionAsync();
     const image = await pickImage();
-    setImage(image);
+    setImageSource(image);
     uploadImage(image.uri, id);
     getImageSourceFromCache(image.uri, id);
   };
   const handleButtonPressed = () => {
-    if (image) {
+    if (imageSource) {
       deleteImage(id);
-      setImage(false);
+      setImageSource(false);
     } else {
       saveImage();
     }
@@ -56,8 +56,8 @@ const AddRemovePhoto: FC<Props> = ({ id }) => {
   return (
     <TouchableWithoutFeedback onPress={saveImage}>
       <View style={styles.AddRemovePhoto}>
-        {image ? (
-          <Image source={image} style={styles.image} />
+        {imageSource ? (
+          <Image source={imageSource} style={styles.image} />
         ) : (
           <View style={styles.dashedContainer} />
         )}
@@ -68,7 +68,7 @@ const AddRemovePhoto: FC<Props> = ({ id }) => {
             onPress={handleButtonPressed}
             color={colors.red}
           >
-            {image ? (
+            {imageSource ? (
               <Entypo name="cross" size={25} color="white" />
             ) : (
               <MaterialCommunityIcons name="plus" size={25} color="white" />
