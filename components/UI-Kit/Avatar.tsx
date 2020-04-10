@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { getImageSourceFromCache } from "../../utils";
 
 interface Props {
   size?: number;
