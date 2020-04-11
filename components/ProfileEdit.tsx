@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import AddPhotoGrid from "./AddPhotoGrid";
 import ProfileForm from "./ProfileForm";
-import { colors, LabeledRadioButtons } from "./UI-Kit";
+import { colors, LabeledRadioButtons } from "nottinderuikit";
 import { getMyProfileData } from "../utils";
 
 const EditProfile = () => {
   const genderOptions = [
     { label: "Man", value: "man" },
-    { label: "Woman", value: "woman" }
+    { label: "Woman", value: "woman" },
   ];
   const [profileData, setProfileData] = useState<any>({
     age: "",
@@ -18,7 +18,7 @@ const EditProfile = () => {
     hometown: "",
     jobTitle: "",
     name: "",
-    school: ""
+    school: "",
   });
   useEffect(() => {
     getMyProfileData().then(setProfileData);
@@ -37,8 +37,8 @@ const EditProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.grey
-  }
+    backgroundColor: colors.grey,
+  },
 });
 
 export default EditProfile;

@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
-import { Avatar, colors } from "./UI-Kit";
+import { Avatar, colors } from "nottinderuikit";
 
 function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
   return (

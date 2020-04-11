@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import {
-  LabeledRadioButtons,
-  Slider,
-  Card,
-  colors
-} from "../components/UI-Kit";
+import { LabeledRadioButtons, Slider, Card, colors } from "nottinderuikit";
 import AgeRange from "./AgeRange";
 import { signOut } from "../utils";
 const SettingsForm = () => {
@@ -25,7 +20,7 @@ const SettingsForm = () => {
   const options = [
     { value: "Women", label: "Women" },
     { value: "Men", label: "Men" },
-    { value: "Everyone", label: "Everyone" }
+    { value: "Everyone", label: "Everyone" },
   ];
   return (
     <View style={styles.container}>
@@ -55,13 +50,13 @@ const SettingsForm = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.grey,
-    height: "100%"
+    height: "100%",
   },
   logoutLabel: {
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default SettingsForm;

@@ -103,3 +103,9 @@ export const deleteImageFromCache = async (uri: string) => {
   const path = getCachePath(uri);
   await FileSystem.deleteAsync(path);
 };
+
+export const getNearbyUsers = async () => {
+  const serverUrl = "http://localhost:5001/dat3-9ae16/us-central1/helloWorld";
+  const nearbyUsers = await fetch(serverUrl);
+  return nearbyUsers;
+};

@@ -3,27 +3,33 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   View,
-  Animated
+  Animated,
 } from "react-native";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 interface Props {
   handleChange: (isToggledRight: boolean) => any;
   isToggledRight: boolean;
+  leftIcon: any;
+  rightIcon: any;
 }
 
-const CustomSwitch: FC<Props> = ({ handleChange, isToggledRight }) => {
+const CustomSwitch: FC<Props> = ({
+  handleChange,
+  isToggledRight,
+  leftIcon,
+  rightIcon,
+}) => {
   const [toggleToleft] = useState(new Animated.Value(0));
   const toggleRight = () => {
     Animated.timing(toggleToleft, {
       toValue: 50,
-      duration: 400
+      duration: 400,
     }).start();
   };
   const toggleLeft = () => {
     Animated.timing(toggleToleft, {
       toValue: 0,
-      duration: 400
+      duration: 400,
     }).start();
   };
   const handlePress = () => {
@@ -38,21 +44,13 @@ const CustomSwitch: FC<Props> = ({ handleChange, isToggledRight }) => {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={styles.container}>
-        <MaterialCommunityIcons
-          name="fire"
-          size={40}
-          color={isToggledRight ? "#cecece" : "#fe526a"}
-          style={styles.fireIcon}
-        />
+        <View style={styles.iconContainer}>{leftIcon}</View>
         <Animated.View
           style={{ ...styles.toggleBall, left: toggleToleft }}
         ></Animated.View>
-        <MaterialCommunityIcons
-          name="star-four-points"
-          size={20}
-          color={isToggledRight ? "#edba59" : "white"}
-          style={styles.fourPointStar}
-        />
+        <View style={{ ...styles.iconContainer, left: undefined, right: 10 }}>
+          {rightIcon}
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#edba59",
     padding: 5,
     borderRadius: 30,
-    position: "relative"
+    position: "relative",
   },
   toggleBall: {
     borderWidth: 0.5,
@@ -77,18 +75,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: "hidden",
     backgroundColor: "white",
-    position: "absolute"
+    position: "absolute",
   },
-  fireIcon: {
+  iconContainer: {
     zIndex: 2,
     position: "absolute",
-    left: 10
+    left: 10,
   },
-  fourPointStar: {
-    zIndex: 2,
-    position: "absolute",
-    right: 10
-  }
 });
 
 export default CustomSwitch;

@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -14,12 +14,18 @@ import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
+import { getNearbyUsers } from "../utils";
 
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
+  useEffect(() => {
+    getNearbyUsers()
+      .then((res) => res.json())
+      .then(console.log);
+  }, []);
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },

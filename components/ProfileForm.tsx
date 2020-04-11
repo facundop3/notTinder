@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { View, StyleSheet } from "react-native";
-import { LabeledInput } from "./UI-Kit";
+import { LabeledInput } from "nottinderuikit";
 
 interface Props {
   age: string;
@@ -20,10 +20,10 @@ const ProfileForm: FC<Props> = ({
   hometown,
   jobTitle,
   name,
-  school
+  school,
 }) => {
   const [about, setAbout] = useState<string>("");
-  const handleChange = text => {
+  const handleChange = (text) => {
     setAbout(text);
   };
   return (
@@ -57,14 +57,14 @@ const ProfileForm: FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: "100%",
   },
   input: {
     backgroundColor: "#FFF",
     height: 40,
     borderColor: "gray",
-    borderWidth: 1
-  }
+    borderWidth: 1,
+  },
 });
 
 export default ProfileForm;

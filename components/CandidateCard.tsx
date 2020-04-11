@@ -5,17 +5,17 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
-  Animated
+  Animated,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { colors, Modal } from "./UI-Kit";
+import { colors, Modal } from "nottinderuikit";
 import { Candidate } from "../interfaces";
 import CandidateProfile from "./CandidateProfile";
-const CandidateCard: FC<Candidate> = props => {
+const CandidateCard: FC<Candidate> = (props) => {
   const {
     data,
-    opacities: { likeOpacity = 0, nopeOpacity = 0, superLikeOpacity = 0 }
+    opacities: { likeOpacity = 0, nopeOpacity = 0, superLikeOpacity = 0 },
   } = props;
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
@@ -28,7 +28,7 @@ const CandidateCard: FC<Candidate> = props => {
     }
   };
 
-  const renderCards = data => {
+  const renderCards = (data) => {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -105,54 +105,54 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0,0.2)",
     borderRadius: 10,
     overflow: "hidden",
-    position: "relative"
+    position: "relative",
   },
   imageContainer: {
-    position: "relative"
+    position: "relative",
   },
   image: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover"
+    resizeMode: "cover",
   },
   candidateDataContainer: {
     position: "absolute",
     bottom: 20,
     left: 10,
     display: "flex",
-    color: "red"
+    color: "red",
   },
   nameAndAge: {
     color: "white",
-    fontSize: 25
+    fontSize: 25,
   },
   smallWhiteText: {
     color: "white",
-    fontSize: 15
+    fontSize: 15,
   },
   candidateName: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   nextPic: {
     // backgroundColor: "green",
     height: "80%",
     width: "50%",
     right: 0,
-    position: "absolute"
+    position: "absolute",
   },
   previusPic: {
     // backgroundColor: "red",
     height: "80%",
     width: "50%",
     left: 0,
-    position: "absolute"
+    position: "absolute",
   },
   openInfo: {
     // backgroundColor: "blue",
     height: "20%",
     width: "100%",
     bottom: 0,
-    position: "absolute"
+    position: "absolute",
   },
   likeContainer: {
     position: "absolute",
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 40,
     left: 30,
-    transform: [{ rotate: "-25deg" }]
+    transform: [{ rotate: "-25deg" }],
   },
   nopeContainer: {
     position: "absolute",
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 40,
     right: 30,
-    transform: [{ rotate: "25deg" }]
+    transform: [{ rotate: "25deg" }],
   },
   superLikeContainer: {
     position: "absolute",
@@ -188,23 +188,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     bottom: 100,
     left: 100,
-    transform: [{ rotate: "-25deg" }]
+    transform: [{ rotate: "-25deg" }],
   },
   likeText: {
     color: colors.green,
     fontSize: 55,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   nopeText: {
     color: colors.red,
     fontSize: 55,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   superLikeText: {
     color: colors.blue,
     fontSize: 45,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default CandidateCard;

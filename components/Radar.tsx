@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
-import { colors, Avatar } from "./UI-Kit";
+import { colors, Avatar } from "nottinderuikit";
 import { candidate } from "../sampleData";
 const Radar = () => {
   const mainPicture = candidate.pictures[0];
@@ -13,7 +13,7 @@ const Radar = () => {
       width: "100%",
       height: "100%",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
     },
     circle: {
       backgroundColor: colors.red,
@@ -21,14 +21,14 @@ const Radar = () => {
       height: 30,
       borderRadius: 15,
       zIndex: 0,
-      position: "absolute"
+      position: "absolute",
     },
     animatedCircle: {
-      transform: [{ scale }]
+      transform: [{ scale }],
     },
     animatedCircle2: {
-      transform: [{ scale: scale2 }]
-    }
+      transform: [{ scale: scale2 }],
+    },
   });
   const doAnimation = (scale, opacity, delay = 0) => {
     Animated.sequence([
@@ -36,14 +36,14 @@ const Radar = () => {
         Animated.timing(scale, {
           toValue: 20,
           delay,
-          duration: 4000
+          duration: 4000,
         }),
         Animated.timing(opacity, {
           toValue: 0,
           delay,
-          duration: 4000
-        })
-      ])
+          duration: 4000,
+        }),
+      ]),
     ]).start(() => {
       scale.setValue(1);
       opacity.setValue(0.3);

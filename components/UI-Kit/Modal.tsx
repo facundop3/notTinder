@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 import { Modal, SafeAreaView } from "react-native";
-// import CandidateProfile from "./CandidateProfile";
-// import { CandidateData } from "../interfaces";
 
 interface Props {
   visible: boolean;
   children: React.ReactNode;
   animationType?: "slide" | "none" | "fade";
 }
-const CandidateModal: FC<Props> = props => {
+const CandidateModal: FC<Props> = (props) => {
   const { visible, children, animationType = "slide" } = props;
   return (
     <Modal

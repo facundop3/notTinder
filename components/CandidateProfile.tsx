@@ -6,9 +6,9 @@ import {
   faMapMarkerAlt,
   faBriefcase,
   faGraduationCap,
-  faEllipsisH
+  faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
-import { Chip } from "./UI-Kit";
+import { Chip } from "nottinderuikit";
 import { CandidateData } from "../interfaces";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   data: CandidateData;
   isModal?: boolean;
 }
-const CandidateProfile: FC<Props> = props => {
+const CandidateProfile: FC<Props> = (props) => {
   const { toggleCandidateModal, data, isModal } = props;
   const [mainImage] = data.pictures;
   const renderCandidateData = () => {
@@ -47,7 +47,7 @@ const CandidateProfile: FC<Props> = props => {
   const renderCandidatePictures = () => {
     return (
       <View style={styles.imagesContainer}>
-        {data.pictures.map(img => {
+        {data.pictures.map((img) => {
           return <Image style={styles.image} source={img} />;
         })}
       </View>
@@ -79,39 +79,39 @@ const CandidateProfile: FC<Props> = props => {
 const styles = StyleSheet.create({
   mainImage: {
     width: "100%",
-    height: 300
+    height: 300,
   },
   imagesContainer: {
-    alignItems: "center"
+    alignItems: "center",
   },
   image: {
     width: "90%",
     height: 300,
     borderRadius: 5,
     overflow: "hidden",
-    margin: 10
+    margin: 10,
   },
   container: {
-    position: "relative"
+    position: "relative",
   },
   topActionsContainer: {
     position: "absolute",
     top: 5,
     flexDirection: "row",
-    width: "100%"
+    width: "100%",
   },
   topActionsSubcontainer: {
     position: "relative",
     flexDirection: "row",
-    width: "100%"
+    width: "100%",
   },
   moreOptions: {
     position: "absolute",
-    right: 10
+    right: 10,
   },
   candidateInfoContainer: {
-    padding: 10
-  }
+    padding: 10,
+  },
 });
 
 export default CandidateProfile;

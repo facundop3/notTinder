@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, TextInput, Text, StyleSheet } from "react-native";
-import { colors } from "./UI-Kit";
+import { colors } from "nottinderuikit";
 
 interface Props {
   handleMinAgeChange: (age: string) => void;
@@ -12,7 +12,7 @@ const AgeRange: FC<Props> = ({
   handleMinAgeChange,
   handleMaxAgeChange,
   minAge,
-  maxAge
+  maxAge,
 }) => {
   return (
     <View>
@@ -48,21 +48,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     padding: 10,
-    color: colors.red
+    color: colors.red,
   },
   label: {
     fontSize: 20,
     fontWeight: "bold",
-    padding: 10
+    padding: 10,
   },
   inputContainer: {
     width: 100,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   inputLabelContainer: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   input: {
     borderWidth: 2,
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: "center",
     fontSize: 15,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });
 
 export default AgeRange;

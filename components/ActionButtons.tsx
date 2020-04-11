@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
-import { RoundButton } from "./UI-Kit";
+// import { RoundButton } from "./UI-Kit";
+import { RoundButton } from "nottinderuikit";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    padding: 15
-  }
+    padding: 15,
+  },
 });
 export default ActionButtons;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { RoundButton, colors, Avatar } from "./UI-Kit";
+import { RoundButton, colors, Avatar } from "nottinderuikit";
 import { CandidateData } from "../interfaces";
 import { getImageSourceFromCache } from "../utils";
 const ProfileOverview = ({
