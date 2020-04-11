@@ -6,11 +6,11 @@ import {
   Modal,
   ScrollView,
   TouchableHighlight,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { Avatar } from "../UI-Kit";
+import { Avatar } from "nottinderuikit";
 import ChatBody from "./ChatBody";
 import ChatInput from "./ChatInput";
 
@@ -19,7 +19,7 @@ interface Props {
   showChatModal: boolean;
   toggleChatModal: () => void;
 }
-const ChatModal: FC<Props> = props => {
+const ChatModal: FC<Props> = (props) => {
   const { data, showChatModal, toggleChatModal } = props;
   return (
     <Modal animationType="slide" transparent={false} visible={showChatModal}>
@@ -50,11 +50,11 @@ const ChatModal: FC<Props> = props => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%"
+    height: "100%",
   },
   header: {
     flexDirection: "row",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });
 export default ChatModal;

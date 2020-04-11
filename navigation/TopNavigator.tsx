@@ -7,7 +7,7 @@ import {
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-import { CustomSwitch } from "../components/UI-Kit";
+import { CustomSwitch } from "nottinderuikit";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 interface Props {

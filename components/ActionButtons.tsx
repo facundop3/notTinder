@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
-// import { RoundButton } from "./UI-Kit";
 import { RoundButton } from "nottinderuikit";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";

@@ -5,8 +5,7 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from "react-native";
-import colors from "./colors";
-import RoundButton from "./RoundButton";
+import { RoundButton, colors } from "nottinderuikit";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import {
   getCameraRollPermissionAsync,
