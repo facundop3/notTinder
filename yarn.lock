@@ -2966,9 +2966,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.390:
-  version "1.3.402"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.402.tgz#9ad93c0c8ea2e571431739e0d76bd6bc9788a846"
-  integrity sha512-gaCDfX7IUH0s3JmBiHCDPrvVcdnTTP1r4WLJc2dHkYYbLmXZ2XHiJCcGQ9Balf91aKTvuCKCyu2JjJYRykoI1w==
+  version "1.3.403"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.403.tgz#c8bab4e2e72bf78bc28bad1cc355c061f9cc1918"
+  integrity sha512-JaoxV4RzdBAZOnsF4dAlZ2ijJW72MbqO5lNfOBHUWiBQl3Rwe+mk2RCUMrRI3rSClLJ8HSNQNqcry12H+0ZjFw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -5524,10 +5524,10 @@ normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
-nottinderuikit@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/nottinderuikit/-/nottinderuikit-0.0.4.tgz#80900b96d14b49c6a1fcfe7db144eea85374893b"
-  integrity sha512-VgXT1mT0OTaeMcDo+qEIPlh4jnvbc/FfbexuXr58BRToeBgd7ufCjDzkrkkGF9bAyczz0PnEWxU4nWThpjzepw==
+nottinderuikit@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/nottinderuikit/-/nottinderuikit-0.0.8.tgz#50fdc4d2b920fc87315aa6fecec13823a4d8bc95"
+  integrity sha512-6MtaBnR8Oud72eXx0sklYhRNmtu05R0zpuMGJ2Yy/gO+gGJdFVaYnGTFZlrWWIivqeqRusbAVmIGj49CG0Cy7Q==
 
 npm-run-path@^2.0.0:
   version "2.0.2"
