@@ -9,16 +9,15 @@ interface Props {
   toggleCandidateModal: () => void;
 }
 const CandidateModal: FC<Props> = props => {
-  const { showCandidateModal } = props;
+  const { showCandidateModal, data, toggleCandidateModal } = props;
   return (
     <Modal
       animationType="slide"
       transparent={false}
       visible={showCandidateModal}
-      {...props}
     >
       <SafeAreaView>
-        <CandidateProfile {...props} isModal />
+        <CandidateProfile data={data} toggleCandidateModal={toggleCandidateModal} isModal />
       </SafeAreaView>
     </Modal>
   );

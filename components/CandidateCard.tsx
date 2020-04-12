@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { colors, Modal } from "nottinderuikit";
+import { colors, SafeAreaModal } from "nottinderuikit";
 import { Candidate } from "../interfaces";
 import CandidateProfile from "./CandidateProfile";
 const CandidateCard: FC<Candidate> = (props) => {
@@ -86,13 +86,13 @@ const CandidateCard: FC<Candidate> = (props) => {
   return (
     <>
       {renderCards(data)}
-      <Modal visible={showCandidateModal}>
+      <SafeAreaModal visible={showCandidateModal}>
         <CandidateProfile
           data={data}
           isModal
           toggleCandidateModal={toggleCandidateModal}
         />
-      </Modal>
+      </SafeAreaModal>
     </>
   );
 };
