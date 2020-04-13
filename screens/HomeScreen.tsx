@@ -78,6 +78,7 @@ function HomeScreen(props) {
             <ActionButtons
               horizontalSwipe={horizontalSwipe}
               verticalSwipe={verticalSwipe}
+              deviceHeight={height}
             />
           </>
         )}
@@ -91,11 +92,14 @@ HomeScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create<any>({
+  contentContainer: {
+    height: "100%"
+  },
   safeView: {
     paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   cardContainer: {
-    height: 650,
+    height: "80%",
   },
   getStartedText: {
     fontSize: 17,

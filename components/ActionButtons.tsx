@@ -9,8 +9,25 @@ import Foundation from "@expo/vector-icons/Foundation";
 interface Props {
   horizontalSwipe: (isLike: boolean) => void;
   verticalSwipe: () => void;
+  deviceHeight: number;
 }
-const ActionButtons: FC<Props> = ({ verticalSwipe, horizontalSwipe }) => {
+const ActionButtons: FC<Props> = ({ verticalSwipe, horizontalSwipe, deviceHeight }) => {
+  console.log(deviceHeight)
+  /*
+  heights
+  const iphoneProMax = 896
+  const iphonePro = 812
+  const iphone8 = 667
+  */
+  const actionButtonsHeight = deviceHeight > 800 ? "13%" : "11%"
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      height: actionButtonsHeight
+    },
+  });
   return (
     <View style={styles.container}>
       <RoundButton onPress={() => ""} size={40} shadow border>
@@ -32,12 +49,5 @@ const ActionButtons: FC<Props> = ({ verticalSwipe, horizontalSwipe }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: 15,
-  },
-});
+
 export default ActionButtons;
