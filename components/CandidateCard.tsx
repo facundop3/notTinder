@@ -102,7 +102,6 @@ const CandidateCard: FC<Candidate> = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: "95%",
-    height: "100%",
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
     borderRadius: 10,

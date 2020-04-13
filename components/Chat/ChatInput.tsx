@@ -1,7 +1,7 @@
 import React, { useState, FC } from "react";
 import { View, StyleSheet, TextInput, TouchableHighlight } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { MaterialIcons } from '@expo/vector-icons'
+import { colors } from "nottinderuikit";
 const ChatInput: FC = () => {
   const [value, setValue] = useState("");
   const sendMessage = () => {
@@ -17,9 +17,11 @@ const ChatInput: FC = () => {
         value={value}
         placeholder="Say something"
       />
-      <TouchableHighlight onPress={sendMessage}>
-        <FontAwesomeIcon icon={faPaperPlane} color="blue" />
-      </TouchableHighlight>
+      <View style={styles.sendIcon}>
+        <TouchableHighlight onPress={sendMessage}>
+          <MaterialIcons name="send" size={30} color={colors.darkGrey} />
+        </TouchableHighlight>
+      </View>
     </View>
   );
 };
@@ -27,21 +29,24 @@ const ChatInput: FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    width: "100%",
-    bottom: 0,
-    padding: 20,
+    paddingHorizontal: 15,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    height: '10%'
   },
   input: {
     borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.2)",
+    borderColor: colors.darkGrey,
     borderRadius: 50,
     overflow: "hidden",
-    height: 40,
-    paddingHorizontal: 15,
-    width: "90%",
-    marginRight: 10
+    height: "60%",
+    paddingHorizontal: "10%",
+    width: "100%",
+    position: "relative"
+  },
+  sendIcon: {
+    position: "absolute",
+    right: 25,
   }
 });
 

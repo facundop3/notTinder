@@ -12,7 +12,6 @@ interface Props {
   deviceHeight: number;
 }
 const ActionButtons: FC<Props> = ({ verticalSwipe, horizontalSwipe, deviceHeight }) => {
-  console.log(deviceHeight)
   /*
   heights
   const iphoneProMax = 896

@@ -41,11 +41,11 @@ const ProfileOverview = ({
           </View>
           <View style={{ paddingTop: 15 }}>
             <View style={{ position: "relative" }}>
-              <RoundButton color={colors.red} onPress={() => {}}>
+              <RoundButton color={colors.red} onPress={() => { }}>
                 <FontAwesome name="camera" size={30} color="white" />
               </RoundButton>
               <View style={{ position: "absolute", right: 0, bottom: 0 }}>
-                <RoundButton size={20} border onPress={() => {}}>
+                <RoundButton size={20} border onPress={() => { }}>
                   <MaterialCommunityIcons
                     name="plus"
                     size={15}
@@ -70,7 +70,7 @@ const ProfileOverview = ({
       </View>
       <View style={styles.curve}></View>
       <View style={styles.myPlusButton}>
-        <RoundButton shadow height={40} width={120} onPress={() => {}}>
+        <RoundButton shadow height={40} width={120} onPress={() => { }}>
           <Text style={{ color: colors.red }}>My Plus</Text>
         </RoundButton>
       </View>

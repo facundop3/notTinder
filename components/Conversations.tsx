@@ -102,7 +102,6 @@ const Conversations = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
   conversationContainer: {
     alignItems: "center",
     flexDirection: "row",
@@ -145,7 +144,6 @@ const styles = StyleSheet.create({
   newMatchName: {
     fontWeight: "bold",
     fontSize: 14,
-    // backgroundColor: "red",
     textAlign: "center"
   }
 });

@@ -27,7 +27,7 @@ const ProfileForm: FC<Props> = ({
     setAbout(text);
   };
   return (
-    <View style={styles.container}>
+    <View>
       <LabeledInput
         value={description}
         onTextChange={handleChange}
@@ -54,17 +54,5 @@ const ProfileForm: FC<Props> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-  input: {
-    backgroundColor: "#FFF",
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-  },
-});
 
 export default ProfileForm;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableHighlight } from "react-native";
+import { View } from "react-native";
 import SignInForm from "../components/SignInForm";
 import * as firebase from "firebase";
 export default function SignInScreen() {

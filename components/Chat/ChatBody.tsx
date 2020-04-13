@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Text, StyleSheet, View, FlatList } from "react-native";
 import { conversation } from "../../sampleData";
+import { colors } from 'nottinderuikit'
 interface ChatBubbleProps {
   text: string;
   isInbound?: boolean;
@@ -12,12 +13,12 @@ const ChatBubble: FC<ChatBubbleProps> = ({ text, isInbound }) => {
       alignSelf: isInbound ? "flex-start" : "flex-end"
     },
     message: {
-      backgroundColor: isInbound ? "white" : "grey",
+      backgroundColor: isInbound ? colors.grey : colors.blue,
       padding: 12,
       borderRadius: 20,
+      fontSize: 16,
       overflow: "hidden",
       color: isInbound ? "black" : "white",
-      ...(isInbound ? { borderWidth: 1, borderColor: "rgba(0,0,0,0.2)" } : {})
     }
   });
   return (
@@ -43,7 +44,6 @@ const ChatBody: FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 30,
-    height: "100%",
     paddingBottom: 80
   }
 });

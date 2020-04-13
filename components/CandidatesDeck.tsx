@@ -88,7 +88,7 @@ const CandidatesDeck: FC<Props> = ({
   };
 
   return (
-    <View style={{ width: "100%" }}>
+    <View>
       <Animated.View style={getCardStyle()} {...panResponder.panHandlers}>
         <CandidateCard
           data={candidates[currentCandidatendex]}
