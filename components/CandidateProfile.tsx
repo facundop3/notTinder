@@ -1,14 +1,6 @@
 import React, { FC } from "react";
 import { Text, View, Image, StyleSheet, ScrollView, TouchableWithoutFeedback } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faHome,
-  faMapMarkerAlt,
-  faBriefcase,
-  faGraduationCap,
-  faEllipsisH,
-} from "@fortawesome/free-solid-svg-icons";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FontAwesome, SimpleLineIcons, MaterialIcons } from "@expo/vector-icons";
 import { colors, RoundButton, CurrentIndexIndicator } from "nottinderuikit";
 import { CandidateData } from "../interfaces";
 
@@ -31,20 +23,20 @@ const CandidateProfile: FC<Props> = (props) => {
             <Text style={styles.candidateName}>{data.name}</Text>, <Text style={styles.candidateAge}>{data.age}</Text>
           </Text>
           <Text style={styles.candidateInfo}>
-            <FontAwesomeIcon icon={faMapMarkerAlt} />{"  "}
+            <SimpleLineIcons name="location-pin" color={colors.darkGrey} size={18} />{"  "}
           Dating in {data.datingCity}
           </Text>
           <Text style={styles.candidateInfo}>
-            <FontAwesomeIcon icon={faHome} />{"  "}
+            <SimpleLineIcons name="home" color={colors.darkGrey} size={18} />{"  "}
           From {data.hometown}
           </Text>
           <Text style={styles.candidateInfo}>
-            <FontAwesomeIcon icon={faBriefcase} />{"  "}
+            <SimpleLineIcons name="briefcase" color={colors.darkGrey} size={18} />{"  "}
           Works at {data.company}
           </Text>
 
           <Text style={styles.candidateInfo}>
-            <FontAwesomeIcon icon={faGraduationCap} />{"  "}
+            <SimpleLineIcons name="graduation" color={colors.darkGrey} size={18} />{"  "}
           Studies at {data.school}
           </Text>
         </View>
@@ -66,7 +58,7 @@ const CandidateProfile: FC<Props> = (props) => {
       <Image style={styles.mainImage} source={mainImage} />
       {isModal && CloseButton}
       <View style={styles.moreOptions}>
-        <FontAwesomeIcon icon={faEllipsisH} color="white" size={30} />
+        <MaterialIcons name="more-horiz" color="white" size={40} />
       </View>
       <View>{renderCandidateData()}</View>
       <CurrentIndexIndicator listOfIds={data.pictures.map((e, i) => ({ id: String(i) }))} activeIndex={currentPic} />
