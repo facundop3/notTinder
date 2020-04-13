@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { colors, SafeAreaModal } from "nottinderuikit";
+import { colors, SafeAreaModal, CurrentIndexIndicator } from "nottinderuikit";
 import { Candidate } from "../interfaces";
 import CandidateProfile from "./CandidateProfile";
 const CandidateCard: FC<Candidate> = (props) => {
@@ -65,7 +65,7 @@ const CandidateCard: FC<Candidate> = (props) => {
             </Text>
           </View>
         </View>
-
+        <CurrentIndexIndicator listOfIds={data.pictures.map((e, i) => ({ id: String(i) }))} activeIndex={currentPic} />
         <TouchableWithoutFeedback
           onPress={() => changePic(1, data.pictures.length)}
         >
@@ -91,6 +91,8 @@ const CandidateCard: FC<Candidate> = (props) => {
           data={data}
           isModal
           toggleCandidateModal={toggleCandidateModal}
+          changePic={changePic}
+          currentPic={currentPic}
         />
       </SafeAreaModal>
     </>

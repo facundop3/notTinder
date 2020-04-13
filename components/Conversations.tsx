@@ -21,8 +21,8 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
       <View style={styles.conversationContainer}>
         <Avatar source={avatar} size={90} />
         <View>
-          <Text>{name}</Text>
-          <Text>{lastMessage}</Text>
+          <Text style={styles.conversationName}>{name}</Text>
+          <Text style={styles.conversationPreview}>{lastMessage}</Text>
         </View>
       </View>
     </TouchableHighlight>
@@ -32,8 +32,10 @@ function ConversationItem({ name, id, lastMessage, avatar, toggleChatModal }) {
 const NewMatchItem = (props) => {
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <Avatar size={70} source={props.img} />
-      <Text>{props.name}</Text>
+      <View>
+        <Avatar size={70} source={props.img} />
+        <Text style={styles.newMatchName}>{props.name}</Text>
+      </View>
     </View>
   );
 };
@@ -85,7 +87,7 @@ const Conversations = (props) => {
         />
       </View>
       <View style={styles.newMatchesContainer}>
-        <Text style={styles.headerText}>Messages:</Text>
+        <Text style={{ ...styles.headerText, fontWeight: "bold" }}>Messages:</Text>
         <FlatList
           style={{ paddingVertical: 16 }}
           data={conversationsList}
@@ -131,8 +133,21 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: colors.red,
-    fontSize: 20,
+    fontSize: 20
   },
+  conversationName: {
+    fontWeight: "bold",
+    fontSize: 17
+  },
+  conversationPreview: {
+    fontSize: 17
+  },
+  newMatchName: {
+    fontWeight: "bold",
+    fontSize: 14,
+    // backgroundColor: "red",
+    textAlign: "center"
+  }
 });
 
 export default Conversations;
