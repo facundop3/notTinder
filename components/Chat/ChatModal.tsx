@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { Avatar, SafeAreaModal } from "nottinderuikit";
+import { Avatar, SafeAreaModal, colors, ChatInput } from "nottinderuikit";
 import ChatBody from "./ChatBody";
-import ChatInput from "./ChatInput";
+import { MaterialIcons } from '@expo/vector-icons'
 
 interface Props {
   data: any;
@@ -18,6 +18,8 @@ interface Props {
 }
 const ChatModal: FC<Props> = (props) => {
   const { data, showChatModal, toggleChatModal } = props;
+  const [chatValue, setChatValue] = useState("");
+  const chatIcon = <MaterialIcons name="send" size={30} color={colors.darkGrey} />
   return (
     <SafeAreaModal animationType="slide" visible={showChatModal}>
       <View>
@@ -37,7 +39,7 @@ const ChatModal: FC<Props> = (props) => {
         <View style={styles.chatBodyContainer}>
           {data && <ChatBody />}
         </View>
-        <ChatInput />
+        <ChatInput value={chatValue} handleChangeText={setChatValue} icon={chatIcon} />
       </View>
     </SafeAreaModal>
   );

@@ -1,15 +1,11 @@
 import React, { useState, FC } from "react";
 import {
-  Image,
   StyleSheet,
   Text,
-  View,
-  TouchableWithoutFeedback,
-  Animated,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { colors, SafeAreaModal, CurrentIndexIndicator } from "nottinderuikit";
+import { colors, SafeAreaModal, MediaCard } from "nottinderuikit";
 import { Candidate } from "../interfaces";
 import CandidateProfile from "./CandidateProfile";
 const CandidateCard: FC<Candidate> = (props) => {
@@ -28,64 +24,34 @@ const CandidateCard: FC<Candidate> = (props) => {
     }
   };
 
-  const renderCards = (data) => {
-    return (
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={data.pictures[currentPic]}
-            key={data.id}
-          />
-          <Animated.View
-            style={[styles.likeContainer, { opacity: likeOpacity }]}
-          >
-            <Text style={styles.likeText}>LIKE</Text>
-          </Animated.View>
-          <Animated.View
-            style={[styles.nopeContainer, { opacity: nopeOpacity }]}
-          >
-            <Text style={styles.nopeText}>Nope</Text>
-          </Animated.View>
-          <Animated.View
-            style={[styles.superLikeContainer, { opacity: superLikeOpacity }]}
-          >
-            <Text style={styles.superLikeText}>SUPER</Text>
-            <Text style={styles.superLikeText}>LIKE</Text>
-          </Animated.View>
-          <View style={styles.candidateDataContainer}>
-            <Text style={styles.nameAndAge}>
-              <Text style={styles.candidateName}>{data.name}</Text> {data.age}
-            </Text>
-            <Text style={styles.smallWhiteText}>
-              <Ionicons name="md-school" size={20} /> {data.school}
-            </Text>
-            <Text style={styles.smallWhiteText}>
-              <MaterialIcons name="location-on" size={20} /> {data.datingCity}
-            </Text>
-          </View>
-        </View>
-        <CurrentIndexIndicator listOfIds={data.pictures.map((e, i) => ({ id: String(i) }))} activeIndex={currentPic} />
-        <TouchableWithoutFeedback
-          onPress={() => changePic(1, data.pictures.length)}
-        >
-          <View style={styles.nextPic}></View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => changePic(-1, data.pictures.length)}
-        >
-          <View style={styles.previusPic}></View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={toggleCandidateModal}>
-          <View style={styles.openInfo}></View>
-        </TouchableWithoutFeedback>
-      </View>
-    );
-  };
+
+  const candidateData = (data: any) => <>
+    <Text style={styles.nameAndAge}>
+      <Text style={styles.candidateName}>{data.name}</Text> {data.age}
+    </Text>
+    <Text style={styles.smallWhiteText}>
+      <Ionicons name="md-school" size={20} /> {data.school}
+    </Text>
+    <Text style={styles.smallWhiteText}>
+      <MaterialIcons name="location-on" size={20} /> {data.datingCity}
+    </Text>
+  </>
+
+
+
 
   return (
     <>
-      {renderCards(data)}
+      <MediaCard
+        leftLabel="Like"
+        rightLabel="Nope"
+        downLabel="Super Like"
+        opacities={{ left: likeOpacity, right: nopeOpacity, down: superLikeOpacity }}
+        onBottomPress={() => setShowCandidateModal(true)}
+        images={data.pictures}
+        currentImageIndex={currentPic}
+        handleCurrentImageChange={changePic}
+        bottomData={candidateData(data)} />
       <SafeAreaModal visible={showCandidateModal}>
         <CandidateProfile
           data={data}
@@ -205,7 +171,7 @@ const styles = StyleSheet.create({
     color: colors.blue,
     fontSize: 45,
     fontWeight: "bold",
-  },
+  }
 });
 
 export default CandidateCard;
