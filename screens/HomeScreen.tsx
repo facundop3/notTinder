@@ -15,17 +15,24 @@ import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
 import { getNearbyUsers } from "../utils";
+import { SafeAreaModal } from 'nottinderuikit'
+import CandidateProfile from '../components/CandidateProfile'
 
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
   const [currentCandidatendex, setCurrentCardIndex] = useState(0);
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
-  useEffect(() => {
-    getNearbyUsers()
-      .then((res) => res.json())
-      .then(console.log);
-  }, []);
+  const [showCandidateModal, setShowCandidateModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
+  const nextCurrentImageIndex = (n, length) => {
+    const nextIndex = n + currentImageIndex;
+    if (nextIndex >= 0 && nextIndex < length) {
+      setCurrentImageIndex(nextIndex);
+    }
+  };
+
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },
@@ -54,36 +61,58 @@ function HomeScreen(props) {
   const navTo = (page: string, params: object = {}) => {
     props.navigation.navigate(page, params);
   };
+
+
+
+  useEffect(() => {
+    getNearbyUsers()
+      .then((res) => res.json())
+      .then(console.log);
+  }, []);
   return (
-    <SafeAreaView style={styles.safeView}>
-      <View style={styles.contentContainer}>
-        <TopNavigation
-          navTo={navTo}
-          switchValue={isGlodPage}
-          handleSwitchChange={setIsGoldPage}
-        />
-        {!isGlodPage && (
-          <>
-            <View style={styles.cardContainer}>
-              <CandidatesDeck
-                candidateCardPosition={candidateCardPosition}
-                candidates={candidates}
-                verticalSwipe={verticalSwipe}
+    <>
+      <SafeAreaView style={styles.safeView}>
+        <View style={styles.contentContainer}>
+          <TopNavigation
+            navTo={navTo}
+            switchValue={isGlodPage}
+            handleSwitchChange={setIsGoldPage}
+          />
+          {!isGlodPage && (
+            <>
+              <View style={styles.cardContainer}>
+                <CandidatesDeck
+                  candidateCardPosition={candidateCardPosition}
+                  candidates={candidates}
+                  verticalSwipe={verticalSwipe}
+                  horizontalSwipe={horizontalSwipe}
+                  resetPosition={resetPosition}
+                  currentCandidatendex={currentCandidatendex}
+                  nextCurrentImageIndex={nextCurrentImageIndex}
+                  currentImageIndex={currentImageIndex}
+                  toggleCandidateModal={toggleCandidateModal}
+                />
+                {/* <Radar /> */}
+              </View>
+              <ActionButtons
                 horizontalSwipe={horizontalSwipe}
-                resetPosition={resetPosition}
-                currentCandidatendex={currentCandidatendex}
+                verticalSwipe={verticalSwipe}
+                deviceHeight={height}
               />
-              {/* <Radar /> */}
-            </View>
-            <ActionButtons
-              horizontalSwipe={horizontalSwipe}
-              verticalSwipe={verticalSwipe}
-              deviceHeight={height}
-            />
-          </>
-        )}
-      </View>
-    </SafeAreaView>
+            </>
+          )}
+        </View>
+      </SafeAreaView>
+      <SafeAreaModal visible={showCandidateModal}>
+        <CandidateProfile
+          data={candidates[currentCandidatendex]}
+          isModal
+          toggleCandidateModal={toggleCandidateModal}
+          nextCurrentImageIndex={nextCurrentImageIndex}
+          currentImageIndex={currentImageIndex}
+        />
+      </SafeAreaModal>
+    </>
   );
 }
 

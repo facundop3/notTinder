@@ -8,13 +8,13 @@ interface Props {
   toggleCandidateModal: () => void;
   data: CandidateData;
   isModal?: boolean;
-  currentPic: number;
-  changePic: (n: number, lenght: number) => void;
+  currentImageIndex: number;
+  nextCurrentImageIndex: (n: number, lenght: number) => void;
 }
 
 const CandidateProfile: FC<Props> = (props) => {
-  const { toggleCandidateModal, data, isModal, currentPic, changePic } = props;
-  const mainImage = data.pictures[currentPic]
+  const { toggleCandidateModal, data, isModal, currentImageIndex, nextCurrentImageIndex } = props;
+  const mainImage = data.pictures[currentImageIndex]
   const renderCandidateData = () => {
     return (
       <>
@@ -61,14 +61,17 @@ const CandidateProfile: FC<Props> = (props) => {
         <MaterialIcons name="more-horiz" color="white" size={40} />
       </View>
       <View>{renderCandidateData()}</View>
-      <CurrentIndexIndicator listOfIds={data.pictures.map((e, i) => ({ id: String(i) }))} activeIndex={currentPic} />
+      <CurrentIndexIndicator
+        listOfIds={data.pictures.map((e, i) => ({ id: String(i) }))}
+        activeIndex={currentImageIndex}
+      />
       <TouchableWithoutFeedback
-        onPress={() => changePic(1, data.pictures.length)}
+        onPress={() => nextCurrentImageIndex(1, data.pictures.length)}
       >
         <View style={styles.nextPic}></View>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
-        onPress={() => changePic(-1, data.pictures.length)}
+        onPress={() => nextCurrentImageIndex(-1, data.pictures.length)}
       >
         <View style={styles.previusPic}></View>
       </TouchableWithoutFeedback>

@@ -1,7 +1,8 @@
 import React, { useEffect, FC } from "react";
-import CandidateCard from "./CandidateCard";
-import { CandidateData } from "../interfaces";
 import { Animated, PanResponder, Dimensions, View } from "react-native";
+import { CandidateData } from "../interfaces";
+import { MediaCard } from 'nottinderuikit'
+import DataPreview from './DataPreview';
 
 interface Props {
   candidateCardPosition: any;
@@ -10,6 +11,9 @@ interface Props {
   horizontalSwipe: (isLike: boolean) => void;
   resetPosition: (isCompleted: boolean) => void;
   currentCandidatendex: number;
+  nextCurrentImageIndex: (n: number, length: number) => void;
+  currentImageIndex: number;
+  toggleCandidateModal: () => void;
 }
 const CandidatesDeck: FC<Props> = ({
   candidateCardPosition,
@@ -17,7 +21,10 @@ const CandidatesDeck: FC<Props> = ({
   verticalSwipe,
   horizontalSwipe,
   resetPosition,
-  currentCandidatendex
+  currentCandidatendex,
+  nextCurrentImageIndex,
+  currentImageIndex,
+  toggleCandidateModal
 }) => {
 
   useEffect(() => {
@@ -56,20 +63,20 @@ const CandidatesDeck: FC<Props> = ({
   });
 
   const getOpacities = () => {
-    const likeOpacity = position.x.interpolate({
+    const left = position.x.interpolate({
       inputRange: [0, width / 4],
       outputRange: [0, 1]
     });
 
-    const nopeOpacity = position.x.interpolate({
+    const right = position.x.interpolate({
       inputRange: [-width / 4, 0],
       outputRange: [1, 0]
     });
-    const superLikeOpacity = position.y.interpolate({
+    const down = position.y.interpolate({
       inputRange: [-height / 4, 0],
       outputRange: [1, 0]
     });
-    return { likeOpacity, nopeOpacity, superLikeOpacity };
+    return { left, right, down };
   };
 
   const getCardStyle = () => {
@@ -90,10 +97,16 @@ const CandidatesDeck: FC<Props> = ({
   return (
     <View>
       <Animated.View style={getCardStyle()} {...panResponder.panHandlers}>
-        <CandidateCard
-          data={candidates[currentCandidatendex]}
+        <MediaCard
+          leftLabel="Like"
+          rightLabel="Nope"
+          downLabel="Super Like"
           opacities={getOpacities()}
-        />
+          onBottomPress={toggleCandidateModal}
+          images={candidates[currentCandidatendex].pictures}
+          currentImageIndex={currentImageIndex}
+          handleCurrentImageChange={nextCurrentImageIndex}
+          bottomData={<DataPreview data={candidates[currentCandidatendex]} />} />
       </Animated.View>
     </View>
   );
