@@ -6,18 +6,17 @@ import {
   SafeAreaView,
   Platform,
   Animated,
-  Dimensions,
+  Dimensions
 } from "react-native";
 
 // import Radar from "../components/Radar";
-import CandidatesDeck from "../components/CandidatesDeck";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList as candidates } from "../sampleData";
 import { getNearbyUsers } from "../utils";
-import { SafeAreaModal } from 'nottinderuikit'
+import { SafeAreaModal, MediaCard, SwipeableWrapper } from 'nottinderuikit'
 import CandidateProfile from '../components/CandidateProfile'
-
+import DataPreview from '../components/DataPreview'
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const candidateCardPosition = new Animated.ValueXY();
@@ -46,29 +45,37 @@ function HomeScreen(props) {
       toValue: { x: translateX, y: 0 },
       duration: 400,
     }).start(() => resetPosition(true));
-    console.log("Liked");
   };
 
   const resetPosition = (completed) => {
     if (completed) {
       setCurrentCardIndex((currentCandidatendex + 1) % candidates.length);
+    } else {
+      Animated.timing(candidateCardPosition, {
+        toValue: { x: 0, y: 0 },
+        duration: 250
+      }).start();
     }
-    Animated.spring(candidateCardPosition, {
-      toValue: { x: 0, y: 0 },
-    }).start();
+
   };
 
   const navTo = (page: string, params: object = {}) => {
     props.navigation.navigate(page, params);
   };
 
-
-
   useEffect(() => {
     getNearbyUsers()
       .then((res) => res.json())
       .then(console.log);
   }, []);
+
+  useEffect(() => {
+    Animated.timing(candidateCardPosition, {
+      toValue: { x: 0, y: 0 },
+      duration: 250,
+      delay: 200,
+    }).start();
+  }, [currentCandidatendex]);
   return (
     <>
       <SafeAreaView style={styles.safeView}>
@@ -81,17 +88,23 @@ function HomeScreen(props) {
           {!isGlodPage && (
             <>
               <View style={styles.cardContainer}>
-                <CandidatesDeck
-                  candidateCardPosition={candidateCardPosition}
-                  candidates={candidates}
+                <SwipeableWrapper
                   verticalSwipe={verticalSwipe}
                   horizontalSwipe={horizontalSwipe}
                   resetPosition={resetPosition}
-                  currentCandidatendex={currentCandidatendex}
-                  nextCurrentImageIndex={nextCurrentImageIndex}
-                  currentImageIndex={currentImageIndex}
-                  toggleCandidateModal={toggleCandidateModal}
-                />
+                  animatedDefaultPosition={candidateCardPosition}
+                >
+                  <MediaCard
+                    animatedCardPosition={candidateCardPosition}
+                    leftLabel="Like"
+                    rightLabel="Nope"
+                    downLabel="Super Like"
+                    onBottomPress={toggleCandidateModal}
+                    images={candidates[currentCandidatendex].pictures}
+                    currentImageIndex={currentImageIndex}
+                    handleCurrentImageChange={nextCurrentImageIndex}
+                    bottomData={<DataPreview data={candidates[currentCandidatendex]} />} />
+                </SwipeableWrapper>
                 {/* <Radar /> */}
               </View>
               <ActionButtons
