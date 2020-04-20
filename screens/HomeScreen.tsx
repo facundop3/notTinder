@@ -24,6 +24,7 @@ function HomeScreen(props) {
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const nextCandidate = () => setCurrentCardIndex((currentCandidatendex + 1) % candidates.length)
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
   const nextCurrentImageIndex = (n, length) => {
     const nextIndex = n + currentImageIndex;
@@ -31,34 +32,48 @@ function HomeScreen(props) {
       setCurrentImageIndex(nextIndex);
     }
   };
+  const verticalCallback = () => {
+    console.log("verticalCallback")
+    nextCandidate()
+
+  }
+  const horizontalCallback = (isLeftToRight: boolean) => {
+    if (isLeftToRight) {
+      console.log("Is left to right")
+    } else {
+      console.log("Is right to left")
+    }
+    nextCandidate()
+  }
 
   const verticalSwipe = () => {
     Animated.timing(candidateCardPosition, {
       toValue: { x: 0, y: -height },
       duration: 500,
-    }).start(() => resetPosition(true));
+    }).start(() => {
+      verticalCallback()
+      resetPosition()
+    });
   };
 
-  const horizontalSwipe = (isRight = false) => {
-    const translateX = (isRight ? 1 : -1) * width * 1.5;
+  const horizontalSwipe = (isLeftToRight = false) => {
+    const translateX = (isLeftToRight ? 1 : -1) * width * 1.5;
     Animated.timing(candidateCardPosition, {
       toValue: { x: translateX, y: 0 },
       duration: 400,
-    }).start(() => resetPosition(true));
+    }).start(() => {
+      horizontalCallback(isLeftToRight)
+      resetPosition()
+    });
   };
 
-  const resetPosition = (completed) => {
-    if (completed) {
-      setCurrentCardIndex((currentCandidatendex + 1) % candidates.length);
-    } else {
-      Animated.timing(candidateCardPosition, {
-        toValue: { x: 0, y: 0 },
-        duration: 250
-      }).start();
-    }
-
+  const resetPosition = (delay: number = 0) => {
+    Animated.timing(candidateCardPosition, {
+      toValue: { x: 0, y: 0 },
+      duration: 250,
+      delay
+    }).start();
   };
-
   const navTo = (page: string, params: object = {}) => {
     props.navigation.navigate(page, params);
   };
@@ -70,11 +85,9 @@ function HomeScreen(props) {
   }, []);
 
   useEffect(() => {
-    Animated.timing(candidateCardPosition, {
-      toValue: { x: 0, y: 0 },
-      duration: 250,
-      delay: 200,
-    }).start();
+    // Restores initial candidateCardPosition when currentCardIndex changes
+    // So the next candidate shows in the initial position :)
+    resetPosition(200)
   }, [currentCandidatendex]);
   return (
     <>
@@ -89,9 +102,8 @@ function HomeScreen(props) {
             <>
               <View style={styles.cardContainer}>
                 <SwipeableWrapper
-                  verticalSwipe={verticalSwipe}
-                  horizontalSwipe={horizontalSwipe}
-                  resetPosition={resetPosition}
+                  verticalCallback={verticalCallback}
+                  horizontalCallback={horizontalCallback}
                   animatedDefaultPosition={candidateCardPosition}
                 >
                   <MediaCard
