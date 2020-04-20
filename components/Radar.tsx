@@ -38,12 +38,12 @@ const Radar: FC<Props> = ({ avatarSource }) => {
         Animated.timing(scale, {
           toValue: 20,
           delay,
-          duration: 4000,
+          duration: 3000,
         }),
         Animated.timing(opacity, {
           toValue: 0,
           delay,
-          duration: 4000,
+          duration: 3000,
         }),
       ]),
     ]).start(() => {

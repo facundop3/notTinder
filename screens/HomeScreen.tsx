@@ -67,10 +67,7 @@ function HomeScreen(props) {
     Animated.timing(candidatesAndPositions[candidatesAndPositions.length - 1]?.position, {
       toValue: { x: 0, y: -height },
       duration: 500,
-    }).start(() => {
-      verticalCallback()
-      resetPosition()
-    });
+    }).start(verticalCallback);
   };
 
   const horizontalSwipe = (isLeftToRight = false) => {
@@ -81,16 +78,7 @@ function HomeScreen(props) {
       duration: 400,
     }).start(() => {
       horizontalCallback(isLeftToRight)
-      resetPosition()
     });
-  };
-
-  const resetPosition = (delay: number = 0) => {
-    // Animated.timing(candidateCardPosition, {
-    //   toValue: { x: 0, y: 0 },
-    //   duration: 250,
-    //   delay
-    // }).start();
   };
   const navTo = (page: string, params: object = {}) => {
     props.navigation.navigate(page, params);

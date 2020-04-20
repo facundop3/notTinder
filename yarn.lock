@@ -5525,10 +5525,10 @@ normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
-nottinderuikit@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/nottinderuikit/-/nottinderuikit-0.0.15.tgz#81f6390e4a0c2ee96dc4d6ce6c82903990b5830b"
-  integrity sha512-h5QUUBVJ+3sqYna9ZwEf1wsuSkEa4+EGhDtIIm3/LDOApWolT1UeGM2gsl+FC7VkYYQQ/9gP6R20VhjoaAIqgg==
+nottinderuikit@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/nottinderuikit/-/nottinderuikit-0.0.17.tgz#2f0ba4d52899ef49a22175cc558be0cce1848595"
+  integrity sha512-MWqUNC9yabAqvm1NHlAwwGqYaMKJ0Z4OmxVlt9CF66GV+rS2y/yGsw/i+QiZdfBUNwPUdEMR8eCCdHEKBYzmew==
 
 npm-run-path@^2.0.0:
   version "2.0.2"
