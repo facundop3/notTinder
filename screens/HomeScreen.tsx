@@ -24,8 +24,10 @@ function HomeScreen(props) {
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const nextCandidate = () => {
+    if (!candidatesAndPositions.length) return
     candidatesAndPositions.pop()
     setCandidatesAndPositions([...candidatesAndPositions])
+
   }
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
   const nextCurrentImageIndex = (n, length) => {
@@ -49,6 +51,7 @@ function HomeScreen(props) {
   }
 
   const verticalSwipe = () => {
+    if (!candidatesAndPositions.length) return
     Animated.timing(candidatesAndPositions[candidatesAndPositions.length - 1]?.position, {
       toValue: { x: 0, y: -height },
       duration: 500,
@@ -59,6 +62,7 @@ function HomeScreen(props) {
   };
 
   const horizontalSwipe = (isLeftToRight = false) => {
+    if (!candidatesAndPositions.length) return
     const translateX = (isLeftToRight ? 1 : -1) * width * 1.5;
     Animated.timing(candidatesAndPositions[candidatesAndPositions.length - 1]?.position, {
       toValue: { x: translateX, y: 0 },
