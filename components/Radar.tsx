@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated } from "react-native";
 import { colors, Avatar } from "nottinderuikit";
 import { candidate } from "../sampleData";
 const Radar = () => {
@@ -7,13 +7,13 @@ const Radar = () => {
   const [scale] = useState<any>(new Animated.Value(1));
   const [scale2] = useState<any>(new Animated.Value(1));
   const [opacity] = useState<any>(new Animated.Value(0.3));
-  const [opacity2] = useState<any>(new Animated.Value(0.3));
   const styles = StyleSheet.create({
     container: {
       width: "100%",
       height: "100%",
       justifyContent: "center",
       alignItems: "center",
+      position: "relative"
     },
     circle: {
       backgroundColor: colors.red,
@@ -52,12 +52,10 @@ const Radar = () => {
   };
   useEffect(() => {
     doAnimation(scale, opacity);
-    doAnimation(scale2, opacity2, 250);
   }, []);
   return (
     <View style={styles.container}>
-      <Avatar img={mainPicture} size={150} style={{ zIndex: 2 }} />
-      {/* <Text>Looking for</Text> */}
+      <Avatar source={mainPicture} size={150} style={{ zIndex: 2, position: "absolute" }} />
       <Animated.View
         style={[styles.circle, styles.animatedCircle, { opacity }]}
       ></Animated.View>

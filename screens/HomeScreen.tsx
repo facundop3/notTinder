@@ -9,7 +9,7 @@ import {
   Dimensions
 } from "react-native";
 
-// import Radar from "../components/Radar";
+import Radar from "../components/Radar";
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList } from "../sampleData";
@@ -107,32 +107,34 @@ function HomeScreen(props) {
             <>
               <View style={styles.cardContainer}>
                 {
-                  candidatesAndPositions.map(({ candidate, position }) => (
-                    <View key={candidate.id} style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: '100%'
-                    }}>
-                      <SwipeableWrapper
-                        verticalCallback={verticalCallback}
-                        horizontalCallback={horizontalCallback}
-                        animatedDefaultPosition={position}
-                      >
-                        <MediaCard
-                          animatedCardPosition={position}
-                          leftLabel="Like"
-                          rightLabel="Nope"
-                          downLabel="Super Like"
-                          onBottomPress={toggleCandidateModal}
-                          images={candidate.pictures}
-                          currentImageIndex={currentImageIndex}
-                          handleCurrentImageChange={nextCurrentImageIndex}
-                          bottomData={<DataPreview data={candidate} />} />
-                      </SwipeableWrapper>
-                    </View>
-                  ))
+                  candidatesAndPositions.length ?
+                    candidatesAndPositions.map(({ candidate, position }) => (
+                      <View key={candidate.id} style={{
+                        position: "absolute",
+                        width: "100%",
+                        height: '100%'
+                      }}>
+                        <SwipeableWrapper
+                          verticalCallback={verticalCallback}
+                          horizontalCallback={horizontalCallback}
+                          animatedDefaultPosition={position}
+                        >
+                          <MediaCard
+                            animatedCardPosition={position}
+                            leftLabel="Like"
+                            rightLabel="Nope"
+                            downLabel="Super Like"
+                            onBottomPress={toggleCandidateModal}
+                            images={candidate.pictures}
+                            currentImageIndex={currentImageIndex}
+                            handleCurrentImageChange={nextCurrentImageIndex}
+                            bottomData={<DataPreview data={candidate} />} />
+                        </SwipeableWrapper>
+                      </View>
+                    ))
+                    :
+                    <Radar />
                 }
-                {/* <Radar /> */}
               </View>
               <ActionButtons
                 horizontalSwipe={horizontalSwipe}
