@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import { colors, Avatar } from "nottinderuikit";
-import { candidate } from "../sampleData";
-const Radar = () => {
-  const mainPicture = candidate.pictures[0];
+
+interface Props {
+  avatarSource: { uri: string };
+}
+const Radar: FC<Props> = ({ avatarSource }) => {
   const [scale] = useState<any>(new Animated.Value(1));
   const [scale2] = useState<any>(new Animated.Value(1));
   const [opacity] = useState<any>(new Animated.Value(0.3));
@@ -55,7 +57,7 @@ const Radar = () => {
   }, []);
   return (
     <View style={styles.container}>
-      <Avatar source={mainPicture} size={150} style={{ zIndex: 2, position: "absolute" }} />
+      <Avatar source={avatarSource} size={150} style={{ zIndex: 2, position: "absolute" }} />
       <Animated.View
         style={[styles.circle, styles.animatedCircle, { opacity }]}
       ></Animated.View>

@@ -17,12 +17,24 @@ import { candidatesList } from "../sampleData";
 import { SafeAreaModal, MediaCard, SwipeableWrapper } from 'nottinderuikit'
 import CandidateProfile from '../components/CandidateProfile'
 import DataPreview from '../components/DataPreview'
+import { getImageSourceFromCache } from "../utils";
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const [candidatesAndPositions, setCandidatesAndPositions] = useState(candidatesList.map(candidate => ({ candidate, position: new Animated.ValueXY() })));
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [profileImageSource, setProfileImageSource] = useState<any>(null);
+  useEffect(() => {
+    getImageSourceFromCache("", "profile-image-0")
+      .then(img => {
+        console.log("image from cache", img)
+        setProfileImageSource(img)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, []);
   const nextCandidate = () => {
     if (!candidatesAndPositions.length) return
     candidatesAndPositions.pop()
@@ -133,7 +145,7 @@ function HomeScreen(props) {
                       </View>
                     ))
                     :
-                    <Radar />
+                    <Radar avatarSource={profileImageSource} />
                 }
               </View>
               <ActionButtons
