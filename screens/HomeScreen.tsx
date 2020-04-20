@@ -13,14 +13,13 @@ import {
 import TopNavigation from "../navigation/TopNavigator";
 import ActionButtons from "../components/ActionButtons";
 import { candidatesList } from "../sampleData";
-import { getNearbyUsers } from "../utils";
+// import { getNearbyUsers } from "../utils";
 import { SafeAreaModal, MediaCard, SwipeableWrapper } from 'nottinderuikit'
 import CandidateProfile from '../components/CandidateProfile'
 import DataPreview from '../components/DataPreview'
 function HomeScreen(props) {
   const { width, height } = Dimensions.get("window");
   const [candidatesAndPositions, setCandidatesAndPositions] = useState(candidatesList.map(candidate => ({ candidate, position: new Animated.ValueXY() })));
-  const [currentCandidateIndex, setCurrentCandidateIndex] = useState(candidatesAndPositions.length - 1)
   const [isGlodPage, setIsGoldPage] = useState<boolean>(false);
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -50,7 +49,7 @@ function HomeScreen(props) {
   }
 
   const verticalSwipe = () => {
-    Animated.timing(candidatesAndPositions[0].position, {
+    Animated.timing(candidatesAndPositions[candidatesAndPositions.length - 1]?.position, {
       toValue: { x: 0, y: -height },
       duration: 500,
     }).start(() => {
@@ -61,7 +60,7 @@ function HomeScreen(props) {
 
   const horizontalSwipe = (isLeftToRight = false) => {
     const translateX = (isLeftToRight ? 1 : -1) * width * 1.5;
-    Animated.timing(candidatesAndPositions[0].position, {
+    Animated.timing(candidatesAndPositions[candidatesAndPositions.length - 1]?.position, {
       toValue: { x: translateX, y: 0 },
       duration: 400,
     }).start(() => {
@@ -80,16 +79,12 @@ function HomeScreen(props) {
   const navTo = (page: string, params: object = {}) => {
     props.navigation.navigate(page, params);
   };
-  useEffect(() => {
-    console.log('rendered')
-    console.log(candidatesAndPositions.map(({ candidate: { name } }) => name))
-  })
 
-  useEffect(() => {
-    getNearbyUsers()
-      .then((res) => res.json())
-      .then(console.log);
-  }, []);
+  // useEffect(() => {
+  //   getNearbyUsers()
+  //     .then((res) => res.json())
+  //     .then(console.log);
+  // }, []);
 
   useEffect(() => {
     setCurrentImageIndex(0)
@@ -146,7 +141,7 @@ function HomeScreen(props) {
       </SafeAreaView>
       <SafeAreaModal visible={showCandidateModal}>
         <CandidateProfile
-          data={candidatesAndPositions[candidatesAndPositions.length - 1].candidate}
+          data={candidatesAndPositions[candidatesAndPositions.length - 1]?.candidate}
           isModal
           toggleCandidateModal={toggleCandidateModal}
           nextCurrentImageIndex={nextCurrentImageIndex}
