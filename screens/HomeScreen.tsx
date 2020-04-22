@@ -42,9 +42,10 @@ function HomeScreen(props) {
 
   }
   const toggleCandidateModal = () => setShowCandidateModal(!showCandidateModal);
-  const nextCurrentImageIndex = (n, length) => {
+  const nextCurrentImageIndex = (n) => {
+    const { candidate } = candidatesAndPositions[candidatesAndPositions.length - 1]
     const nextIndex = n + currentImageIndex;
-    if (nextIndex >= 0 && nextIndex < length) {
+    if (nextIndex >= 0 && nextIndex < candidate.pictures.length) {
       setCurrentImageIndex(nextIndex);
     }
   };
@@ -117,10 +118,10 @@ function HomeScreen(props) {
                         <SwipeableWrapper
                           verticalCallback={verticalCallback}
                           horizontalCallback={horizontalCallback}
-                          animatedDefaultPosition={position}
+                          positionXY={position}
                         >
                           <MediaCard
-                            animatedCardPosition={position}
+                            positionXY={position}
                             leftLabel="Like"
                             rightLabel="Nope"
                             downLabel="Super Like"
@@ -168,7 +169,10 @@ const styles = StyleSheet.create<any>({
   },
   cardContainer: {
     height: "80%",
-    position: "relative"
+    paddingHorizontal: 10,
+    position: "relative",
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 

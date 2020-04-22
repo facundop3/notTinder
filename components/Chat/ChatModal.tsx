@@ -39,7 +39,7 @@ const ChatModal: FC<Props> = (props) => {
         <View style={styles.chatBodyContainer}>
           {data && <ChatBody />}
         </View>
-        <ChatInput value={chatValue} handleChangeText={setChatValue} icon={chatIcon} />
+        <ChatInput value={chatValue} handleChangeText={setChatValue} sendIcon={chatIcon} />
       </View>
     </SafeAreaModal>
   );

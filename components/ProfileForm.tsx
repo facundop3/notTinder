@@ -1,5 +1,5 @@
 import React, { useState, FC } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { LabeledInput } from "nottinderuikit";
 
 interface Props {
@@ -32,7 +32,6 @@ const ProfileForm: FC<Props> = ({
         value={description}
         onTextChange={handleChange}
         label="About me"
-        multiline
         lines={8}
       />
       <LabeledInput

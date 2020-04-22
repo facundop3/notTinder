@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { AddRemovePhoto } from "nottinderuikit";
+import { AddRemoveImage } from "nottinderuikit";
 import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import {
   getCameraRollPermissionAsync,
@@ -42,118 +42,111 @@ const AddPhotoGrid = () => {
       });
     });
   }, []);
-  const saveImage = async (id: string) => {
+  const addImage = async (id: string) => {
+    console.log(`adding image ${id}`)
     await getCameraRollPermissionAsync();
     const image = await pickImage();
     setImagesSources({ ...imagesSources, [id]: image });
     uploadImage(image.uri, id);
     getImageSourceFromCache(image.uri, id);
   };
-  const handlePress = (id: string) => {
-    if (imagesSources[id]) {
-      removeImage(id);
-    } else {
-      saveImage(id);
-    }
-  };
   const removeImage = (id: string) => {
+    console.log(`removing image ${id}`)
     deleteImage(id);
     setImagesSources({ ...imagesSources, [id]: false });
   };
 
   return (
-    <View style={styles.photosContainer}>
+    <>
       <View style={styles.photosRows}>
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[0]}
           imageSource={imagesSources[listOfIds[0]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[1]}
           imageSource={imagesSources[listOfIds[1]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[2]}
           imageSource={imagesSources[listOfIds[2]]}
         />
       </View>
       <View style={styles.photosRows}>
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[3]}
           imageSource={imagesSources[listOfIds[3]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[4]}
           imageSource={imagesSources[listOfIds[4]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[5]}
           imageSource={imagesSources[listOfIds[5]]}
         />
       </View>
       <View style={styles.photosRows}>
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[6]}
           imageSource={imagesSources[listOfIds[6]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[7]}
           imageSource={imagesSources[listOfIds[7]]}
         />
-        <AddRemovePhoto
-          saveImage={saveImage}
+        <AddRemoveImage
+          addCallback={addImage}
           addIcon={addIcon}
           removeIcon={removeIcon}
-          handlePress={handlePress}
+          removeCallback={removeImage}
           id={listOfIds[8]}
           imageSource={imagesSources[listOfIds[8]]}
         />
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  photosContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
   photosRows: {
-    width: "100%",
     flexDirection: "row",
     justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
+    padding: 15
   },
 });
 
