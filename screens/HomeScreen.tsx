@@ -25,16 +25,21 @@ function HomeScreen(props) {
   const [showCandidateModal, setShowCandidateModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [profileImageSource, setProfileImageSource] = useState<any>(null);
-  useEffect(() => {
-    getImageSourceFromCache("", "profile-image-0")
-      .then(img => {
-        console.log("image from cache", img)
-        setProfileImageSource(img)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }, []);
+  const getNextCardScale = () => {
+    const { diffClamp, add } = Animated
+    const dxBasedScale = candidatesAndPositions[candidatesAndPositions.length - 1].position?.x.interpolate({
+      inputRange: [-width / 4, 0, width / 4],
+      outputRange: [1, 0.8, 1],
+      extrapolate: "clamp",
+    });
+    const dyBasedScale = candidatesAndPositions[candidatesAndPositions.length - 1].position?.y.interpolate({
+      inputRange: [-height / 4, 0, height / 4],
+      outputRange: [1, 0.8, 1],
+      extrapolate: "clamp",
+    });
+    return diffClamp(add(dxBasedScale, dyBasedScale), .8, 1)
+  }
+
   const nextCandidate = () => {
     if (!candidatesAndPositions.length) return
     candidatesAndPositions.pop()
@@ -90,6 +95,16 @@ function HomeScreen(props) {
   //     .then((res) => res.json())
   //     .then(console.log);
   // }, []);
+  useEffect(() => {
+    getImageSourceFromCache("", "profile-image-0")
+      .then(img => {
+        console.log("image from cache", img)
+        setProfileImageSource(img)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, []);
 
   useEffect(() => {
     setCurrentImageIndex(0)
@@ -109,30 +124,34 @@ function HomeScreen(props) {
               <View style={styles.cardContainer}>
                 {
                   candidatesAndPositions.length ?
-                    candidatesAndPositions.map(({ candidate, position }) => (
-                      <View key={candidate.id} style={{
-                        position: "absolute",
-                        width: "100%",
-                        height: '100%'
-                      }}>
-                        <SwipeableWrapper
-                          verticalCallback={verticalCallback}
-                          horizontalCallback={horizontalCallback}
-                          positionXY={position}
-                        >
-                          <MediaCard
+                    candidatesAndPositions.map(({ candidate, position }, i) => {
+                      const length = candidatesAndPositions.length
+                      const scale = length - 1 === i ? 1 : getNextCardScale()
+                      return (
+                        <Animated.View key={candidate.id} style={[{
+                          position: "absolute",
+                          width: "100%",
+                          height: '100%'
+                        }, { transform: [{ scale }] }]}>
+                          <SwipeableWrapper
+                            verticalCallback={verticalCallback}
+                            horizontalCallback={horizontalCallback}
                             positionXY={position}
-                            leftLabel="Like"
-                            rightLabel="Nope"
-                            downLabel="Super Like"
-                            onBottomPress={toggleCandidateModal}
-                            images={candidate.pictures}
-                            currentImageIndex={currentImageIndex}
-                            handleCurrentImageChange={nextCurrentImageIndex}
-                            bottomData={<DataPreview data={candidate} />} />
-                        </SwipeableWrapper>
-                      </View>
-                    ))
+                          >
+                            <MediaCard
+                              positionXY={position}
+                              leftLabel="Like"
+                              rightLabel="Nope"
+                              downLabel="Super Like"
+                              onBottomPress={toggleCandidateModal}
+                              images={candidate.pictures}
+                              currentImageIndex={currentImageIndex}
+                              handleCurrentImageChange={nextCurrentImageIndex}
+                              bottomData={<DataPreview data={candidate} />} />
+                          </SwipeableWrapper>
+                        </Animated.View>
+                      )
+                    })
                     :
                     <Radar avatarSource={profileImageSource} />
                 }
